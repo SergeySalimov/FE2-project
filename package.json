@@ -4,6 +4,9 @@
   "description": "Site business card",
   "main": "index.js",
   "scripts": {
+    "css": "node-sass src/style.scss -o dist",
+    "css:watch": "npm run css && node-sass src/style.scss -wo dist",
+    "css:prod": "node-sass src/style.scss -o dist --output-style compressed",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
