@@ -1,0 +1,41 @@
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+$mainColorFont: white;
+
+header {
+  background: url("/images/sunlight-forest-nature.jpg");
+  background-size: cover;
+  height: 300px;
+  @media (min-width: map-get($grid-breakpoints, "md")) {
+    height: 350px;
+  }
+  background-attachment: fixed;
+  background-position-x: -384px;
+
+
+  .top-line {
+    background: rgba(darkgrey, 0.6);
+    color: $mainColorFont;
+    display: block;
+
+    .mobile-number {
+      color: $mainColorFont;
+
+      a {
+        color: $mainColorFont;
+        letter-spacing: 1.1px;
+        font-style: normal;
+        font-weight: 500;
+      }
+
+      &:hover {
+        transition: all 0.3s ease-in-out;
+        transform: scale(1.05);
+
+        a {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}

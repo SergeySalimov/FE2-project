@@ -9,5 +9,5 @@ $cat .gitignore
 *.xml
 _windows
 codestyles
-.for-work/*
 
+/for-work/
