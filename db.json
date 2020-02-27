@@ -1,0 +1,233 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Плоды",
+      "subitems": true,
+      "content": [
+        {
+          "subname": "Шишки",
+          "subcontent": [
+            {
+              "header": "Шишки ольхи",
+              "description": "Lorem ipsum",
+              "img": "/assets/img/products"
+            },
+            {
+              "header": "Шишки еловые",
+              "description": "Lorem ipsum",
+              "img": "/assets/img/products"
+            },
+            {
+              "header": "Шишки сосновые",
+              "description": "Lorem ipsum",
+              "img": "/assets/img/products"
+            },
+            {
+              "header": "Шишки хмеля",
+              "description": "Lorem ipsum",
+              "img": "/assets/img/products"
+            }
+          ]
+        },
+        {
+          "subname": "Желуди",
+          "subcontent": [{
+            "header": "Желуди",
+            "description": "Lorem ipsum",
+            "img": "/assets/img/products"
+          }]
+        },
+        {
+          "subname": "Каштаны",
+          "subcontent": [{
+            "header": "Каштаны",
+            "description": "Lorem ipsum",
+            "img": "/assets/img/products"
+          }]
+        },
+        {
+          "subname": "Ягоды",
+          "subcontent": [
+            {
+            "header": "Ягоды черемухи",
+            "description": "Lorem ipsum",
+            "img": "/assets/img/products"
+            },
+            {
+              "header": "Ягоды бузины",
+              "description": "Lorem ipsum",
+              "img": "/assets/img/products"
+            },
+            {
+              "header": "Ягоды можжевельника",
+              "description": "Lorem ipsum",
+              "img": "/assets/img/products"
+            }
+          ]
+        }
+
+
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Травы",
+      "subitems": false,
+      "content": [
+        {
+          "header": "Шалфей",
+          "description": "Lorem ipsum",
+          "img": "/assets/img/products"
+        },
+        {
+          "header": "Мята",
+          "description": "Lorem ipsum",
+          "img": "/assets/img/products"
+        },
+        {
+          "header": "Душица",
+          "description": "Lorem ipsum",
+          "img": "/assets/img/products"
+        },
+        {
+          "header": "Мелиса",
+          "description": "Lorem ipsum",
+          "img": "/assets/img/products"
+        },
+        {
+          "header": "Чистотел",
+          "description": "Lorem ipsum",
+          "img": "/assets/img/products"
+        },
+        {
+          "header": "Лаванда",
+          "description": "Lorem ipsum",
+          "img": "/assets/img/products"
+        },
+        {
+          "header": "Зверобой",
+          "description": "Lorem ipsum",
+          "img": "/assets/img/products"
+        },
+        {
+          "header": "Полынь",
+          "description": "Lorem ipsum",
+          "img": "/assets/img/products"
+        },
+        {
+          "header": "Тысячелистник",
+          "description": "Lorem ipsum",
+          "img": "/assets/img/products"
+        },
+        {
+          "header": "Пижма",
+          "description": "Lorem ipsum",
+          "img": "/assets/img/products"
+        },
+        {
+          "header": "Иван-Чай",
+          "description": "Lorem ipsum",
+          "img": "/assets/img/products"
+        }
+      ]
+
+    },
+    {
+      "id": 3,
+      "name": "Стружка декоративная древесная",
+      "subitems": false,
+      "content": [
+        {
+          "header": "Стружка декоративная древесная липы",
+          "description": "Lorem ipsum",
+          "img": "/assets/img/products"
+        },
+        {
+          "header": "Стружка декоративная древесная осины",
+          "description": "Lorem ipsum",
+          "img": "/assets/img/products"
+        },
+        {
+          "header": "Стружка декоративная древесная елки",
+          "description": "Lorem ipsum",
+          "img": "/assets/img/products"
+        },
+        {
+          "header": "Стружка декоративная древесная ольхи",
+          "description": "Lorem ipsum",
+          "img": "/assets/img/products"
+        },
+        {
+          "header": "Стружка декоративная древесная сосны",
+          "description": "Lorem ipsum",
+          "img": "/assets/img/products"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Торцевые спилы дерева",
+      "subitems": false,
+      "content": [
+        {
+          "header": "Торцевые спилы дуба",
+          "description": "Lorem ipsum",
+          "img": "/assets/img/products"
+        },
+        {
+          "header": "Торцевые спилы ясеня",
+          "description": "Lorem ipsum",
+          "img": "/assets/img/products"
+        },
+        {
+          "header": "Торцевые спилы березы",
+          "description": "Lorem ipsum",
+          "img": "/assets/img/products"
+        },
+        {
+          "header": "Торцевые спилы акации",
+          "description": "Lorem ipsum",
+          "img": "/assets/img/products"
+        },
+        {
+          "header": "Торцевые спилы вяза",
+          "description": "Lorem ipsum",
+          "img": "/assets/img/products"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Мох",
+      "subitems": false,
+      "content": [
+        {
+          "header": "Сфагнум",
+          "description": "Lorem ipsum",
+          "img": "/assets/img/products"
+        },
+        {
+          "header": "Ягель",
+          "description": "Lorem ipsum",
+          "img": "/assets/img/products"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "Грибы",
+      "subitems": false,
+      "content": [
+        {
+          "header": "Чага",
+          "description": "Lorem ipsum",
+          "img": "/assets/img/products"
+        }
+      ]
+    }
+  ],
+  "reservation": [
+
+  ]
+}
