@@ -1,6 +1,12 @@
+$breadcrumb-divider: quote(">");
 @import "../../node_modules/bootstrap/scss/bootstrap";
+@import "../assets/font/Fontello/css/fontello.css";
+@import "../assets/font/Fontello/css/animation.css";
 
-$mainColorFont: white;
+$mainFontColor: white;
+$alterFontColor: black;
+$additFontColor: #0088cc;
+$backGrey: #e9ecef;
 
 header {
   background: url("/images/sunlight-forest-nature.jpg");
@@ -15,14 +21,14 @@ header {
 
   .top-line {
     background: rgba(darkgrey, 0.6);
-    color: $mainColorFont;
+    color: $mainFontColor;
     display: block;
 
     .mobile-number {
-      color: $mainColorFont;
+      color: $mainFontColor;
 
       a {
-        color: $mainColorFont;
+        color: $mainFontColor;
         letter-spacing: 1.1px;
         font-style: normal;
         font-weight: 500;
@@ -38,4 +44,53 @@ header {
       }
     }
   }
+}
+
+.nav1 {
+  #navbar9 {
+    ul {
+      li {
+        padding: 3px;
+        a {
+          //color: $mainColorFont;
+        }
+      }
+      li:hover {
+        background-color: $mainFontColor;
+        a {
+          color: $alterFontColor;
+        }
+      }
+    }
+  }
+  .navbar-brand {
+    padding: 5px;
+    img {
+      height: 40px;
+      width: auto;
+    }
+  }
+  .navbar-brand:hover {
+    background-color: $additFontColor;
+  }
+}
+
+.nav2 {
+  background-color: $backGrey;
+}
+
+.catalog {
+  .list-group {
+    details {
+        li::before {
+          content: "» ";
+        }
+
+    }
+    .alert {
+      font-size: 1.1rem;
+    }
+    font-size: 0.8rem;
+  }
+
 }

@@ -36,10 +36,10 @@ module.exports = {
     contentBase: path.resolve(__dirname, DIR_FROM),
     port: 4200,
     open: 'chrome',
-    historyApiFallback: true,
-    // historyApiFallback: {
-    //   index: 'index.html',
-    // },
+    historyApiFallback: {
+      index: 'index.html',
+    },
+    publicPath: '/',
     // hot: isDev,
   },
   plugins: [
