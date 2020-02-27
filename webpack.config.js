@@ -1,4 +1,3 @@
-const webpack = require('webpack');
 const path = require('path');
 const HTMLWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
@@ -44,11 +43,6 @@ module.exports = {
     // hot: isDev,
   },
   plugins: [
-    new webpack.ProvidePlugin({
-      '$': 'jquery',
-      'jQuery': 'jquery',
-      'window.jQuery': 'jquery',
-    }),
     new HTMLWebpackPlugin({
       template: './index.html',
       minify: {
