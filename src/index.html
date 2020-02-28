@@ -18,7 +18,7 @@
 </head>
 <body>
 
-<header class="d-none">
+<header class="">
 
   <div class="py-2 top-line">
     <div class="container">
@@ -42,7 +42,7 @@
 <!--  <div class="d-inline p-2 bg-primary text-white">d-inline</div>-->
 <!--  <div class="d-inline p-2 bg-dark text-white">d-inline</div>-->
 <!--</div>-->
-<nav class="d-none nav1 navbar navbar-expand-sm navbar-dark bg-dark sticky-top ">
+<nav class="nav1 navbar navbar-expand-sm navbar-dark bg-dark sticky-top ">
   <div class="container form-inline">
     <a href="#" class="navbar-brand">
       <img src="/images/oak-sm.png" class="d-inline-block align-top"
@@ -55,7 +55,7 @@
       <!--      Если убрать justify-content-center все прижмется влево!!!-->
       <ul class="navbar-nav ml-auto w-100 justify-content-center">
         <li class="nav-item">
-          <a class="nav-link" href="#">Каталог</a>
+          <a class="nav-link active" href="#">Каталог</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Как купить</a>
@@ -79,28 +79,28 @@
   </div>
 </nav>
 
-<nav aria-label="breadcrumb" class="d-none nav2">
+<nav aria-label="breadcrumb" class="nav2">
   <div class="container">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="#">Home</a></li>
-      <li class="breadcrumb-item"><a href="#">Library</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Data</li>
+      <li class="breadcrumb-item">Главная</li>
+      <li class="breadcrumb-item active"><a href="#">Каталог</a></li>
+<!--      <li class="breadcrumb-item active" aria-current="page">Data</li>-->
     </ol>
   </div>
 </nav>
 
-<div class="catalog d-none">
+<div class="catalog mt-2" id="catalog">
   <div class="container">
     <div class="row">
 
-      <div class="list-group list-group-flush col-sm-3 mb-3">
+      <div class="list-group list-group-flush col-sm-3 mb-3" id="catalog-navigation">
 
-        <div class="alert alert-success">
+        <button class="alert alert-success text-left active" id="btn-catalog">
           Каталог
-        </div>
+        </button>
 
         <details>
-          <summary class="list-group-item list-group-item-action active rounded">Плоды</summary>
+          <summary class="list-group-item list-group-item-action rounded">Плоды</summary>
           <li class="list-group-item list-group-item-action rounded">Шишки</li>
           <li class="list-group-item list-group-item-action rounded">Желуди</li>
           <li class="list-group-item list-group-item-action rounded">Каштаны</li>
@@ -115,79 +115,36 @@
       </div>
 
       <div class="col-sm-9">
+        <div class="row card-group" id="product-place">
 
-        <div class="row card-group">
-          <div class="col-sm-6 col-md-4 col-xl-3 my-1">
-            <div class="card">
-              <img src="/images/images.png" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">Шишки ольхи</h5>
-              </div>
-              <div class="card-footer">
-                <button type="button" class="btn btn-sm btn-success">
-                  Хочу купить
-                  <i class="icon-heart"></i>
-                </button>
-              </div>
-            </div>
-          </div>
+
+<!--          <div class="col-sm-6 col-md-4 col-xl-3 my-1">-->
+<!--            <div class="card">-->
+<!--&lt;!&ndash;              <i class="icon-heart like"></i>&ndash;&gt;-->
+<!--              <img src="/images/cones-of-alder.jpg" class="card-img-top" alt="cones-of-alder">-->
+<!--              <div class="card-body">-->
+<!--                <h5 class="card-title">Шишки ольхи</h5>-->
+<!--              </div>-->
+<!--              <div class="card-footer">-->
+<!--                <button type="button" class="btn btn-sm btn-outline-success">-->
+<!--                  В корзину-->
+<!--                  <i class="icon-shopping-basket"></i>-->
+<!--                </button>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+
+
+
 
         </div>
-
       </div>
-
-<!--      <div class="col-sm-9 card-columns">-->
-
-
-<!--          <div class="card">-->
-<!--            <img src="/images/images.png" class="card-img-top" alt="...">-->
-<!--            <div class="card-body">-->
-<!--              <h5 class="card-title">Шишки ольхи</h5>-->
-<!--              <p class="card-text small">This is a wider card with supporting text below as a natur. This content is a little bit longer.</p>-->
-<!--            </div>-->
-<!--            <div class="card-footer">-->
-<!--              <small class="text-muted">Хочу купить</small>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="card">-->
-<!--            <img src="/images/images.png" class="card-img-top" alt="...">-->
-<!--            <div class="card-body">-->
-<!--              <h5 class="card-title">Название карточки</h5>-->
-<!--              <p class="card-text small">This carelow as a natural lead-in to additional content.</p>-->
-<!--            </div>-->
-<!--            <div class="card-footer">-->
-<!--              <small class="text-muted">Last updated 3 mins ago</small>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="card">-->
-<!--            <img src="/images/images.png" class="card-img-top" alt="...">-->
-<!--            <div class="card-body">-->
-<!--              <h5 class="card-title">Название карточки</h5>-->
-<!--              <p class="card-text small">This is a wider card  has even longer content than the first to show that equal height action.</p>-->
-<!--            </div>-->
-<!--            <div class="card-footer">-->
-<!--              <small class="text-muted">Last updated 3 mins ago</small>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="card">-->
-<!--            <img src="/images/images.png" class="card-img-top" alt="...">-->
-<!--            <div class="card-body">-->
-<!--              <h5 class="card-title">Название карточки</h5>-->
-<!--              <p class="card-text small">This is a wider card with supportien longer content than the first to show that equal height action.</p>-->
-<!--            </div>-->
-<!--            <div class="card-footer">-->
-<!--              <small class="text-muted">Last updated 3 mins ago</small>-->
-<!--            </div>-->
-<!--          </div>-->
-
-
-<!--      </div>-->
 
     </div>
   </div>
 </div>
 
-<div class="how-to-buy">
+<div class="d-none" id="how-to-buy">
   <div class="container">
     <div class="row">
       <div class="col-12">
@@ -198,7 +155,7 @@
   </div>
 </div>
 
-<div class="delivery">
+<div class="d-none" id="delivery">
   <div class="container">
     <div class="row">
       <div class="col-12">
@@ -209,28 +166,31 @@
   </div>
 </div>
 
-<!--<button id="button">Show modal</button>-->
-
-<!--<div id="dialog" title="Basic dialog">-->
-<!--  <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>-->
-<!--</div>-->
-<div id="tabs">
-  <ul>
-    <li><a href="#tabs-1">Nunc tincidunt</a></li>
-    <li><a href="#tabs-2">Proin dolor</a></li>
-    <li><a href="#tabs-3">Aenean lacinia</a></li>
-  </ul>
-  <div id="tabs-1">
-    <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
-  </div>
-  <div id="tabs-2">
-    <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
-  </div>
-  <div id="tabs-3">
-    <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
-    <p>Duis cursus. Maecenas ligula eros, blandit nec, pharetra at, semper at, magna. Nullam ac lacus. Nulla facilisi. Praesent viverra justo vitae neque. Praesent blandit adipiscing velit. Suspendisse potenti. Donec mattis, pede vel pharetra blandit, magna ligula faucibus eros, id euismod lacus dolor eget odio. Nam scelerisque. Donec non libero sed nulla mattis commodo. Ut sagittis. Donec nisi lectus, feugiat porttitor, tempor ac, tempor vitae, pede. Aenean vehicula velit eu tellus interdum rutrum. Maecenas commodo. Pellentesque nec elit. Fusce in lacus. Vivamus a libero vitae lectus hendrerit hendrerit.</p>
+<div class="d-none" id="payment">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h3 class="text-center">payment</h3>
+        <p> lorem ipsum</p>
+      </div>
+    </div>
   </div>
 </div>
+
+<div class="d-none" id="contact">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <h3 class="text-center">contact</h3>
+        <p> lorem ipsum</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+<h5 class="text-center py-5"><i class="icon-copyright">2020</i></h5>
+</footer>
 
 </body>
 </html>
