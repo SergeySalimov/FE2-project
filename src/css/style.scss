@@ -26,6 +26,14 @@ header {
 
     .mobile-number {
       color: $mainFontColor;
+      padding-bottom: 20px;
+      @media (min-width: map-get($grid-breakpoints, "sm")) {
+        padding-bottom: 3px;
+      }
+      font-size: 1.6rem;
+      @media (min-width: map-get($grid-breakpoints, "sm")) {
+        font-size: 1rem;
+      }
 
       a {
         color: $mainFontColor;
@@ -51,25 +59,31 @@ header {
     ul {
       li {
         padding: 3px;
+
         a {
           //color: $mainColorFont;
         }
       }
+
       li:hover {
         background-color: $mainFontColor;
+
         a {
           color: $alterFontColor;
         }
       }
     }
   }
+
   .navbar-brand {
     padding: 5px;
+
     img {
       height: 40px;
       width: auto;
     }
   }
+
   .navbar-brand:hover {
     background-color: $additFontColor;
   }
@@ -77,8 +91,15 @@ header {
 
 .nav2 {
   background-color: $backGrey;
+
   .active {
     text-transform: uppercase;
+  }
+}
+
+#home {
+  p {
+    text-indent: 1.5em;
   }
 }
 
@@ -87,9 +108,11 @@ header {
     background-color: $blue;
     color: $mainFontColor;
   }
+
   #catalog-navigation {
     //font-weight: bolder;
   }
+
   #product-place {
     .card {
       h5 {
@@ -100,6 +123,7 @@ header {
         font-size: 1.5rem;
         text-align: center;
       }
+
       .like {
         position: absolute;
         color: red;
@@ -110,6 +134,7 @@ header {
           font-size: 1rem;
         }
       }
+
       button {
         @media (min-width: map-get($grid-breakpoints, "sm")) {
           font-size: 0.8rem;
@@ -119,16 +144,19 @@ header {
       }
     }
   }
+
   .list-group {
     details {
-        li::before {
-          content: "» ";
-        }
+      li::before {
+        content: "» ";
+      }
 
     }
+
     .alert {
       font-size: 1.1rem;
     }
+
     font-size: 0.8rem;
   }
 
