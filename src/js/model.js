@@ -8,7 +8,7 @@ export class Model extends EventEmitter {
     this.allProducts = [];
     this.productsToDisplay = [];
     this.init();
-    this.current = '';
+    this.current = 'start';
   }
 
   init() {

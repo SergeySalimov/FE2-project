@@ -6,16 +6,14 @@ export class Controller {
     this.initRouter();
 
     this._ui.on('navClick', url => this.onNavigationClick(url));
-
   }
 
   onNavigationClick(url) {
-    window.history.pushState(null, null, url);
     const newState = url.split('/')[1];
-    // const currentState = this._model.current;
-    // this._model.emit('changeState', newState, currentState);
-    // this._model.current = newState;
-    this.router.render(newState);
+    if (newState !== this._model.current) {
+      window.history.pushState(null, null, url);
+      this.router.render(newState);
+    }
   }
 
   initRouter() {

@@ -14,21 +14,19 @@ export class Ui extends EventEmitter {
     this.hideAll();
 
     this._model.on('productsLoaded', data => this.renderProductsToDisplay(data));
-    // this._model.on('changeState', (nw, cur) => this.renderChangeState(nw, cur));
-    // const currentState = this._model.current;
-    // this._model.emit('changeState', newState, currentState);
-    // this._model.current = newState;
 
   }
 
-  renderChangeState(nw, cur = '') {
-    if (cur === '') {
-      this._elements.homePage.classList.add(CONFIG.dNone);
+  createHtmlForBreadcrump(description, active = true) {
+    const li = document.createElement('li');
+    li.className = 'breadcrumb-item';
+    if (active) {
+      li.classList.add(CONFIG.active);
+      li.innerText = description;
     } else {
-      this.renderPage(cur);
+      li.innerHTML = `<a href="#">${description}</a>`;
     }
-    this.renderPage(nw);
-    console.log('current: ' + cur + '-> new: ' + nw)
+    return li;
   }
 
   renderPage(page) {
@@ -37,6 +35,9 @@ export class Ui extends EventEmitter {
     if (currentPage !== newPage) {
       if (currentPage !== '') {
         this.switchOnOff(currentPage, false);
+        $(this._elements.nav2).children().slice(1).remove();
+      } else {
+        this._elements.homePage.classList.add(CONFIG.dNone);
       }
       this.switchOnOff(page, true);
       this._model.current = newPage;
@@ -47,6 +48,7 @@ export class Ui extends EventEmitter {
     switch (page) {
       case 'catalog': {
         if (on) {
+          this._elements.nav2Home.after(this.createHtmlForBreadcrump('Каталог'));
           this._elements.catalogPage.classList.remove(CONFIG.dNone);
           this._elements.navBtnCatalog.classList.add(CONFIG.active);
         } else {
@@ -57,6 +59,7 @@ export class Ui extends EventEmitter {
       }
       case 'how-to-buy': {
         if (on) {
+          this._elements.nav2Home.after(this.createHtmlForBreadcrump('Как купить'));
           this._elements.howToBuyPage.classList.remove(CONFIG.dNone);
           this._elements.navBtnHowToBuy.classList.add(CONFIG.active);
         } else {
@@ -67,6 +70,7 @@ export class Ui extends EventEmitter {
       }
       case 'delivery': {
         if (on) {
+          this._elements.nav2Home.after(this.createHtmlForBreadcrump('Доставка'));
           this._elements.deliveryPage.classList.remove(CONFIG.dNone);
           this._elements.navBtnDelivery.classList.add(CONFIG.active);
         } else {
@@ -77,6 +81,7 @@ export class Ui extends EventEmitter {
       }
       case 'payment': {
         if (on) {
+          this._elements.nav2Home.after(this.createHtmlForBreadcrump('Оплата'));
           this._elements.paymentPage.classList.remove(CONFIG.dNone);
           this._elements.navBtnPayment.classList.add(CONFIG.active);
         } else {
@@ -87,6 +92,7 @@ export class Ui extends EventEmitter {
       }
       case 'contact': {
         if (on) {
+          this._elements.nav2Home.after(this.createHtmlForBreadcrump('Контакты'));
           this._elements.contactPage.classList.remove(CONFIG.dNone);
           this._elements.navBtnContact.classList.add(CONFIG.active);
         } else {
@@ -128,39 +134,14 @@ export class Ui extends EventEmitter {
       event.preventDefault();
       this.emit('navClick', '/contact');
     });
-  }
-
-  renderPage2(page) {
-    this.hideAll();
-    switch (page) {
-      case '': {
-        this._elements.homePage.classList.remove(CONFIG.dNone);
-        break;
-      }
-      case 'catalog': {
-        this._elements.catalogPage.classList.remove(CONFIG.dNone);
-        break;
-      }
-      case 'how-to-buy': {
-        this._elements.howToBuyPage.classList.remove(CONFIG.dNone);
-        break;
-      }
-      case 'delivery': {
-        this._elements.deliveryPage.classList.remove(CONFIG.dNone);
-        break;
-      }
-      case 'payment': {
-        this._elements.paymentPage.classList.remove(CONFIG.dNone);
-        break;
-      }
-      case 'contact': {
-        this._elements.contactPage.classList.remove(CONFIG.dNone);
-        break;
-      }
-      default: {
-        this._elements.errorPage.classList.remove(CONFIG.dNone);
-      }
-    }
+    this._elements.nav2Home.addEventListener('click', (event) => {
+      event.preventDefault();
+      this.emit('navClick', '/');
+    });
+    this._elements.errorBack.addEventListener('click', (event) => {
+      event.preventDefault();
+      this.emit('navClick', '/');
+    });
   }
 
   render404() {
@@ -169,17 +150,28 @@ export class Ui extends EventEmitter {
   }
 
   renderErrorPage() {
-    this.hideAll();
-    this._elements.errorPage.classList.remove(CONFIG.dNone);
+    const currentPage = this._model.current;
+    if (currentPage !== '404') {
+      this._elements.nav2Home.after(this.createHtmlForBreadcrump('Указанная страница не найдена'));
+      this.hideAll();
+      this._elements.errorPage.classList.remove(CONFIG.dNone);
+      this._model.current = '404';
+    }
   }
 
   renderHomePage() {
-    this.hideAll();
-    this._elements.homePage.classList.remove(CONFIG.dNone);
+    const currentPage = this._model.current;
+    if (currentPage !== '') {
+      this.hideAll();
+      $(this._elements.nav2).children().slice(1).remove();
+      this._elements.homePage.classList.remove(CONFIG.dNone);
+      this._model.current = '';
+    }
   }
 
- hideAll() {
+  hideAll() {
     this._elements.homePage.classList.add(CONFIG.dNone);
+    this._elements.errorPage.classList.add(CONFIG.dNone);
     this._elements.catalogPage.classList.add(CONFIG.dNone);
     this._elements.howToBuyPage.classList.add(CONFIG.dNone);
     this._elements.deliveryPage.classList.add(CONFIG.dNone);

@@ -16,6 +16,9 @@ export const CONFIG = {
     navBtnDelivery: document.querySelector('.btn-nav-delivery'),
     navBtnPayment: document.querySelector('.btn-nav-payment'),
     navBtnContact: document.querySelector('.btn-nav-contact'),
+    nav2: document.getElementById('nav2'),
+    nav2Home: document.getElementById('nav2-home'),
+    errorBack: document.getElementById('error-to-home'),
   },
 
 };
