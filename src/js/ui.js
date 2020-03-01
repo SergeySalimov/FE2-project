@@ -11,10 +11,95 @@ export class Ui extends EventEmitter {
     this.router = router;
     this.templateScript = compiledTemplate;
     this.initNavBtn();
+    this.hideAll();
 
     this._model.on('productsLoaded', data => this.renderProductsToDisplay(data));
-    this._model.on('changeState', (cur, nw) => console.log(cur + '->' + nw));
+    // this._model.on('changeState', (nw, cur) => this.renderChangeState(nw, cur));
+    // const currentState = this._model.current;
+    // this._model.emit('changeState', newState, currentState);
+    // this._model.current = newState;
 
+  }
+
+  renderChangeState(nw, cur = '') {
+    if (cur === '') {
+      this._elements.homePage.classList.add(CONFIG.dNone);
+    } else {
+      this.renderPage(cur);
+    }
+    this.renderPage(nw);
+    console.log('current: ' + cur + '-> new: ' + nw)
+  }
+
+  renderPage(page) {
+    const currentPage = this._model.current;
+    const newPage = page;
+    if (currentPage !== newPage) {
+      if (currentPage !== '') {
+        this.switchOnOff(currentPage, false);
+      }
+      this.switchOnOff(page, true);
+      this._model.current = newPage;
+    }
+  }
+
+  switchOnOff(page, on = true) {
+    switch (page) {
+      case 'catalog': {
+        if (on) {
+          this._elements.catalogPage.classList.remove(CONFIG.dNone);
+          this._elements.navBtnCatalog.classList.add(CONFIG.active);
+        } else {
+          this._elements.catalogPage.classList.add(CONFIG.dNone);
+          this._elements.navBtnCatalog.classList.remove(CONFIG.active);
+        }
+        break;
+      }
+      case 'how-to-buy': {
+        if (on) {
+          this._elements.howToBuyPage.classList.remove(CONFIG.dNone);
+          this._elements.navBtnHowToBuy.classList.add(CONFIG.active);
+        } else {
+          this._elements.howToBuyPage.classList.add(CONFIG.dNone);
+          this._elements.navBtnHowToBuy.classList.remove(CONFIG.active);
+        }
+        break;
+      }
+      case 'delivery': {
+        if (on) {
+          this._elements.deliveryPage.classList.remove(CONFIG.dNone);
+          this._elements.navBtnDelivery.classList.add(CONFIG.active);
+        } else {
+          this._elements.deliveryPage.classList.add(CONFIG.dNone);
+          this._elements.navBtnDelivery.classList.remove(CONFIG.active);
+        }
+        break;
+      }
+      case 'payment': {
+        if (on) {
+          this._elements.paymentPage.classList.remove(CONFIG.dNone);
+          this._elements.navBtnPayment.classList.add(CONFIG.active);
+        } else {
+          this._elements.paymentPage.classList.add(CONFIG.dNone);
+          this._elements.navBtnPayment.classList.remove(CONFIG.active);
+        }
+        break;
+      }
+      case 'contact': {
+        if (on) {
+          this._elements.contactPage.classList.remove(CONFIG.dNone);
+          this._elements.navBtnContact.classList.add(CONFIG.active);
+        } else {
+          this._elements.contactPage.classList.add(CONFIG.dNone);
+          this._elements.navBtnContact.classList.remove(CONFIG.active);
+        }
+        break;
+      }
+      default: {
+        this.hideAll();
+        this._elements.errorPage.classList.remove(CONFIG.dNone);
+      }
+    }
   }
 
   renderProductsToDisplay(data) {
@@ -45,7 +130,7 @@ export class Ui extends EventEmitter {
     });
   }
 
-  renderPage(page) {
+  renderPage2(page) {
     this.hideAll();
     switch (page) {
       case '': {
@@ -88,13 +173,22 @@ export class Ui extends EventEmitter {
     this._elements.errorPage.classList.remove(CONFIG.dNone);
   }
 
-  //ToDo rewrite it !!!!
-  hideAll() {
+  renderHomePage() {
+    this.hideAll();
+    this._elements.homePage.classList.remove(CONFIG.dNone);
+  }
+
+ hideAll() {
     this._elements.homePage.classList.add(CONFIG.dNone);
     this._elements.catalogPage.classList.add(CONFIG.dNone);
     this._elements.howToBuyPage.classList.add(CONFIG.dNone);
     this._elements.deliveryPage.classList.add(CONFIG.dNone);
     this._elements.paymentPage.classList.add(CONFIG.dNone);
     this._elements.contactPage.classList.add(CONFIG.dNone);
+    this._elements.navBtnCatalog.classList.remove(CONFIG.active);
+    this._elements.navBtnHowToBuy.classList.remove(CONFIG.active);
+    this._elements.navBtnDelivery.classList.remove(CONFIG.active);
+    this._elements.navBtnPayment.classList.remove(CONFIG.active);
+    this._elements.navBtnContact.classList.remove(CONFIG.active);
   }
 }
