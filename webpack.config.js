@@ -34,13 +34,14 @@ module.exports = {
     publicPath: '/',
   },
   devServer: {
-    contentBase: path.resolve(__dirname, DIR_FROM),
-    port: 4200,
+    contentBase: path.resolve(__dirname, DIR_TO),
+    port: 4242,
     open: 'chrome',
-    historyApiFallback: {
-      index: 'index.html',
-    },
-    publicPath: '/',
+    historyApiFallback: true,
+    // historyApiFallback: {
+    //   index: 'index.html',
+    // },
+    // publicPath: '/',
     // hot: isDev,
   },
   plugins: [

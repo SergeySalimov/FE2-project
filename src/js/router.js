@@ -1,13 +1,10 @@
 export class Router {
   constructor() {
     this.routes = {
-      '404': () => {
-        console.log('Not found');
-      }
+      '404': () => console.log('Nothing found'),
     };
 
     window.addEventListener('popstate', () => {
-      console.log('postate');
       this.render(decodeURI(window.location.pathname));
     });
   }
@@ -19,7 +16,7 @@ export class Router {
   render(url) {
     console.log(url);
     const temp = url.split('/')[1];
-    console.log(temp);
+    console.log('temp :' + temp);
     // eslint-disable-next-line no-unused-expressions
     this.routes[temp] ? this.routes[temp]() : this.routes['404']();
   }

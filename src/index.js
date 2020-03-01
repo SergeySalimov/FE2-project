@@ -1,9 +1,8 @@
-// import 'bootstrap/dist/css/bootstrap.min.css';
+// bootstrap & css
 import 'bootstrap';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 import '@css/style.scss';
-
-import {App} from "@/js/app";
-
+// import images
 import '@assets/img/oak-sm.png';
 import '@assets/img/cart2-sm.png';
 import '@assets/img/sunlight-forest-nature.jpg';
@@ -41,13 +40,27 @@ import '@assets/img/products/torc-viaz.jpg';
 import '@assets/img/products/sfagnum.jpg';
 import '@assets/img/products/yagel.jpg';
 import '@assets/img/products/chaga.jpg';
-
+// import JS
+import {Model} from "@/js/model";
+import {Ui} from "@/js/ui";
+import {CONFIG} from "@/js/config";
+import {Router} from "@/js/router";
+import {Controller} from "@/js/controller";
 // import jquery-ui library
 // import "../node_modules/jquery-ui/themes/base/all.css";
 // import "../node_modules/jquery-ui/themes/base/theme.css";
 // import 'jquery-ui/ui/widgets/dialog';
 // import 'jquery-ui/ui/widgets/button';
 // import 'jquery-ui/ui/widgets/tabs';
+//
 
-const app = new App();
+// MVC model
+document.addEventListener('DOMContentLoaded', () => {
+
+  const router = new Router();
+  const model = new Model(router);
+  const ui = new Ui(model, CONFIG.elements, router);
+  const controller = new Controller(model, ui, router);
+});
+
 

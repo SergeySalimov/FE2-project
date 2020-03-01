@@ -3,19 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Сайт-витрина Плоды, травы, мох и многое другое</title>
-  <!--  <link rel="shortcut icon" href="/favicon2.ico" type="image/x-icon">-->
-  <!--  <link rel="icon" href="/favicon2.ico" type="image/x-icon">-->
   <meta name="description" content="Project by Salimau Siarhei // "/>
   <meta name="author" content="Sergey Salimov"/>
   <meta name="keywords" content="дары леса, дары, лес, шишки, cone"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">
-  <!--  &lt;!&ndash;[if lt IE 9]>-->
-  <!--  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>-->
-  <!--  <![endif]&ndash;&gt;-->
-  <!--  <link rel="stylesheet" href="font/css/fontello.css">-->
-  <!--  <link rel="stylesheet" href="font/fontello/css/animation.css">-->
-  <!--  <link type="text/css" rel="stylesheet" href="dist/style.css"/>-->
+<!--  <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">-->
 </head>
 <body>
 
@@ -41,29 +33,30 @@
 <!--</div>-->
 <nav class="nav1 navbar navbar-expand-sm navbar-dark bg-dark sticky-top ">
   <div class="container form-inline">
-    <a href="#" class="navbar-brand">
+    <a href="/" class="navbar-brand">
       <img src="/images/oak-sm.png" class="d-inline-block align-top"
            alt="oak">
     </a>
     <button class="navbar-toggler float-right" type="button" data-toggle="collapse" data-target="#navbar9">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="navbar-collapse collapse w-100" id="navbar9">
       <!--      Если убрать justify-content-center все прижмется влево!!!-->
       <ul class="navbar-nav ml-auto w-100 justify-content-center">
-        <li class="nav-item">
-          <a class="nav-link active" href="#">Каталог</a>
+        <li class="nav-item btn-nav-catalog active">
+          <a class="nav-link" href="#">Каталог</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item btn-nav-how-to-buy">
           <a class="nav-link" href="#">Как купить</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item btn-nav-delivery">
           <a class="nav-link" href="#">Доставка</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item btn-nav-payment">
           <a class="nav-link" href="#">Оплата</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item btn-nav-contact">
           <a class="nav-link" href="#">Контакты</a>
         </li>
       </ul>
@@ -79,22 +72,22 @@
 <nav aria-label="breadcrumb" class="nav2">
   <div class="container">
     <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="#">Главная  </a></li>
+      <li class="breadcrumb-item">Главная</li>
       <li class="breadcrumb-item active"><a href="#">Каталог</a></li>
       <!--      <li class="breadcrumb-item active" aria-current="page">Data</li>-->
     </ol>
   </div>
 </nav>
 
-<div id="home">
+<div id="home" class="">
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
-        <h2 class="my-3 text-center">Добро пожаловать на сайт-витрину</h2>
+        <h2 class="my-3 text-center">Добро пожаловать на сайт-витрину.</h2>
         <p>Здесь вы можете просмотреть, выбрать товары из нашего каталога, узнать о способах их оплаты и доставки. А
           также вы можете связаться с нами, либо оставить свой заказ через корзину для нас и мы свяжемся с вами в
           ближайшее возможное время.</p>
-        <p>Обращаем Ваше внимание. Данный сайт служит для презентации и рекламы товаров и <b>не является</b>
+        <p>Обращаем Ваше внимание: данный сайт служит для презентации и рекламы товаров и <b>не является</b>
           сайтом-магазином.</p>
 
       </div>
@@ -102,8 +95,19 @@
   </div>
 </div>
 
-<div class="catalog mt-2 d-none" id="catalog">
+<div id="error-page" class="d-none">
   <div class="container">
+    <div class="row">
+      <div class="col-sm-12 text-center">
+        <h2 class="my-5">Указанная страница не найдена</h2><br/>
+        <h5 class="mb-5 pb-5"><a href="/">на главную</a></h5>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="d-none" id="catalog">
+  <div class="container mt-2">
     <div class="row">
 
       <div class="list-group list-group-flush col-sm-3 mb-3" id="catalog-navigation">

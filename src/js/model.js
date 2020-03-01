@@ -1,17 +1,17 @@
-import {Router} from "@/js/router";
-import {Ui} from "@/js/ui";
 import {CONFIG} from "@/js/config";
+import {EventEmitter} from "@/js/event-emitter";
 
-export class App {
-  constructor() {
+export class Model extends EventEmitter {
+  constructor(router) {
+    super();
+    this.router = router;
     this.allProducts = [];
     this.productsToDisplay = [];
-    this.router = new Router();
-    this.ui = new Ui(this.router);
     this.init();
   }
 
   init() {
+    console.log('init');
     fetch(`${CONFIG.api}/products`, {
       headers: {
         'Content-Type': 'application/json',
@@ -20,13 +20,9 @@ export class App {
         .then((res) => res.json())
         .then((data) => {
           this.allProducts = data;
-          this.initProducts(data);
-          this.ui.generateProductsToDisplay(this.productsToDisplay);
-          this.initRouter();
-          // this.ui.generateArticles(data);
-          // this.ui.initNavBtn();
-          // this.router.render(decodeURI(window.location.pathname));
-          // this.ui.initBack();
+          this.initProducts(this.allProducts);
+          this.emit('ProductsLoaded', this.productsToDisplay);
+          this.router.render(decodeURI(window.location.pathname));
         });
   }
 
@@ -39,8 +35,4 @@ export class App {
       }
     }
   }
-
-  initRouter() {
-  }
-
 }
