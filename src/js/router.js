@@ -5,7 +5,8 @@ export class Router {
     };
 
     window.addEventListener('popstate', () => {
-      this.render(decodeURI(window.location.pathname));
+      const temp = decodeURI(window.location.pathname).split('/')[1];
+      this.render(temp);
     });
   }
 
@@ -13,11 +14,8 @@ export class Router {
     this.routes[route] = action;
   }
 
-  render(url) {
-    console.log(url);
-    const temp = url.split('/')[1];
-    console.log('temp :' + temp);
-    // eslint-disable-next-line no-unused-expressions
+  render(temp) {
+    // const temp = url.split('/')[1];
     this.routes[temp] ? this.routes[temp]() : this.routes['404']();
   }
 }

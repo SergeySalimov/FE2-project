@@ -12,7 +12,8 @@ export class Ui extends EventEmitter {
     this.templateScript = compiledTemplate;
     this.initNavBtn();
 
-    this._model.on('ProductsLoaded', data => this.renderProductsToDisplay(data));
+    this._model.on('productsLoaded', data => this.renderProductsToDisplay(data));
+    this._model.on('changeState', (cur, nw) => console.log(cur + '->' + nw));
 
   }
 
@@ -24,33 +25,33 @@ export class Ui extends EventEmitter {
   initNavBtn() {
     this._elements.navBtnCatalog.addEventListener('click', (event) => {
       event.preventDefault();
-      this.emit('navCatalogClick', '/catalog');
+      this.emit('navClick', '/catalog');
     });
     this._elements.navBtnHowToBuy.addEventListener('click', (event) => {
       event.preventDefault();
-      this.emit('navCatalogClick', '/how-to-buy');
+      this.emit('navClick', '/how-to-buy');
     });
     this._elements.navBtnDelivery.addEventListener('click', (event) => {
       event.preventDefault();
-      this.emit('navCatalogClick', '/delivery');
+      this.emit('navClick', '/delivery');
     });
     this._elements.navBtnPayment.addEventListener('click', (event) => {
       event.preventDefault();
-      this.emit('navCatalogClick', '/payment');
+      this.emit('navClick', '/payment');
     });
     this._elements.navBtnContact.addEventListener('click', (event) => {
       event.preventDefault();
-      this.emit('navCatalogClick', '/contact');
+      this.emit('navClick', '/contact');
     });
-  }
-
-  initCatalog() {
-
   }
 
   renderPage(page) {
     this.hideAll();
     switch (page) {
+      case '': {
+        this._elements.homePage.classList.remove(CONFIG.dNone);
+        break;
+      }
       case 'catalog': {
         this._elements.catalogPage.classList.remove(CONFIG.dNone);
         break;
@@ -77,14 +78,9 @@ export class Ui extends EventEmitter {
     }
   }
 
-  renderHome() {
-    this.hideAll();
-    this._elements.homePage.classList.remove(CONFIG.dNone);
-  }
-
   render404() {
     window.history.pushState(null, null, '/404');
-    this._router.render(decodeURI(window.location.pathname));
+    this.router.render(decodeURI(window.location.pathname));
   }
 
   renderErrorPage() {
@@ -92,6 +88,7 @@ export class Ui extends EventEmitter {
     this._elements.errorPage.classList.remove(CONFIG.dNone);
   }
 
+  //ToDo rewrite it !!!!
   hideAll() {
     this._elements.homePage.classList.add(CONFIG.dNone);
     this._elements.catalogPage.classList.add(CONFIG.dNone);
@@ -101,17 +98,3 @@ export class Ui extends EventEmitter {
     this._elements.contactPage.classList.add(CONFIG.dNone);
   }
 }
-
-// this.productsPlace = document.getElementById(CONFIG.productPlaceId);
-// this.homePage = document.getElementById(CONFIG.homePageId);
-// this.errorPage = document.getElementById(CONFIG.errorPageId);
-// this.howToBuyPage = document.getElementById(CONFIG.howToBuyPageId);
-// this.catalogPage = document.getElementById(CONFIG.catalogPageId);
-// this.deliveryPage = document.getElementById(CONFIG.deliveryPageId);
-// this.paymentPage = document.getElementById(CONFIG.paymentPageId);
-// this.contactPage = document.getElementById(CONFIG.contactPageId);
-// this.navBtnCatalog = document.querySelector(CONFIG.btnNavCatalog);
-// this.navBtnHowToBuy = document.querySelector(CONFIG.btnNavHowToBuy);
-// this.navBtnDelivery = document.querySelector(CONFIG.btnNavDelivey);
-// this.navBtnPayment = document.querySelector(CONFIG.btnNavPayment);
-// this.navBtnContact = document.querySelector(CONFIG.btnNavContact);

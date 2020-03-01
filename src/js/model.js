@@ -8,6 +8,8 @@ export class Model extends EventEmitter {
     this.allProducts = [];
     this.productsToDisplay = [];
     this.init();
+    this.current = '';
+    this.new = undefined;
   }
 
   init() {
@@ -21,8 +23,12 @@ export class Model extends EventEmitter {
         .then((data) => {
           this.allProducts = data;
           this.initProducts(this.allProducts);
-          this.emit('ProductsLoaded', this.productsToDisplay);
-          this.router.render(decodeURI(window.location.pathname));
+          this.emit('productsLoaded', this.productsToDisplay);
+          this.current = decodeURI(window.location.pathname).split('/')[1];
+          // current state don`t change!!!
+          console.log(this.current);
+          this.emit('changeState', this.current, '');
+          this.router.render(this.current);
         });
   }
 

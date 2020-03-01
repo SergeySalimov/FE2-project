@@ -8,8 +8,8 @@ export class EventEmitter {
     (this._events[event] || (this._events[event] = [])).push(listener);
   }
 
-  emit(event, arg) {
-    (this._events[event] || []).forEach(listener => listener(arg));
+  emit(event, arg1, arg2) {
+    (this._events[event] || []).forEach(listener => listener(arg1, arg2));
   }
 }
 
