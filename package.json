@@ -25,7 +25,8 @@
     "handlebars": "^4.7.3",
     "jquery": "^3.4.1",
     "jquery-ui": "^1.12.1",
-    "popper.js": "^1.16.1"
+    "popper.js": "^1.16.1",
+    "transliteration": "^2.1.8"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

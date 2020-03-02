@@ -1,3 +1,5 @@
+import {slugify} from "transliteration";
+
 export class Controller {
   constructor(model, ui, router) {
     this._model = model;
@@ -6,6 +8,14 @@ export class Controller {
     this.initRouter();
 
     this._ui.on('navClick', url => this.onNavigationClick(url));
+    this._ui.on('catClick', product => this.onCatalogClick(product));
+  }
+
+  onCatalogClick(product) {
+    console.log(product);
+    console.log(slugify(product));
+    const allProducts = this._model.allProducts;
+
   }
 
   onNavigationClick(url) {

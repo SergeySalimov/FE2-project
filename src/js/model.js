@@ -9,6 +9,7 @@ export class Model extends EventEmitter {
     this.productsToDisplay = [];
     this.init();
     this.current = 'start';
+    this.catalog = '';
   }
 
   init() {
@@ -23,6 +24,7 @@ export class Model extends EventEmitter {
           this.allProducts = data;
           this.initProducts(this.allProducts);
           this.emit('productsLoaded', this.productsToDisplay);
+          console.log(this.allProducts);
           const curPage = decodeURI(window.location.pathname).split('/')[1];
           this.router.render(curPage);
           this.current = curPage;

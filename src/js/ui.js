@@ -11,7 +11,7 @@ export class Ui extends EventEmitter {
     this.router = router;
     this.templateScript = compiledTemplate;
     this.initNavBtn();
-    this.hideAll();
+    this.initCatBtn();
 
     this._model.on('productsLoaded', data => this.renderProductsToDisplay(data));
 
@@ -32,6 +32,8 @@ export class Ui extends EventEmitter {
   renderPage(page) {
     const currentPage = this._model.current;
     const newPage = page;
+    console.log(currentPage);
+    console.log(newPage);
     if (currentPage !== newPage) {
       if (currentPage !== '') {
         this.switchOnOff(currentPage, false);
@@ -103,7 +105,6 @@ export class Ui extends EventEmitter {
       }
       default: {
         this.hideAll();
-        this._elements.errorPage.classList.remove(CONFIG.dNone);
       }
     }
   }
@@ -141,6 +142,14 @@ export class Ui extends EventEmitter {
     this._elements.errorBack.addEventListener('click', (event) => {
       event.preventDefault();
       this.emit('navClick', '/');
+    });
+  }
+
+  initCatBtn() {
+    this._elements.catBtn.addEventListener('click', (event) => {
+      if (event.target !== this._elements.catBtn) {
+        this.emit('catClick', event.target.innerText);
+      }
     });
   }
 

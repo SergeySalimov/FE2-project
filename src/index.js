@@ -54,6 +54,8 @@ import {Controller} from "@/js/controller";
 // import 'jquery-ui/ui/widgets/tabs';
 //
 
+// import { transliterate as tr, slugify } from 'transliteration';
+import 'transliteration';
 // MVC model
 document.addEventListener('DOMContentLoaded', () => {
 
