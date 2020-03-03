@@ -13,10 +13,62 @@ export class Ui extends EventEmitter {
     this.initNavBtn();
     this.initCatBtn();
 
+    this.path = {
+      '': this.displayHomePage.bind(this),
+      '404': this.displayErrorPage.bind(this),
+      'catalog': this.displayCatalogPage.bind(this),
+      'how-to-buy': this.displayHowToBuyPage.bind(this),
+      'delivery': this.displayDeliveryPage.bind(this),
+      'payment': this.displayPaymentPage.bind(this),
+      'contact': this.displayContactPage.bind(this),
+    };
+
     this._model.on('productsLoaded', data => this.renderProductsToDisplay(data));
+
+    this.on('pageChange', (page) => {
+      this.hideAll();
+      console.log('pageChange');
+      $(this._elements.nav2).children().slice(1).remove();
+      this.path[page]();
+    });
 
   }
 
+  // output block
+  displayCatalogPage() {
+    console.log('1');
+    this._elements.nav2Home.after(this.createHtmlForBreadcrump('Каталог'));
+    this._elements.catalogPage.classList.remove(CONFIG.dNone);
+    this._elements.navBtnCatalog.classList.add(CONFIG.active);
+  }
+
+  displayHomePage() {
+    this._elements.homePage.classList.remove(CONFIG.dNone);
+  }
+  displayErrorPage() {
+    this._elements.nav2Home.after(this.createHtmlForBreadcrump('Указанная страница не найдена'));
+    this._elements.errorPage.classList.remove(CONFIG.dNone);
+  }
+  displayHowToBuyPage() {
+    this._elements.nav2Home.after(this.createHtmlForBreadcrump('Как купить'));
+    this._elements.howToBuyPage.classList.remove(CONFIG.dNone);
+    this._elements.navBtnHowToBuy.classList.add(CONFIG.active);
+  }
+  displayDeliveryPage() {
+    this._elements.nav2Home.after(this.createHtmlForBreadcrump('Доставка'));
+    this._elements.deliveryPage.classList.remove(CONFIG.dNone);
+    this._elements.navBtnDelivery.classList.add(CONFIG.active);
+  }
+  displayPaymentPage() {
+    this._elements.nav2Home.after(this.createHtmlForBreadcrump('Доставка'));
+    this._elements.deliveryPage.classList.remove(CONFIG.dNone);
+    this._elements.navBtnDelivery.classList.add(CONFIG.active);
+  }
+  displayContactPage() {
+    this._elements.nav2Home.after(this.createHtmlForBreadcrump('Контакты'));
+    this._elements.contactPage.classList.remove(CONFIG.dNone);
+    this._elements.navBtnContact.classList.add(CONFIG.active);
+  }
   createHtmlForBreadcrump(description, active = true) {
     const li = document.createElement('li');
     li.className = 'breadcrumb-item';
@@ -28,92 +80,32 @@ export class Ui extends EventEmitter {
     }
     return li;
   }
-
-  renderPage(page) {
-    const currentPage = this._model.current;
-    const newPage = page;
-    console.log(currentPage);
-    console.log(newPage);
-    if (currentPage !== newPage) {
-      if (currentPage !== '') {
-        this.switchOnOff(currentPage, false);
-        $(this._elements.nav2).children().slice(1).remove();
-      } else {
-        this._elements.homePage.classList.add(CONFIG.dNone);
-      }
-      this.switchOnOff(page, true);
-      this._model.current = newPage;
-    }
+  hideAll() {
+    this._elements.homePage.classList.add(CONFIG.dNone);
+    this._elements.errorPage.classList.add(CONFIG.dNone);
+    this._elements.catalogPage.classList.add(CONFIG.dNone);
+    this._elements.howToBuyPage.classList.add(CONFIG.dNone);
+    this._elements.deliveryPage.classList.add(CONFIG.dNone);
+    this._elements.paymentPage.classList.add(CONFIG.dNone);
+    this._elements.contactPage.classList.add(CONFIG.dNone);
+    this._elements.navBtnCatalog.classList.remove(CONFIG.active);
+    this._elements.navBtnHowToBuy.classList.remove(CONFIG.active);
+    this._elements.navBtnDelivery.classList.remove(CONFIG.active);
+    this._elements.navBtnPayment.classList.remove(CONFIG.active);
+    this._elements.navBtnContact.classList.remove(CONFIG.active);
   }
-
-  switchOnOff(page, on = true) {
-    switch (page) {
-      case 'catalog': {
-        if (on) {
-          this._elements.nav2Home.after(this.createHtmlForBreadcrump('Каталог'));
-          this._elements.catalogPage.classList.remove(CONFIG.dNone);
-          this._elements.navBtnCatalog.classList.add(CONFIG.active);
-        } else {
-          this._elements.catalogPage.classList.add(CONFIG.dNone);
-          this._elements.navBtnCatalog.classList.remove(CONFIG.active);
-        }
-        break;
+  // initialization block
+  initCatBtn() {
+    this._elements.catBtnHome.addEventListener('click', (event) => {
+      this.emit('catClick', '/');
+    });
+    this._elements.catBtn.addEventListener('click', (event) => {
+      if (event.target !== this._elements.catBtn && event.target !== this._elements.catBtnHome) {
+        console.log('1');
+        this.emit('catClick', event.target.innerText);
       }
-      case 'how-to-buy': {
-        if (on) {
-          this._elements.nav2Home.after(this.createHtmlForBreadcrump('Как купить'));
-          this._elements.howToBuyPage.classList.remove(CONFIG.dNone);
-          this._elements.navBtnHowToBuy.classList.add(CONFIG.active);
-        } else {
-          this._elements.howToBuyPage.classList.add(CONFIG.dNone);
-          this._elements.navBtnHowToBuy.classList.remove(CONFIG.active);
-        }
-        break;
-      }
-      case 'delivery': {
-        if (on) {
-          this._elements.nav2Home.after(this.createHtmlForBreadcrump('Доставка'));
-          this._elements.deliveryPage.classList.remove(CONFIG.dNone);
-          this._elements.navBtnDelivery.classList.add(CONFIG.active);
-        } else {
-          this._elements.deliveryPage.classList.add(CONFIG.dNone);
-          this._elements.navBtnDelivery.classList.remove(CONFIG.active);
-        }
-        break;
-      }
-      case 'payment': {
-        if (on) {
-          this._elements.nav2Home.after(this.createHtmlForBreadcrump('Оплата'));
-          this._elements.paymentPage.classList.remove(CONFIG.dNone);
-          this._elements.navBtnPayment.classList.add(CONFIG.active);
-        } else {
-          this._elements.paymentPage.classList.add(CONFIG.dNone);
-          this._elements.navBtnPayment.classList.remove(CONFIG.active);
-        }
-        break;
-      }
-      case 'contact': {
-        if (on) {
-          this._elements.nav2Home.after(this.createHtmlForBreadcrump('Контакты'));
-          this._elements.contactPage.classList.remove(CONFIG.dNone);
-          this._elements.navBtnContact.classList.add(CONFIG.active);
-        } else {
-          this._elements.contactPage.classList.add(CONFIG.dNone);
-          this._elements.navBtnContact.classList.remove(CONFIG.active);
-        }
-        break;
-      }
-      default: {
-        this.hideAll();
-      }
-    }
+    });
   }
-
-  renderProductsToDisplay(data) {
-    // compile with handlebars
-    this._elements.productsPlace.innerHTML = this.templateScript(data)
-  }
-
   initNavBtn() {
     this._elements.navBtnCatalog.addEventListener('click', (event) => {
       event.preventDefault();
@@ -144,52 +136,10 @@ export class Ui extends EventEmitter {
       this.emit('navClick', '/');
     });
   }
-
-  initCatBtn() {
-    this._elements.catBtn.addEventListener('click', (event) => {
-      if (event.target !== this._elements.catBtn) {
-        this.emit('catClick', event.target.innerText);
-      }
-    });
-  }
-
-  render404() {
-    window.history.pushState(null, null, '/404');
-    this.router.render(decodeURI(window.location.pathname));
-  }
-
-  renderErrorPage() {
-    const currentPage = this._model.current;
-    if (currentPage !== '404') {
-      this._elements.nav2Home.after(this.createHtmlForBreadcrump('Указанная страница не найдена'));
-      this.hideAll();
-      this._elements.errorPage.classList.remove(CONFIG.dNone);
-      this._model.current = '404';
-    }
-  }
-
-  renderHomePage() {
-    const currentPage = this._model.current;
-    if (currentPage !== '') {
-      this.hideAll();
-      $(this._elements.nav2).children().slice(1).remove();
-      this._elements.homePage.classList.remove(CONFIG.dNone);
-      this._model.current = '';
-    }
-  }
-
-  hideAll() {
-    this._elements.homePage.classList.add(CONFIG.dNone);
-    this._elements.errorPage.classList.add(CONFIG.dNone);
-    this._elements.catalogPage.classList.add(CONFIG.dNone);
-    this._elements.howToBuyPage.classList.add(CONFIG.dNone);
-    this._elements.deliveryPage.classList.add(CONFIG.dNone);
-    this._elements.paymentPage.classList.add(CONFIG.dNone);
-    this._elements.contactPage.classList.add(CONFIG.dNone);
-    this._elements.navBtnCatalog.classList.remove(CONFIG.active);
-    this._elements.navBtnHowToBuy.classList.remove(CONFIG.active);
-    this._elements.navBtnDelivery.classList.remove(CONFIG.active);
-    this._elements.navBtnPayment.classList.remove(CONFIG.active);
-    this._elements.navBtnContact.classList.remove(CONFIG.active);
+  // rendering templates
+  renderProductsToDisplay(data) {
+    // compile with handlebars
+    this._elements.productsPlace.innerHTML = this.templateScript(data)
   }
 }
+

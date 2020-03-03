@@ -20,6 +20,7 @@ export const CONFIG = {
     nav2Home: document.getElementById('nav2-home'),
     errorBack: document.getElementById('error-to-home'),
     catBtn: document.getElementById('catalog-navigation'),
+    catBtnHome: document.getElementById('btn-catalog'),
   },
 
 };

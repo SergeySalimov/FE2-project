@@ -8,7 +8,7 @@ export class Model extends EventEmitter {
     this.allProducts = [];
     this.productsToDisplay = [];
     this.init();
-    this.current = 'start';
+    this.current = decodeURI(window.location.pathname).split('/')[1];
     this.catalog = '';
   }
 

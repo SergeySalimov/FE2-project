@@ -62,7 +62,13 @@ header {
 
         a {
           //color: $mainColorFont;
+
+          @media (min-width: map-get($grid-breakpoints, "sm")) {
+            font-size: 0.7rem;
         }
+          @media (min-width: map-get($grid-breakpoints, "md")) {
+            font-size: 1.1rem;
+          }
       }
 
       li:hover {
@@ -70,6 +76,8 @@ header {
 
         a {
           color: $alterFontColor;
+          }
+
         }
       }
     }
@@ -104,13 +112,16 @@ header {
 }
 
 #catalog {
-  #btn-catalog.active {
-    background-color: $blue;
-    color: $mainFontColor;
-  }
 
   #catalog-navigation {
     //font-weight: bolder;
+    li {
+      cursor: pointer;
+    }
+    #btn-catalog.active {
+      background-color: $blue;
+      color: $mainFontColor;
+    }
   }
 
   #product-place {
