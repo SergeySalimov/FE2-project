@@ -1,5 +1,6 @@
 import {CONFIG} from "@/js/config";
 import {EventEmitter} from "@/js/event-emitter";
+import {slugify} from "transliteration";
 
 const compiledTemplate = require('./template.handlebars');
 
@@ -12,8 +13,8 @@ export class Ui extends EventEmitter {
     this.templateScript = compiledTemplate;
     this.initNavBtn();
     this.initCatBtn();
-
-    this.path = {
+    // display routes functions
+    this.renderPath = {
       '': this.displayHomePage.bind(this),
       '404': this.displayErrorPage.bind(this),
       'catalog': this.displayCatalogPage.bind(this),
@@ -29,7 +30,7 @@ export class Ui extends EventEmitter {
       this.hideAll();
       console.log('pageChange');
       $(this._elements.nav2).children().slice(1).remove();
-      this.path[page]();
+      this.renderPath[page]();
     });
 
   }
@@ -97,15 +98,15 @@ export class Ui extends EventEmitter {
   // initialization block
   initCatBtn() {
     this._elements.catBtnHome.addEventListener('click', (event) => {
-      this.emit('catClick', '/');
+      this.emit('catClick', '');
     });
     this._elements.catBtn.addEventListener('click', (event) => {
       if (event.target !== this._elements.catBtn && event.target !== this._elements.catBtnHome) {
-        console.log('1');
         this.emit('catClick', event.target.innerText);
       }
     });
   }
+
   initNavBtn() {
     this._elements.navBtnCatalog.addEventListener('click', (event) => {
       event.preventDefault();

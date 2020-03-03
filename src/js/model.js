@@ -1,5 +1,6 @@
 import {CONFIG} from "@/js/config";
 import {EventEmitter} from "@/js/event-emitter";
+import {slugify} from "transliteration";
 
 export class Model extends EventEmitter {
   constructor(router) {
@@ -9,7 +10,9 @@ export class Model extends EventEmitter {
     this.productsToDisplay = [];
     this.init();
     this.current = decodeURI(window.location.pathname).split('/')[1];
-    this.catalog = '';
+    this.catalogState = '';
+    this.catalogRoutes = {};
+    this.catalogNames = {};
   }
 
   init() {
@@ -22,9 +25,13 @@ export class Model extends EventEmitter {
         .then((res) => res.json())
         .then((data) => {
           this.allProducts = data;
-          this.initProducts(this.allProducts);
+          this.productsToDisplay = this.initProducts(this.allProducts);
+          this.catalogRoutes[''] = this.productsToDisplay;
           this.emit('productsLoaded', this.productsToDisplay);
-          console.log(this.allProducts);
+          this.catalogNames[''] = '/catalog';
+          this.addCatalogRoutes(this.allProducts);
+          // console.log(this.catalogRoutes);
+          // console.log(this.catalogNames);
           const curPage = decodeURI(window.location.pathname).split('/')[1];
           this.router.render(curPage);
           this.current = curPage;
@@ -32,12 +39,43 @@ export class Model extends EventEmitter {
   }
 
   initProducts(data) {
+    let productsAccumulate = [];
     for (const item of data) {
       if (item.subitems) {
-        this.initProducts(item.content);
+        productsAccumulate = this.initProducts(item.content);
       } else {
-        item.content.forEach((obj) => this.productsToDisplay.push(obj));
+        item.content.forEach((obj) => productsAccumulate.push(obj));
+      }
+    }
+    return productsAccumulate;
+  }
+
+  addCatalogRoutes(data, addedRoutes = '') {
+    for (const item of data) {
+      let routes = addedRoutes;
+      if (item.subitems) {
+        routes = `${routes}/${slugify(item.name)}`;
+        this.catalogRoutes[`/catalog${routes}`] = this.initProducts(item.content);
+
+        this.addCatalogRoutes(item.content, routes)
+      } else {
+        this.catalogRoutes[`/catalog${routes}/${slugify(item.name)}`] = item.content;
       }
     }
   }
+
+  addCatalogNames(data, addedRoutes = '') {
+    for (const item of data) {
+      let routes = addedRoutes;
+      if (item.subitems) {
+        routes = `${routes}/${slugify(item.name)}`;
+        this.catalogNames[item.name] = `/catalog${routes}`;
+
+        this.addCatalogRoutes(item.content, routes)
+      } else {
+        this.catalogNames[item.name] = `/catalog${routes}/${slugify(item.name)}`;
+      }
+    }
+  }
+
 }
