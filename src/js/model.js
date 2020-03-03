@@ -30,8 +30,9 @@ export class Model extends EventEmitter {
           this.emit('productsLoaded', this.productsToDisplay);
           this.catalogNames[''] = '/catalog';
           this.addCatalogRoutes(this.allProducts);
-          // console.log(this.catalogRoutes);
-          // console.log(this.catalogNames);
+          this.addCatalogNames(this.allProducts);
+          console.log(this.catalogRoutes);
+          console.log(this.catalogNames);
           const curPage = decodeURI(window.location.pathname).split('/')[1];
           this.router.render(curPage);
           this.current = curPage;
@@ -71,7 +72,7 @@ export class Model extends EventEmitter {
         routes = `${routes}/${slugify(item.name)}`;
         this.catalogNames[item.name] = `/catalog${routes}`;
 
-        this.addCatalogRoutes(item.content, routes)
+        this.addCatalogNames(item.content, routes)
       } else {
         this.catalogNames[item.name] = `/catalog${routes}/${slugify(item.name)}`;
       }
