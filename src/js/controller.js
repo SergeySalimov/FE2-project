@@ -1,5 +1,3 @@
-import {slugify} from "transliteration";
-
 export class Controller {
   constructor(model, ui, router) {
     this._model = model;
@@ -8,34 +6,35 @@ export class Controller {
     this.initRouter();
 
     this._ui.on('navClick', url => this.onNavigationClick(url));
-    this._ui.on('catClick', (url, product) => this.onCatalogClick(url, product));
-    this._model.on('productsLoaded', () => this.initCatalogRoutes())
+    this._ui.on('catClick', url => this.onCatalogClick(url));
+    // this._model.on('productsLoaded', () => this.initCatalogRoutes())
   }
 
-  onCatalogClick(product) {
-    const newCatalogState = this._model.catalogNames[product];
-
-    console.log('new state: ' + newCatalogState);
-    // window.history.pushState(null, null, `/catalog/`);
-    // this.router.render(newCatalogState);
-
-    // console.log(newCatalogState);
-    // console.log('catClick' + product);
-    // console.log(url + '  ' + product);
-    // const url2 = '/catalog/plody/shishki';
-    // const newState = '/' + url2.split('/').slice(2).join('/');
-    // console.log(newState);
-    // window.history.pushState(null, null, `/catalog/${slugify(product)}`);
-    // const allProducts = this._model.allProducts;
-
+  onCatalogClick(url) {
+    const newCatalogState = url;
+    if (newCatalogState !== this._model.catalogState) {
+      if (newCatalogState === '') {
+        this._model.catalogState = '';
+        window.history.pushState(null, null, '/catalog');
+      } else {
+        this._model.catalogState = newCatalogState;
+        window.history.pushState(null, null, newCatalogState);
+      }
+      this.router.render('catalog');
+    }
   }
 
   onNavigationClick(url) {
+    console.log(url);
     const newState = url.split('/')[1];
     if (newState !== this._model.current) {
       this._model.current = newState;
-      if (newState === 'catalog' && this._model.catalog !== '') url += '/' + this._model.catalogState;
-      window.history.pushState(null, null, url);
+      if (newState === 'catalog') {
+        console.log('onNavigationClick: ' + 'url: ' + url + 'catalogState: ' + this._model.catalogState);
+        window.history.pushState(null, null, this._model.catalogState);
+      } else {
+        window.history.pushState(null, null, url);
+      }
       this.router.render(newState);
     }
   }
@@ -53,13 +52,14 @@ export class Controller {
 
   initCatalogRoutes() {
     console.log('Catalog router initialization');
-    // console.log(this._model.catalogRoutes);
     const catalogRoutes = this._model.catalogRoutes;
-    console.log((typeof catalogRoutes));
-    // for (const item of catalogRoutes) {
-    //   console.log(item);
-    // }
-    this.router.addRoute('catalog/plody', () => console.log('plody'))
+    for (const catPrd in catalogRoutes) {
+      if (catPrd !== '') {
+        this.router.addRoute(catPrd, this._ui.emit.bind(this._ui, 'catalogChange', catalogRoutes[catPrd]))
+      }
+    }
+
+
   }
 
 }

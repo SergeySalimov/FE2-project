@@ -27,12 +27,12 @@ export class Model extends EventEmitter {
           this.allProducts = data;
           this.productsToDisplay = this.initProducts(this.allProducts);
           this.catalogRoutes[''] = this.productsToDisplay;
-          this.emit('productsLoaded', this.productsToDisplay);
           this.catalogNames[''] = '/catalog';
           this.addCatalogRoutes(this.allProducts);
           this.addCatalogNames(this.allProducts);
-          console.log(this.catalogRoutes);
-          console.log(this.catalogNames);
+          this.emit('productsLoaded', this.productsToDisplay);
+          // console.log(this.catalogRoutes);
+          // console.log(this.catalogNames);
           const curPage = decodeURI(window.location.pathname).split('/')[1];
           this.router.render(curPage);
           this.current = curPage;
@@ -60,6 +60,7 @@ export class Model extends EventEmitter {
 
         this.addCatalogRoutes(item.content, routes)
       } else {
+
         this.catalogRoutes[`/catalog${routes}/${slugify(item.name)}`] = item.content;
       }
     }

@@ -1,6 +1,5 @@
 import {CONFIG} from "@/js/config";
 import {EventEmitter} from "@/js/event-emitter";
-import {slugify} from "transliteration";
 
 const compiledTemplate = require('./template.handlebars');
 
@@ -28,7 +27,6 @@ export class Ui extends EventEmitter {
 
     this.on('pageChange', (page) => {
       this.hideAll();
-      console.log('pageChange');
       $(this._elements.nav2).children().slice(1).remove();
       this.renderPath[page]();
     });
@@ -37,7 +35,11 @@ export class Ui extends EventEmitter {
 
   // output block
   displayCatalogPage() {
-    console.log('1');
+    const productToDisplay = window.location.pathname.trim();
+    // console.log(this._model.catalogRoutes[productToDisplay]);
+    // rerender Products
+    // this.renderProductsToDisplay(this._model.catalogRoutes[productToDisplay]);
+
     this._elements.nav2Home.after(this.createHtmlForBreadcrump('Каталог'));
     this._elements.catalogPage.classList.remove(CONFIG.dNone);
     this._elements.navBtnCatalog.classList.add(CONFIG.active);
@@ -61,9 +63,9 @@ export class Ui extends EventEmitter {
     this._elements.navBtnDelivery.classList.add(CONFIG.active);
   }
   displayPaymentPage() {
-    this._elements.nav2Home.after(this.createHtmlForBreadcrump('Доставка'));
-    this._elements.deliveryPage.classList.remove(CONFIG.dNone);
-    this._elements.navBtnDelivery.classList.add(CONFIG.active);
+    this._elements.nav2Home.after(this.createHtmlForBreadcrump('Оплата'));
+    this._elements.paymentPage.classList.remove(CONFIG.dNone);
+    this._elements.navBtnPayment.classList.add(CONFIG.active);
   }
   displayContactPage() {
     this._elements.nav2Home.after(this.createHtmlForBreadcrump('Контакты'));
@@ -95,6 +97,10 @@ export class Ui extends EventEmitter {
     this._elements.navBtnPayment.classList.remove(CONFIG.active);
     this._elements.navBtnContact.classList.remove(CONFIG.active);
   }
+  render404() {
+    window.history.pushState(null, null, '/404');
+    this.router.render(decodeURI(window.location.pathname));
+  }
   // initialization block
   initCatBtn() {
     this._elements.catBtnHome.addEventListener('click', (event) => {
@@ -102,7 +108,7 @@ export class Ui extends EventEmitter {
     });
     this._elements.catBtn.addEventListener('click', (event) => {
       if (event.target !== this._elements.catBtn && event.target !== this._elements.catBtnHome) {
-        this.emit('catClick', event.target.innerText);
+        this.emit('catClick', this._model.catalogNames[event.target.innerText]);
       }
     });
   }
