@@ -4,10 +4,9 @@ import {EventEmitter} from "@/js/event-emitter";
 const compiledTemplate = require('./template.handlebars');
 
 export class Ui extends EventEmitter {
-  constructor(model, elements, router) {
+  constructor(model, router) {
     super();
     this._model = model;
-    this._elements = elements;
     this.router = router;
     this.templateScript = compiledTemplate;
     this.initNavBtn();
@@ -24,65 +23,71 @@ export class Ui extends EventEmitter {
     };
 
     this._model.on('productsLoaded', data => this.renderProductsToDisplay(data));
-
     this.on('pageChange', (page) => {
       this.hideAll();
-      $(this._elements.nav2).children().slice(1).remove();
-      console.log('page' + page);
+      $(CONFIG.elements.nav2).children().slice(1).remove();
       this.renderPath[page]();
     });
 
   }
 
   isRouteOfCatalog(route) {
-    return route === Object.keys(this._model.catalogRoutes).find((routes) => routes == route)
+    return Object.keys(this._model.catalogRoutes).includes(route);
   }
 
   // output block
   displayCatalogPage() {
     const productToDisplay = window.location.pathname.trim();
-    let isFind = this.isRouteOfCatalog(productToDisplay);
-
-    if (isFind)  {
-      console.log(isFind);
-      // console.log( Object.keys(this._model.catalogRoutes));
-      // console.log(this._model.catalogRoutes[productToDisplay]);
+    if (this.isRouteOfCatalog(productToDisplay))  {
+      this.clearActiveCatalogNavigation();
+      if (productToDisplay === '/catalog') {
+        CONFIG.elements.catBtnHome.classList.add(CONFIG.active);
+      } else {
+        console.log('find of name');
+        let name = '';
+        for (const key in this._model.catalogNames) {
+          if (this._model.catalogNames[key] === productToDisplay) name = key;
+        }
+        CONFIG.elements.catBtn.querySelectorAll('.list-group-item').forEach(e => {
+          if (e.innerText === name) e.classList.add(CONFIG.active);
+        });
+      }
       // rerender Products
-      // this.renderProductsToDisplay(this._model.catalogRoutes[productToDisplay]);
-      this._elements.nav2Home.after(this.createHtmlForBreadcrump('Каталог'));
-      this._elements.catalogPage.classList.remove(CONFIG.dNone);
-      this._elements.navBtnCatalog.classList.add(CONFIG.active);
+      this.renderProductsToDisplay(this._model.catalogRoutes[productToDisplay]);
+      CONFIG.elements.nav2Home.after(this.createHtmlForBreadcrump('Каталог'));
+      CONFIG.elements.catalogPage.classList.remove(CONFIG.dNone);
+      CONFIG.elements.navBtnCatalog.classList.add(CONFIG.active);
     } else {
       this.render404()
     }
   }
 
   displayHomePage() {
-    this._elements.homePage.classList.remove(CONFIG.dNone);
+    CONFIG.elements.homePage.classList.remove(CONFIG.dNone);
   }
   displayErrorPage() {
-    this._elements.nav2Home.after(this.createHtmlForBreadcrump('Указанная страница не найдена'));
-    this._elements.errorPage.classList.remove(CONFIG.dNone);
+    CONFIG.elements.nav2Home.after(this.createHtmlForBreadcrump('Указанная страница не найдена'));
+    CONFIG.elements.errorPage.classList.remove(CONFIG.dNone);
   }
   displayHowToBuyPage() {
-    this._elements.nav2Home.after(this.createHtmlForBreadcrump('Как купить'));
-    this._elements.howToBuyPage.classList.remove(CONFIG.dNone);
-    this._elements.navBtnHowToBuy.classList.add(CONFIG.active);
+    CONFIG.elements.nav2Home.after(this.createHtmlForBreadcrump('Как купить'));
+    CONFIG.elements.howToBuyPage.classList.remove(CONFIG.dNone);
+    CONFIG.elements.navBtnHowToBuy.classList.add(CONFIG.active);
   }
   displayDeliveryPage() {
-    this._elements.nav2Home.after(this.createHtmlForBreadcrump('Доставка'));
-    this._elements.deliveryPage.classList.remove(CONFIG.dNone);
-    this._elements.navBtnDelivery.classList.add(CONFIG.active);
+    CONFIG.elements.nav2Home.after(this.createHtmlForBreadcrump('Доставка'));
+    CONFIG.elements.deliveryPage.classList.remove(CONFIG.dNone);
+    CONFIG.elements.navBtnDelivery.classList.add(CONFIG.active);
   }
   displayPaymentPage() {
-    this._elements.nav2Home.after(this.createHtmlForBreadcrump('Оплата'));
-    this._elements.paymentPage.classList.remove(CONFIG.dNone);
-    this._elements.navBtnPayment.classList.add(CONFIG.active);
+    CONFIG.elements.nav2Home.after(this.createHtmlForBreadcrump('Оплата'));
+    CONFIG.elements.paymentPage.classList.remove(CONFIG.dNone);
+    CONFIG.elements.navBtnPayment.classList.add(CONFIG.active);
   }
   displayContactPage() {
-    this._elements.nav2Home.after(this.createHtmlForBreadcrump('Контакты'));
-    this._elements.contactPage.classList.remove(CONFIG.dNone);
-    this._elements.navBtnContact.classList.add(CONFIG.active);
+    CONFIG.elements.nav2Home.after(this.createHtmlForBreadcrump('Контакты'));
+    CONFIG.elements.contactPage.classList.remove(CONFIG.dNone);
+    CONFIG.elements.navBtnContact.classList.add(CONFIG.active);
   }
   createHtmlForBreadcrump(description, active = true) {
     const li = document.createElement('li');
@@ -96,18 +101,18 @@ export class Ui extends EventEmitter {
     return li;
   }
   hideAll() {
-    this._elements.homePage.classList.add(CONFIG.dNone);
-    this._elements.errorPage.classList.add(CONFIG.dNone);
-    this._elements.catalogPage.classList.add(CONFIG.dNone);
-    this._elements.howToBuyPage.classList.add(CONFIG.dNone);
-    this._elements.deliveryPage.classList.add(CONFIG.dNone);
-    this._elements.paymentPage.classList.add(CONFIG.dNone);
-    this._elements.contactPage.classList.add(CONFIG.dNone);
-    this._elements.navBtnCatalog.classList.remove(CONFIG.active);
-    this._elements.navBtnHowToBuy.classList.remove(CONFIG.active);
-    this._elements.navBtnDelivery.classList.remove(CONFIG.active);
-    this._elements.navBtnPayment.classList.remove(CONFIG.active);
-    this._elements.navBtnContact.classList.remove(CONFIG.active);
+    CONFIG.elements.homePage.classList.add(CONFIG.dNone);
+    CONFIG.elements.errorPage.classList.add(CONFIG.dNone);
+    CONFIG.elements.catalogPage.classList.add(CONFIG.dNone);
+    CONFIG.elements.howToBuyPage.classList.add(CONFIG.dNone);
+    CONFIG.elements.deliveryPage.classList.add(CONFIG.dNone);
+    CONFIG.elements.paymentPage.classList.add(CONFIG.dNone);
+    CONFIG.elements.contactPage.classList.add(CONFIG.dNone);
+    CONFIG.elements.navBtnCatalog.classList.remove(CONFIG.active);
+    CONFIG.elements.navBtnHowToBuy.classList.remove(CONFIG.active);
+    CONFIG.elements.navBtnDelivery.classList.remove(CONFIG.active);
+    CONFIG.elements.navBtnPayment.classList.remove(CONFIG.active);
+    CONFIG.elements.navBtnContact.classList.remove(CONFIG.active);
   }
   render404() {
     window.history.pushState(null, null, '/404');
@@ -115,42 +120,46 @@ export class Ui extends EventEmitter {
   }
   // initialization block
   initCatBtn() {
-    this._elements.catBtnHome.addEventListener('click', (event) => {
+    CONFIG.elements.catBtnHome.addEventListener('click', (event) => {
       this.emit('catClick', '/catalog');
     });
-    this._elements.catBtn.addEventListener('click', (event) => {
-      if (event.target !== this._elements.catBtn && event.target !== this._elements.catBtnHome) {
+    CONFIG.elements.catBtn.addEventListener('click', (event) => {
+      if (event.target !== CONFIG.elements.catBtn && event.target !== CONFIG.elements.catBtnHome) {
         this.emit('catClick', this._model.catalogNames[event.target.innerText]);
       }
     });
   }
 
+  clearActiveCatalogNavigation() {
+    CONFIG.elements.catBtn.querySelectorAll('.active').forEach(el => el.classList.remove('active'));
+  }
+
   initNavBtn() {
-    this._elements.navBtnCatalog.addEventListener('click', (event) => {
+    CONFIG.elements.navBtnCatalog.addEventListener('click', (event) => {
       event.preventDefault();
       this.emit('navClick', '/catalog');
     });
-    this._elements.navBtnHowToBuy.addEventListener('click', (event) => {
+    CONFIG.elements.navBtnHowToBuy.addEventListener('click', (event) => {
       event.preventDefault();
       this.emit('navClick', '/how-to-buy');
     });
-    this._elements.navBtnDelivery.addEventListener('click', (event) => {
+    CONFIG.elements.navBtnDelivery.addEventListener('click', (event) => {
       event.preventDefault();
       this.emit('navClick', '/delivery');
     });
-    this._elements.navBtnPayment.addEventListener('click', (event) => {
+    CONFIG.elements.navBtnPayment.addEventListener('click', (event) => {
       event.preventDefault();
       this.emit('navClick', '/payment');
     });
-    this._elements.navBtnContact.addEventListener('click', (event) => {
+    CONFIG.elements.navBtnContact.addEventListener('click', (event) => {
       event.preventDefault();
       this.emit('navClick', '/contact');
     });
-    this._elements.nav2Home.addEventListener('click', (event) => {
+    CONFIG.elements.nav2Home.addEventListener('click', (event) => {
       event.preventDefault();
       this.emit('navClick', '/');
     });
-    this._elements.errorBack.addEventListener('click', (event) => {
+    CONFIG.elements.errorBack.addEventListener('click', (event) => {
       event.preventDefault();
       this.emit('navClick', '/');
     });
@@ -158,7 +167,8 @@ export class Ui extends EventEmitter {
   // rendering templates
   renderProductsToDisplay(data) {
     // compile with handlebars
-    this._elements.productsPlace.innerHTML = this.templateScript(data)
+    CONFIG.elements.productsPlace.innerHTML = this.templateScript(data)
+
   }
 }
 

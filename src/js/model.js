@@ -33,11 +33,25 @@ export class Model extends EventEmitter {
           this.emit('productsLoaded', this.productsToDisplay);
           // console.log(this.catalogRoutes);
           // console.log(this.catalogNames);
+          this.initTooltipForAuth();
           const curPage = decodeURI(window.location.pathname).split('/')[1];
-          console.log('curPage' + curPage);
           this.router.render(curPage);
           this.current = curPage;
+
+          // $('#exampleModal').modal();
         });
+  }
+
+  initTooltipForAuth(on = true) {
+    if (on) {
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+      })
+    } else {
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip('disable')
+      })
+    }
   }
 
   initProducts(data) {
@@ -73,12 +87,25 @@ export class Model extends EventEmitter {
       if (item.subitems) {
         routes = `${routes}/${slugify(item.name)}`;
         this.catalogNames[item.name] = `/catalog${routes}`;
-
         this.addCatalogNames(item.content, routes)
       } else {
         this.catalogNames[item.name] = `/catalog${routes}/${slugify(item.name)}`;
       }
     }
+  }
+
+  addCatalogBreadcrum(data) {
+    for (const item of data) {
+      let routes = addedRoutes;
+      if (item.subitems) {
+        routes = `${routes}/${slugify(item.name)}`;
+        this.catalogNames[item.name] = `/catalog${routes}`;
+        this.addCatalogNames(item.content, routes)
+      } else {
+        this.catalogNames[item.name] = `/catalog${routes}/${slugify(item.name)}`;
+      }
+    }
+
   }
 
 }

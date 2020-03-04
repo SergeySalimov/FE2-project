@@ -24,29 +24,40 @@ header {
     color: $mainFontColor;
     display: block;
 
-    .mobile-number {
+    .mobile-number, .cabinet {
       color: $mainFontColor;
-      padding-bottom: 20px;
-      @media (min-width: map-get($grid-breakpoints, "sm")) {
-        padding-bottom: 3px;
-      }
       font-size: 1.6rem;
       @media (min-width: map-get($grid-breakpoints, "sm")) {
         font-size: 1rem;
       }
+      i {
+        font-size: 1.2rem;
+        padding-bottom: 20px;
+        @media (min-width: map-get($grid-breakpoints, "sm")) {
+          padding-bottom: 3px;
+        }
+        a {
+          font-size: 0.8rem;
+          color: $mainFontColor;
+          //letter-spacing: 1.1px;
+          font-style: normal;
+          font-weight: 400;
+        }
 
-      a {
-        color: $mainFontColor;
-        letter-spacing: 1.1px;
-        font-style: normal;
-        font-weight: 500;
       }
+
+
 
       &:hover {
         transition: all 0.3s ease-in-out;
         transform: scale(1.05);
 
+        i {
+          //background-color: $backGrey;
+        }
+
         a {
+
           text-decoration: none;
         }
       }
@@ -55,17 +66,22 @@ header {
 }
 
 .nav1 {
+  a {
+    cursor: pointer;
+  }
   #navbar9 {
     ul {
       li {
         padding: 3px;
 
         a {
+          cursor: pointer;
           //color: $mainColorFont;
 
-          @media (min-width: map-get($grid-breakpoints, "sm")) {
-            font-size: 0.7rem;
-        }
+          // if expand navigation on sm toogle on font-size!!!!
+        //  @media (min-width: map-get($grid-breakpoints, "sm")) {
+        //    font-size: 0.7rem;
+        //}
           @media (min-width: map-get($grid-breakpoints, "md")) {
             font-size: 1.1rem;
           }
@@ -94,6 +110,9 @@ header {
 
   .navbar-brand:hover {
     background-color: $additFontColor;
+  }
+  .navbar-brand.no-autoriz:hover {
+    background-color: $red;
   }
 }
 
