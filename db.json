@@ -12,28 +12,28 @@
             {
               "header": "Шишки ольхи",
               "description": "Lorem ipsum",
-              "img": "images/cones-of-alder.jpg",
+              "img": "/images/cones-of-alder.jpg",
               "presence": true,
               "uniqueId": "1-1"
             },
             {
               "header": "Шишки еловые",
               "description": "Lorem ipsum",
-              "img": "images/fir-cones.jpg",
+              "img": "/images/fir-cones.jpg",
               "presence": true,
               "uniqueId": "1-2"
             },
             {
               "header": "Шишки сосновые",
               "description": "Lorem ipsum",
-              "img": "images/pine-cones.jpg",
+              "img": "/images/pine-cones.jpg",
               "presence": true,
               "uniqueId": "1-3"
             },
             {
               "header": "Шишки хмеля",
               "description": "Lorem ipsum",
-              "img": "images/hop-cones.jpg",
+              "img": "/images/hop-cones.jpg",
               "presence": true,
               "uniqueId": "1-4"
             }
@@ -45,7 +45,7 @@
           "content": [{
             "header": "Желуди",
             "description": "Lorem ipsum",
-            "img": "images/zhyoludi.jpg",
+            "img": "/images/zhyoludi.jpg",
             "presence": true,
             "uniqueId": "1-5"
           }]
@@ -56,7 +56,7 @@
           "content": [{
             "header": "Каштаны",
             "description": "Lorem ipsum",
-            "img": "images/cashtany.jpg",
+            "img": "/images/cashtany.jpg",
             "presence": true,
             "uniqueId": "1-6"
           }]
@@ -68,21 +68,21 @@
             {
             "header": "Ягоды черемухи",
             "description": "Lorem ipsum",
-            "img": "images/cherjomuha.jpg",
+            "img": "/images/cherjomuha.jpg",
             "presence": true,
             "uniqueId": "1-7"
             },
             {
               "header": "Ягоды бузины",
               "description": "Lorem ipsum",
-              "img": "images/buzina.jpg",
+              "img": "/images/buzina.jpg",
               "presence": true,
               "uniqueId": "1-8"
             },
             {
               "header": "Ягоды можжевельника",
               "description": "Lorem ipsum",
-              "img": "images/mozhzhevel.jpg",
+              "img": "/images/mozhzhevel.jpg",
               "presence": true,
               "uniqueId": "1-9"
             }
@@ -98,77 +98,77 @@
         {
           "header": "Шалфей",
           "description": "Lorem ipsum",
-          "img": "images/shalfej.jpg",
+          "img": "/images/shalfej.jpg",
           "presence": true,
           "uniqueId": "2-1"
         },
         {
           "header": "Мята",
           "description": "Lorem ipsum",
-          "img": "images/mint.jpg",
+          "img": "/images/mint.jpg",
           "presence": true,
           "uniqueId": "2-2"
         },
         {
           "header": "Душица",
           "description": "Lorem ipsum",
-          "img": "images/dushitsa.jpg",
+          "img": "/images/dushitsa.jpg",
           "presence": true,
           "uniqueId": "2-3"
         },
         {
           "header": "Мелисcа",
           "description": "Lorem ipsum",
-          "img": "images/melissa.jpg",
+          "img": "/images/melissa.jpg",
           "presence": true,
           "uniqueId": "2-4"
         },
         {
           "header": "Чистотел",
           "description": "Lorem ipsum",
-          "img": "images/chistotel.jpg",
+          "img": "/images/chistotel.jpg",
           "presence": true,
           "uniqueId": "2-5"
         },
         {
           "header": "Лаванда",
           "description": "Lorem ipsum",
-          "img": "images/lavanda.jpg",
+          "img": "/images/lavanda.jpg",
           "presence": true,
           "uniqueId": "2-6"
         },
         {
           "header": "Зверобой",
           "description": "Lorem ipsum",
-          "img": "images/zveroboj.jpg",
+          "img": "/images/zveroboj.jpg",
           "presence": true,
           "uniqueId": "2-7"
         },
         {
           "header": "Полынь",
           "description": "Lorem ipsum",
-          "img": "images/polyn.jpg",
+          "img": "/images/polyn.jpg",
           "presence": true,
           "uniqueId": "2-8"
         },
         {
           "header": "Тысячелистник",
           "description": "Lorem ipsum",
-          "img": "images/tysiachelistnik.jpg",
+          "img": "/images/tysiachelistnik.jpg",
           "presence": true,
           "uniqueId": "2-9"
         },
         {
           "header": "Пижма",
           "description": "Lorem ipsum",
-          "img": "images/pizhma.jpg",
+          "img": "/images/pizhma.jpg",
           "presence": true,
           "uniqueId": "2-10"
         },
         {
           "header": "Иван-Чай",
           "description": "Lorem ipsum",
-          "img": "images/ivan.jpg",
+          "img": "/images/ivan.jpg",
           "presence": true,
           "uniqueId": "2-11"
         }
@@ -182,35 +182,35 @@
         {
           "header": "Стружка декоративная древесная липы",
           "description": "Lorem ipsum",
-          "img": "images/strugka-lipa.jpg",
+          "img": "/images/strugka-lipa.jpg",
           "presence": true,
           "uniqueId": "3-1"
         },
         {
           "header": "Стружка декоративная древесная осины",
           "description": "Lorem ipsum",
-          "img": "images/strugka-osina.jpg",
+          "img": "/images/strugka-osina.jpg",
           "presence": true,
           "uniqueId": "3-2"
         },
         {
           "header": "Стружка декоративная древесная елки",
           "description": "Lorem ipsum",
-          "img": "images/strugka-elka.jpg",
+          "img": "/images/strugka-elka.jpg",
           "presence": true,
           "uniqueId": "3-3"
         },
         {
           "header": "Стружка декоративная древесная ольхи",
           "description": "Lorem ipsum",
-          "img": "images/strugka-olha.jpg",
+          "img": "/images/strugka-olha.jpg",
           "presence": true,
           "uniqueId": "3-4"
         },
         {
           "header": "Стружка декоративная древесная сосны",
           "description": "Lorem ipsum",
-          "img": "images/strugka-sosna.jpg",
+          "img": "/images/strugka-sosna.jpg",
           "presence": true,
           "uniqueId": "3-5"
         }
@@ -224,35 +224,35 @@
         {
           "header": "Торцевые спилы дуба",
           "description": "Lorem ipsum",
-          "img": "images/torc-dub.jpg",
+          "img": "/images/torc-dub.jpg",
           "presence": true,
           "uniqueId": "4-1"
         },
         {
           "header": "Торцевые спилы ясеня",
           "description": "Lorem ipsum",
-          "img": "images/torc-yasen.jpg",
+          "img": "/images/torc-yasen.jpg",
           "presence": true,
           "uniqueId": "4-2"
         },
         {
           "header": "Торцевые спилы березы",
           "description": "Lorem ipsum",
-          "img": "images/torc-bereza.jpg",
+          "img": "/images/torc-bereza.jpg",
           "presence": true,
           "uniqueId": "4-3"
         },
         {
           "header": "Торцевые спилы акации",
           "description": "Lorem ipsum",
-          "img": "images/torc-akacia.jpg",
+          "img": "/images/torc-akacia.jpg",
           "presence": true,
           "uniqueId": "4-4"
         },
         {
           "header": "Торцевые спилы вяза",
           "description": "Lorem ipsum",
-          "img": "images/torc-viaz.jpg",
+          "img": "/images/torc-viaz.jpg",
           "presence": true,
           "uniqueId": "4-5"
         }
@@ -266,14 +266,14 @@
         {
           "header": "Сфагнум",
           "description": "Lorem ipsum",
-          "img": "images/sfagnum.jpg",
+          "img": "/images/sfagnum.jpg",
           "presence": true,
           "uniqueId": "5-1"
         },
         {
           "header": "Ягель",
           "description": "Lorem ipsum",
-          "img": "images/yagel.jpg",
+          "img": "/images/yagel.jpg",
           "presence": true,
           "uniqueId": "5-2"
         }
@@ -287,7 +287,7 @@
         {
           "header": "Чага",
           "description": "Lorem ipsum",
-          "img": "images/chaga.jpg",
+          "img": "/images/chaga.jpg",
           "presence": true,
           "uniqueId": "6-1"
         }
