@@ -28,21 +28,33 @@ export class Ui extends EventEmitter {
     this.on('pageChange', (page) => {
       this.hideAll();
       $(this._elements.nav2).children().slice(1).remove();
+      console.log('page' + page);
       this.renderPath[page]();
     });
 
   }
 
+  isRouteOfCatalog(route) {
+    return route === Object.keys(this._model.catalogRoutes).find((routes) => routes == route)
+  }
+
   // output block
   displayCatalogPage() {
     const productToDisplay = window.location.pathname.trim();
-    // console.log(this._model.catalogRoutes[productToDisplay]);
-    // rerender Products
-    // this.renderProductsToDisplay(this._model.catalogRoutes[productToDisplay]);
+    let isFind = this.isRouteOfCatalog(productToDisplay);
 
-    this._elements.nav2Home.after(this.createHtmlForBreadcrump('Каталог'));
-    this._elements.catalogPage.classList.remove(CONFIG.dNone);
-    this._elements.navBtnCatalog.classList.add(CONFIG.active);
+    if (isFind)  {
+      console.log(isFind);
+      // console.log( Object.keys(this._model.catalogRoutes));
+      // console.log(this._model.catalogRoutes[productToDisplay]);
+      // rerender Products
+      // this.renderProductsToDisplay(this._model.catalogRoutes[productToDisplay]);
+      this._elements.nav2Home.after(this.createHtmlForBreadcrump('Каталог'));
+      this._elements.catalogPage.classList.remove(CONFIG.dNone);
+      this._elements.navBtnCatalog.classList.add(CONFIG.active);
+    } else {
+      this.render404()
+    }
   }
 
   displayHomePage() {
@@ -104,7 +116,7 @@ export class Ui extends EventEmitter {
   // initialization block
   initCatBtn() {
     this._elements.catBtnHome.addEventListener('click', (event) => {
-      this.emit('catClick', '');
+      this.emit('catClick', '/catalog');
     });
     this._elements.catBtn.addEventListener('click', (event) => {
       if (event.target !== this._elements.catBtn && event.target !== this._elements.catBtnHome) {

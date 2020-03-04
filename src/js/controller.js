@@ -13,24 +13,18 @@ export class Controller {
   onCatalogClick(url) {
     const newCatalogState = url;
     if (newCatalogState !== this._model.catalogState) {
-      if (newCatalogState === '') {
-        this._model.catalogState = '';
-        window.history.pushState(null, null, '/catalog');
-      } else {
-        this._model.catalogState = newCatalogState;
-        window.history.pushState(null, null, newCatalogState);
-      }
+      this._model.catalogState = newCatalogState;
+      window.history.pushState(null, null, newCatalogState);
       this.router.render('catalog');
     }
   }
 
   onNavigationClick(url) {
-    console.log(url);
+    // console.log(url);
     const newState = url.split('/')[1];
     if (newState !== this._model.current) {
       this._model.current = newState;
       if (newState === 'catalog') {
-        console.log('onNavigationClick: ' + 'url: ' + url + 'catalogState: ' + this._model.catalogState);
         window.history.pushState(null, null, this._model.catalogState);
       } else {
         window.history.pushState(null, null, url);

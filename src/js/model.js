@@ -10,7 +10,7 @@ export class Model extends EventEmitter {
     this.productsToDisplay = [];
     this.init();
     this.current = decodeURI(window.location.pathname).split('/')[1];
-    this.catalogState = '';
+    this.catalogState = '/catalog';
     this.catalogRoutes = {};
     this.catalogNames = {};
   }
@@ -26,7 +26,7 @@ export class Model extends EventEmitter {
         .then((data) => {
           this.allProducts = data;
           this.productsToDisplay = this.initProducts(this.allProducts);
-          this.catalogRoutes[''] = this.productsToDisplay;
+          this.catalogRoutes['/catalog'] = this.productsToDisplay;
           this.catalogNames[''] = '/catalog';
           this.addCatalogRoutes(this.allProducts);
           this.addCatalogNames(this.allProducts);
@@ -34,6 +34,7 @@ export class Model extends EventEmitter {
           // console.log(this.catalogRoutes);
           // console.log(this.catalogNames);
           const curPage = decodeURI(window.location.pathname).split('/')[1];
+          console.log('curPage' + curPage);
           this.router.render(curPage);
           this.current = curPage;
         });
