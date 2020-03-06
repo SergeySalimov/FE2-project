@@ -24,6 +24,7 @@ export const CONFIG = {
     catBtn: document.getElementById('catalog-navigation'),
     catBtnHome: document.getElementById('btn-catalog'),
     authRegForm: document.getElementById('auth-reg-form'),
+    clearBtnForm: document.getElementById('clear-btn'),
     authRegFormId: '#auth-reg-form',
     authBtn: document.getElementById('auth-btn'),
     regBtn: document.getElementById('reg-btn'),

@@ -150,13 +150,21 @@
             </div>
 
 
-            <div class="col-auto">
+            <div class="col-sm-6">
               <button type="submit"
                       class="btn btn-danger mt-3"
                       data-toggle="tooltip"
                       data-placement="bottom"
                       title="Заполните все поля правильно">
                 Отправить данные
+              </button>
+            </div>
+
+            <div class="col-sm-6 for-registration d-none">
+              <button type="button"
+                      class="btn btn-primary mt-3"
+                      id="clear-btn">
+                Очистить данные
               </button>
             </div>
 
@@ -222,162 +230,163 @@
   </div>
 </nav>
 
+<main>
 
-<div class="" id="home">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
-        <h2 class="my-3 text-center">Добро пожаловать на сайт-витрину.</h2>
-        <p>Здесь вы можете просмотреть, выбрать товары из нашего каталога, узнать о способах их оплаты и доставки. А
-          также вы можете связаться с нами, либо оставить свой заказ через корзину для нас и мы свяжемся с вами в
-          ближайшее возможное время.</p>
-        <p>Обращаем Ваше внимание: данный сайт служит для презентации и рекламы товаров и <b>не является</b>
-          сайтом-магазином.</p>
-
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="d-none" id="error-page">
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-12 text-center">
-        <h2 class="my-5">Указанная страница не найдена</h2><br/>
-        <h5 class="mb-5 pb-5" id="error-to-home"><a href="#">на главную</a></h5>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="d-none" id="catalog">
-  <div class="container">
-    <div class="row">
-
-      <div class="list-group list-group-flush col-sm-3 mb-3 ml-3 ml-sm-0 mt-2" id="catalog-navigation">
-
-        <button class="alert alert-success text-left active" id="btn-catalog">
-          Каталог
-        </button>
-
-        <details>
-          <summary class="list-group-item list-group-item-action rounded">Плоды</summary>
-          <li class="list-group-item list-group-item-action rounded">Шишки</li>
-          <li class="list-group-item list-group-item-action rounded">Желуди</li>
-          <li class="list-group-item list-group-item-action rounded">Каштаны</li>
-          <li class="list-group-item list-group-item-action rounded">Ягоды</li>
-
-        </details>
-        <li class="list-group-item list-group-item-action rounded">Травы</li>
-        <li class="list-group-item list-group-item-action rounded">Стружка декоративная древесная</li>
-        <li class="list-group-item list-group-item-action rounded">Торцевые спилы дерева</li>
-        <li class="list-group-item list-group-item-action rounded">Мох</li>
-        <li class="list-group-item list-group-item-action rounded">Грибы</li>
-
-      </div>
-
-      <div class="col-sm-9">
-        <div class="row card-group" id="product-place">
-
-
-          <!--          <div class="col-sm-6 col-md-4 col-xl-3 my-1">-->
-          <!--            <div class="card">-->
-          <!--&lt;!&ndash;              <i class="icon-heart like"></i>&ndash;&gt;-->
-          <!--              <img src="/images/cones-of-alder.jpg" class="card-img-top" alt="cones-of-alder">-->
-          <!--              <div class="card-body">-->
-          <!--                <h5 class="card-title">Шишки ольхи</h5>-->
-          <!--              </div>-->
-          <!--              <div class="card-footer">-->
-          <!--                <button type="button" class="btn btn-sm btn-outline-success">-->
-          <!--                  В корзину-->
-          <!--                  <i class="icon-shopping-basket"></i>-->
-          <!--                </button>-->
-          <!--              </div>-->
-          <!--            </div>-->
-          <!--          </div>-->
-
+  <div class="mt-5" id="home">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <h2 class="my-3 text-center">Добро пожаловать на сайт-витрину.</h2>
+          <p>Здесь вы можете просмотреть, выбрать товары из нашего каталога, узнать о способах их оплаты и доставки. А
+            также вы можете связаться с нами, либо оставить свой заказ через корзину для нас и мы свяжемся с вами в
+            ближайшее возможное время.</p>
+          <p>Обращаем Ваше внимание: данный сайт служит для презентации и рекламы товаров и <b>не является</b>
+            сайтом-магазином.</p>
 
         </div>
       </div>
+    </div>
+  </div>
 
-    </div>
-  </div>
-</div>
-<!-- Modal -->
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLarge" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      ...
-    </div>
-  </div>
-</div>
-<!-- Modal -->
-<div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-     aria-modal="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+  <div class="d-none mt-5" id="error-page">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 text-center">
+          <h2 class="my-5">Указанная страница не найдена</h2><br/>
+          <h5 class="mb-5 pb-5" id="error-to-home"><a href="#">на главную</a></h5>
+        </div>
       </div>
-      <div class="modal-body">
+    </div>
+  </div>
+
+  <div class="d-none" id="catalog">
+    <div class="container">
+      <div class="row">
+
+        <div class="list-group list-group-flush col-sm-3 mb-3 ml-3 ml-sm-0 mt-2" id="catalog-navigation">
+
+          <button class="alert alert-success text-left active" id="btn-catalog">
+            Каталог
+          </button>
+
+          <details>
+            <summary class="list-group-item list-group-item-action rounded">Плоды</summary>
+            <li class="list-group-item list-group-item-action rounded">Шишки</li>
+            <li class="list-group-item list-group-item-action rounded">Желуди</li>
+            <li class="list-group-item list-group-item-action rounded">Каштаны</li>
+            <li class="list-group-item list-group-item-action rounded">Ягоды</li>
+
+          </details>
+          <li class="list-group-item list-group-item-action rounded">Травы</li>
+          <li class="list-group-item list-group-item-action rounded">Стружка декоративная древесная</li>
+          <li class="list-group-item list-group-item-action rounded">Торцевые спилы дерева</li>
+          <li class="list-group-item list-group-item-action rounded">Мох</li>
+          <li class="list-group-item list-group-item-action rounded">Грибы</li>
+
+        </div>
+
+        <div class="col-sm-9">
+          <div class="row card-group" id="product-place">
+
+
+            <!--          <div class="col-sm-6 col-md-4 col-xl-3 my-1">-->
+            <!--            <div class="card">-->
+            <!--&lt;!&ndash;              <i class="icon-heart like"></i>&ndash;&gt;-->
+            <!--              <img src="/images/cones-of-alder.jpg" class="card-img-top" alt="cones-of-alder">-->
+            <!--              <div class="card-body">-->
+            <!--                <h5 class="card-title">Шишки ольхи</h5>-->
+            <!--              </div>-->
+            <!--              <div class="card-footer">-->
+            <!--                <button type="button" class="btn btn-sm btn-outline-success">-->
+            <!--                  В корзину-->
+            <!--                  <i class="icon-shopping-basket"></i>-->
+            <!--                </button>-->
+            <!--              </div>-->
+            <!--            </div>-->
+            <!--          </div>-->
+
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLarge" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
         ...
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+       aria-modal="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          ...
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-
-<div class="d-none" id="how-to-buy">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <h3 class="text-center">How to buy</h3>
-        <p> lorem ipsum</p>
+  <div class="d-none mt-5" id="how-to-buy">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h3 class="text-center">How to buy</h3>
+          <p> lorem ipsum</p>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="d-none" id="delivery">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <h3 class="text-center">delivery</h3>
-        <p> lorem ipsum</p>
+  <div class="d-none mt-5" id="delivery">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h3 class="text-center">delivery</h3>
+          <p> lorem ipsum</p>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="d-none" id="payment">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <h3 class="text-center">payment</h3>
-        <p> lorem ipsum</p>
+  <div class="d-none mt-5" id="payment">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h3 class="text-center">payment</h3>
+          <p> lorem ipsum</p>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<div class="d-none" id="contact">
-  <div class="container">
-    <div class="row">
-      <div class="col-12">
-        <h3 class="text-center">contact</h3>
-        <p> lorem ipsum</p>
+  <div class="d-none mt-5" id="contact">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h3 class="text-center">contact</h3>
+          <p> lorem ipsum</p>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
+</main>
 
 <footer>
   <h5 class="text-center py-5"><i class="icon-copyright">2020</i></h5>

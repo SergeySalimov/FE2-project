@@ -45,12 +45,12 @@ export class Ui extends EventEmitter {
 
   observerForAuthRegChange() {
     CONFIG.elements.authRegForm.addEventListener('keyup', (event) => {
-      this.changeBtnFormState(CONFIG.elements.authRegForm.checkValidity());
       if (!this.authRegForm) this.validatePswd();
       this.changeBtnFormState(CONFIG.elements.authRegForm.checkValidity());
     });
     // for touchscreen
     CONFIG.elements.authRegForm.addEventListener('touchend', (event) => {
+      if (!this.authRegForm) this.validatePswd();
       this.changeBtnFormState(CONFIG.elements.authRegForm.checkValidity());
     });
   }
@@ -59,7 +59,6 @@ export class Ui extends EventEmitter {
     const _pswd = [];
     const pswdInput = CONFIG.elements.authRegForm.querySelectorAll('[type="password"]');
     pswdInput.forEach(e => _pswd.push(e.value));
-    console.log(_pswd);
     if (_pswd[0] !== _pswd[1] && _pswd[0] !== '') {
       pswdInput[1].setCustomValidity('Пароли должны совпадать!');
     } else {
@@ -79,6 +78,10 @@ export class Ui extends EventEmitter {
     //
     this.initAuthRegClick();
     this.observerForAuthRegChange();
+    CONFIG.elements.clearBtnForm.addEventListener('click', (event) => {
+      event.preventDefault();
+      this.resetForm();
+    });
     CONFIG.elements.authRegForm.addEventListener('submit', (event) => {
       event.preventDefault();
       if (!this.authRegForm) {
@@ -90,11 +93,14 @@ export class Ui extends EventEmitter {
     });
   }
 
-  toogleAuthRegForm(auth = true) {
+  resetForm() {
     CONFIG.elements.authRegForm.reset();
-    // this.changeBtnFormState(CONFIG.elements.authRegForm.checkValidity());
+    this.changeBtnFormState(false);
+  }
+
+  toogleAuthRegForm(auth = true) {
+    this.resetForm();
     if (auth) {
-      console.log('auth');
       this.authRegForm = true;
       CONFIG.elements.authRegForm.querySelectorAll(CONFIG.forRgs).forEach(e => e.classList.add(CONFIG.dNone));
       CONFIG.elements.authRegForm.querySelector('[type="text"]').required = false;
@@ -102,7 +108,6 @@ export class Ui extends EventEmitter {
       CONFIG.elements.authBtn.classList.add(CONFIG.active);
       CONFIG.elements.regBtn.classList.remove(CONFIG.active);
     } else {
-      console.log('reg');
       this.authRegForm =false;
       CONFIG.elements.authRegForm.querySelectorAll(CONFIG.forRgs).forEach(e => e.classList.remove(CONFIG.dNone));
       CONFIG.elements.authRegForm.querySelector('[type="text"]').required = true;
