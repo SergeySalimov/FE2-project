@@ -30,12 +30,14 @@ header {
       @media (min-width: map-get($grid-breakpoints, "sm")) {
         font-size: 1rem;
       }
+
       i {
         font-size: 1.2rem;
         padding-bottom: 20px;
         @media (min-width: map-get($grid-breakpoints, "sm")) {
           padding-bottom: 3px;
         }
+
         a {
           font-size: 0.8rem;
           color: $mainFontColor;
@@ -45,7 +47,6 @@ header {
         }
 
       }
-
 
 
       &:hover {
@@ -69,6 +70,7 @@ header {
   a {
     cursor: pointer;
   }
+
   #navbar9 {
     ul {
       li {
@@ -79,19 +81,19 @@ header {
           //color: $mainColorFont;
 
           // if expand navigation on sm toogle on font-size!!!!
-        //  @media (min-width: map-get($grid-breakpoints, "sm")) {
-        //    font-size: 0.7rem;
-        //}
+          //  @media (min-width: map-get($grid-breakpoints, "sm")) {
+          //    font-size: 0.7rem;
+          //}
           @media (min-width: map-get($grid-breakpoints, "md")) {
             font-size: 1.1rem;
           }
-      }
+        }
 
-      li:hover {
-        background-color: $mainFontColor;
+        li:hover {
+          background-color: $mainFontColor;
 
-        a {
-          color: $alterFontColor;
+          a {
+            color: $alterFontColor;
           }
 
         }
@@ -111,6 +113,7 @@ header {
   .navbar-brand:hover {
     background-color: $additFontColor;
   }
+
   .navbar-brand.no-autoriz:hover {
     background-color: $red;
   }
@@ -124,6 +127,7 @@ header {
   }
 }
 
+
 #home {
   p {
     text-indent: 1.5em;
@@ -131,12 +135,15 @@ header {
 }
 
 #catalog {
+  background: url("/images/wall.jpg");
+  background-size: auto;
 
   #catalog-navigation {
     //font-weight: bolder;
     li {
       cursor: pointer;
     }
+
     #btn-catalog.active {
       background-color: $blue;
       color: $mainFontColor;
@@ -189,8 +196,8 @@ header {
 
     font-size: 0.8rem;
   }
-
 }
+
 
 footer {
   background-color: $backGrey;

@@ -2,6 +2,8 @@ export const CONFIG = {
   api: 'https://my-json-server.typicode.com/SergeySalimov/FE2-project',
   dNone: 'd-none',
   active: 'active',
+  forRgs: '.for-registration',
+  modalAuthRegID: '#registration',
   elements: {
     productsPlace: document.getElementById('product-place'),
     homePage: document.getElementById('home'),
@@ -21,6 +23,11 @@ export const CONFIG = {
     errorBack: document.getElementById('error-to-home'),
     catBtn: document.getElementById('catalog-navigation'),
     catBtnHome: document.getElementById('btn-catalog'),
+    authRegForm: document.getElementById('auth-reg-form'),
+    authRegFormId: '#auth-reg-form',
+    authBtn: document.getElementById('auth-btn'),
+    regBtn: document.getElementById('reg-btn'),
+
   },
 
 };

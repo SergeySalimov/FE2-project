@@ -11,6 +11,8 @@ export class Ui extends EventEmitter {
     this.templateScript = compiledTemplate;
     this.initNavBtn();
     this.initCatBtn();
+    this.authRegForm = true;
+    this.initModalRegistration();
     // display routes functions
     this.renderPath = {
       '': this.displayHomePage.bind(this),
@@ -31,6 +33,100 @@ export class Ui extends EventEmitter {
 
   }
 
+  changeBtnFormState(on = true) {
+    if (on) {
+      CONFIG.elements.authRegForm.querySelector('[type="submit"]').className = 'btn btn-success mt-3';
+      $('[data-toggle="tooltip"]').tooltip('disable');
+    } else {
+      CONFIG.elements.authRegForm.querySelector('[type="submit"]').className = 'btn btn-danger mt-3';
+      $('[data-toggle="tooltip"]').tooltip('enable');
+    }
+  }
+
+  observerForAuthRegChange() {
+    CONFIG.elements.authRegForm.addEventListener('keyup', (event) => {
+      this.changeBtnFormState(CONFIG.elements.authRegForm.checkValidity());
+      if (!this.authRegForm) this.validatePswd();
+      this.changeBtnFormState(CONFIG.elements.authRegForm.checkValidity());
+    });
+    // for touchscreen
+    CONFIG.elements.authRegForm.addEventListener('touchend', (event) => {
+      this.changeBtnFormState(CONFIG.elements.authRegForm.checkValidity());
+    });
+  }
+
+  validatePswd() {
+    const _pswd = [];
+    const pswdInput = CONFIG.elements.authRegForm.querySelectorAll('[type="password"]');
+    pswdInput.forEach(e => _pswd.push(e.value));
+    console.log(_pswd);
+    if (_pswd[0] !== _pswd[1] && _pswd[0] !== '') {
+      pswdInput[1].setCustomValidity('Пароли должны совпадать!');
+    } else {
+      pswdInput[1].setCustomValidity('');
+    }
+
+  }
+
+  initModalRegistration() {
+    //
+    // $(CONFIG.modalAuthRegID).on('shown.bs.modal', function (e) {
+    //   console.log('Modal is open');
+    // });
+    // $(CONFIG.modalAuthRegID).on('hidden.bs.modal', function (e) {
+    //   console.log('Modal is close');
+    // });
+    //
+    this.initAuthRegClick();
+    this.observerForAuthRegChange();
+    CONFIG.elements.authRegForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if (!this.authRegForm) {
+        console.log('REGISTRATION');
+      }
+
+      console.log('SENDING FORM....');
+
+    });
+  }
+
+  toogleAuthRegForm(auth = true) {
+    CONFIG.elements.authRegForm.reset();
+    // this.changeBtnFormState(CONFIG.elements.authRegForm.checkValidity());
+    if (auth) {
+      console.log('auth');
+      this.authRegForm = true;
+      CONFIG.elements.authRegForm.querySelectorAll(CONFIG.forRgs).forEach(e => e.classList.add(CONFIG.dNone));
+      CONFIG.elements.authRegForm.querySelector('[type="text"]').required = false;
+      CONFIG.elements.authRegForm.querySelectorAll('[type="password"]')[1].required = false;
+      CONFIG.elements.authBtn.classList.add(CONFIG.active);
+      CONFIG.elements.regBtn.classList.remove(CONFIG.active);
+    } else {
+      console.log('reg');
+      this.authRegForm =false;
+      CONFIG.elements.authRegForm.querySelectorAll(CONFIG.forRgs).forEach(e => e.classList.remove(CONFIG.dNone));
+      CONFIG.elements.authRegForm.querySelector('[type="text"]').required = true;
+      CONFIG.elements.authRegForm.querySelectorAll('[type="password"]')[1].required = true;
+      CONFIG.elements.authBtn.classList.remove(CONFIG.active);
+      CONFIG.elements.regBtn.classList.add(CONFIG.active);
+    }
+  }
+
+  initAuthRegClick() {
+    CONFIG.elements.authBtn.addEventListener('click', (event) => {
+      event.preventDefault();
+      if (!CONFIG.elements.authBtn.classList.contains(CONFIG.active)) {
+        this.toogleAuthRegForm();
+      }
+    });
+    CONFIG.elements.regBtn.addEventListener('click', (event) => {
+      event.preventDefault();
+      if (!CONFIG.elements.regBtn.classList.contains(CONFIG.active)) {
+        this.toogleAuthRegForm(false);
+      }
+    });
+  }
+
   isRouteOfCatalog(route) {
     return Object.keys(this._model.catalogRoutes).includes(route);
   }
@@ -38,12 +134,12 @@ export class Ui extends EventEmitter {
   // output block
   displayCatalogPage() {
     const productToDisplay = window.location.pathname.trim();
+    if (this._model._noAuth) this._model.initTooltip();
     if (this.isRouteOfCatalog(productToDisplay))  {
       this.clearActiveCatalogNavigation();
       if (productToDisplay === '/catalog') {
         CONFIG.elements.catBtnHome.classList.add(CONFIG.active);
       } else {
-        console.log('find of name');
         let name = '';
         for (const key in this._model.catalogNames) {
           if (this._model.catalogNames[key] === productToDisplay) name = key;
@@ -167,8 +263,7 @@ export class Ui extends EventEmitter {
   // rendering templates
   renderProductsToDisplay(data) {
     // compile with handlebars
-    CONFIG.elements.productsPlace.innerHTML = this.templateScript(data)
-
+    CONFIG.elements.productsPlace.innerHTML = this.templateScript(data);
   }
 }
 

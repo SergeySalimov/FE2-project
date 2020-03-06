@@ -8,6 +8,7 @@ export class Model extends EventEmitter {
     this.router = router;
     this.allProducts = [];
     this.productsToDisplay = [];
+    this._noAuth = true;
     this.init();
     this.current = decodeURI(window.location.pathname).split('/')[1];
     this.catalogState = '/catalog';
@@ -33,16 +34,17 @@ export class Model extends EventEmitter {
           this.emit('productsLoaded', this.productsToDisplay);
           // console.log(this.catalogRoutes);
           // console.log(this.catalogNames);
-          this.initTooltipForAuth();
           const curPage = decodeURI(window.location.pathname).split('/')[1];
           this.router.render(curPage);
+          // popup for basket
+          this.initTooltip(this._noAuth);
           this.current = curPage;
 
           // $('#exampleModal').modal();
         });
   }
 
-  initTooltipForAuth(on = true) {
+  initTooltip(on = true) {
     if (on) {
       $(function () {
         $('[data-toggle="tooltip"]').tooltip()

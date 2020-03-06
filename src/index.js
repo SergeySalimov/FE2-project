@@ -6,7 +6,7 @@ import '@css/style.scss';
 import '@assets/img/oak-sm.png';
 import '@assets/img/cart2-sm.png';
 import '@assets/img/sunlight-forest-nature.jpg';
-import '@assets/img/opera_2019-12-04_21-59-08.png';
+import '@assets/img/wall.jpg';
 import '@assets/img/products/cones-of-alder.jpg';
 import '@assets/img/products/fir-cones.jpg';
 import '@assets/img/products/pine-cones.jpg';
@@ -46,6 +46,8 @@ import {Ui} from "@/js/ui";
 import {CONFIG} from "@/js/config";
 import {Router} from "@/js/router";
 import {Controller} from "@/js/controller";
+
+import validate from 'jquery-validation';
 // import jquery-ui library
 // import "../node_modules/jquery-ui/themes/base/all.css";
 // import "../node_modules/jquery-ui/themes/base/theme.css";
