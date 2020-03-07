@@ -8,6 +8,18 @@ export class Controller {
     this._ui.on('navClick', url => this.onNavigationClick(url));
     this._ui.on('catClick', url => this.onCatalogClick(url));
     // this._model.on('productsLoaded', () => this.initCatalogRoutes())
+    this._ui.on('newUser', arr => this.onUserRegistration(arr));
+    this._ui.on('logIn', arr => this.onUserLogin(arr));
+  }
+
+  onUserLogin(arrData) {
+    const _data = arrData;
+
+    this._model.checkUserLogin(arrData);
+  }
+
+  onUserRegistration(arrData) {
+    this._model.saveNewUser(arrData);
   }
 
   onCatalogClick(url) {
@@ -52,8 +64,6 @@ export class Controller {
         this.router.addRoute(catPrd, this._ui.emit.bind(this._ui, 'catalogChange', catalogRoutes[catPrd]))
       }
     }
-
-
   }
 
 }

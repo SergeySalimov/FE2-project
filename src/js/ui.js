@@ -74,22 +74,36 @@ export class Ui extends EventEmitter {
     // });
     // $(CONFIG.modalAuthRegID).on('hidden.bs.modal', function (e) {
     //   console.log('Modal is close');
+    //   this._formData = [];
     // });
     //
     this.initAuthRegClick();
     this.observerForAuthRegChange();
+    this.formListnener();
+  }
+
+  formListnener() {
     CONFIG.elements.clearBtnForm.addEventListener('click', (event) => {
       event.preventDefault();
       this.resetForm();
     });
     CONFIG.elements.authRegForm.addEventListener('submit', (event) => {
       event.preventDefault();
+      let _formData = [];
       if (!this.authRegForm) {
-        console.log('REGISTRATION');
+        console.log('registr');
+        CONFIG.elements.authRegForm.querySelectorAll('input').forEach(e => _formData.push(e.value));
+        _formData.splice(5);
+        _formData.push(CONFIG.elements.authRegForm.querySelector('[type="checkbox"]').checked);
+        this.emit('newUser', _formData);
+      } else {
+        console.log('login');
+        CONFIG.elements.authRegForm.querySelectorAll('input').forEach(e => _formData.push(e.value));
+        _formData.splice(1, 3);
+        _formData.splice(2);
+        this.emit('logIn', _formData);
       }
-
       console.log('SENDING FORM....');
-
     });
   }
 

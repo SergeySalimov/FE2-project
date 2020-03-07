@@ -42,35 +42,39 @@
         {
           "name": "Желуди",
           "subitems": false,
-          "content": [{
-            "header": "Желуди",
-            "description": "Lorem ipsum",
-            "img": "/images/zhyoludi.jpg",
-            "inBasket": false,
-            "uniqueId": "1-5"
-          }]
+          "content": [
+            {
+              "header": "Желуди",
+              "description": "Lorem ipsum",
+              "img": "/images/zhyoludi.jpg",
+              "inBasket": false,
+              "uniqueId": "1-5"
+            }
+          ]
         },
         {
           "name": "Каштаны",
           "subitems": false,
-          "content": [{
-            "header": "Каштаны",
-            "description": "Lorem ipsum",
-            "img": "/images/cashtany.jpg",
-            "inBasket": false,
-            "uniqueId": "1-6"
-          }]
+          "content": [
+            {
+              "header": "Каштаны",
+              "description": "Lorem ipsum",
+              "img": "/images/cashtany.jpg",
+              "inBasket": false,
+              "uniqueId": "1-6"
+            }
+          ]
         },
         {
           "name": "Ягоды",
           "subitems": false,
           "content": [
             {
-            "header": "Ягоды черемухи",
-            "description": "Lorem ipsum",
-            "img": "/images/cherjomuha.jpg",
-            "inBasket": false,
-            "uniqueId": "1-7"
+              "header": "Ягоды черемухи",
+              "description": "Lorem ipsum",
+              "img": "/images/cherjomuha.jpg",
+              "inBasket": false,
+              "uniqueId": "1-7"
             },
             {
               "header": "Ягоды бузины",
@@ -294,7 +298,5 @@
       ]
     }
   ],
-  "reservation": [
-
-  ]
+  "users": []
 }

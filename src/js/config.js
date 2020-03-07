@@ -1,5 +1,6 @@
 export const CONFIG = {
-  api: 'https://my-json-server.typicode.com/SergeySalimov/FE2-project',
+  // api: 'https://my-json-server.typicode.com/SergeySalimov/FE2-project',
+  api: 'http://localhost:3007',
   dNone: 'd-none',
   active: 'active',
   forRgs: '.for-registration',

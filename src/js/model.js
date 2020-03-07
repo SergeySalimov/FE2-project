@@ -16,6 +16,30 @@ export class Model extends EventEmitter {
     this.catalogNames = {};
   }
 
+  checkUserLogin(arr) {
+    console.log(arr);
+  }
+
+  saveNewUser(_arr) {
+    console.log(_arr);
+    console.log('Save new USER.....');
+    fetch(`${CONFIG.api}/users`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(_arr)
+    })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log('Success:', data);
+
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+  }
+
   init() {
     console.log('init');
     fetch(`${CONFIG.api}/products`, {

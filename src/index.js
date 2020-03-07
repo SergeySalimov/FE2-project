@@ -7,6 +7,7 @@ import '@assets/img/oak-sm.png';
 import '@assets/img/cart2-sm.png';
 import '@assets/img/sunlight-forest-nature.jpg';
 import '@assets/img/wall.jpg';
+// import '@assets/img/footer.jpg';
 import '@assets/img/products/cones-of-alder.jpg';
 import '@assets/img/products/fir-cones.jpg';
 import '@assets/img/products/pine-cones.jpg';
