@@ -13,13 +13,27 @@ export class Controller {
   }
 
   onUserLogin(arrData) {
-    const _data = arrData;
+    const email = arrData[0];
+    const www = this._model.strToBit(arrData[1]);
+    const _user = { email, www, };
+    this._model.checkUserLogin(_user);
+  }
 
-    this._model.checkUserLogin(arrData);
+  onlyNumbers(str) {
+    return parseInt(str.replace(/\D+/g, ''), 10);
   }
 
   onUserRegistration(arrData) {
-    this._model.saveNewUser(arrData);
+    const email = arrData[0];
+    const name = arrData[1];
+    const phone = `+${this.onlyNumbers(arrData[2])} ${this.onlyNumbers(arrData[3])}`;
+    const www = this._model.strToBit(arrData[4]);
+    const news = arrData[5];
+
+    console.log(phone);
+    const _user = { email, name, phone, www, news, };
+
+    this._model.saveNewUser(_user);
   }
 
   onCatalogClick(url) {

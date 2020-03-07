@@ -16,8 +16,40 @@ export class Model extends EventEmitter {
     this.catalogNames = {};
   }
 
-  checkUserLogin(arr) {
-    console.log(arr);
+  strToBit(str) {
+    let bit = '';
+    let newStr = str;
+    for (let i = 0; i < newStr.length; i++) {
+      bit += newStr[i].charCodeAt(0).toString(2) + ' ';
+    }
+    return bit.trim();
+  }
+
+  bitToString(bit) {
+    let newStr = '';
+    bit.split(' ').forEach(bin => {
+      let binary = new Number(bin);
+      newStr += String.fromCharCode(parseInt(binary, 2))
+    });
+    return newStr;
+  }
+
+  checkUserLogin(obj) {
+    console.log(obj);
+
+
+  }
+
+  getUsers(key, value) {
+    fetch(`${CONFIG.api}/users`, {
+      headers: {
+        'Content-type': 'application/json',
+      },
+    })
+        .then((res) => res.json())
+        .then((data) => {
+
+    })
   }
 
   saveNewUser(_arr) {
@@ -32,10 +64,11 @@ export class Model extends EventEmitter {
     })
         .then((res) => res.json())
         .then((data) => {
-          console.log('Success:', data);
+          this.emit('newUserSaved', data);
 
         })
         .catch((error) => {
+          this.emit('newUserSaveError', error);
           console.error('Error:', error);
         });
   }

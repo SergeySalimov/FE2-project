@@ -77,6 +77,11 @@ export class Ui extends EventEmitter {
     //   this._formData = [];
     // });
     //
+    $('.toast').toast({
+      autohide: true,
+      delay: 5000
+    });
+    // $('.toast').toast('show');
     this.initAuthRegClick();
     this.observerForAuthRegChange();
     this.formListnener();
@@ -104,6 +109,9 @@ export class Ui extends EventEmitter {
         this.emit('logIn', _formData);
       }
       console.log('SENDING FORM....');
+      // $(CONFIG.modalAuthRegID).modal('hide');
+      //   this._formData = [];
+      $('.toast').toast('show')
     });
   }
 
