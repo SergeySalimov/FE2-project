@@ -11,7 +11,6 @@ export class Ui extends EventEmitter {
     this.templateScript = compiledTemplate;
     this.initNavBtn();
     this.initCatBtn();
-    this.authRegForm = true;
     this.initModalRegistration();
     // display routes functions
     this.renderPath = {
@@ -30,7 +29,41 @@ export class Ui extends EventEmitter {
       $(CONFIG.elements.nav2).children().slice(1).remove();
       this.renderPath[page]();
     });
+    this._model.on('serverWorkEnd', response => this.formAfterServerWork(response));
 
+  }
+
+  formAfterServerWork(arr) {
+    this.deepResetForm();
+    this.toastShow(arr)
+
+  }
+
+  toastShow(arr) {
+    if (arr[0] == 'error') {
+      // error branch
+      if (arr[1] == 'login') {
+        // login errors
+        if (arr[2] == 1) {
+          $(CONFIG.loginError1Toast).toast('show');
+        } else {
+          $(CONFIG.loginError2Toast).toast('show');
+        }
+      } else {
+        // registration errors
+
+      }
+    } else {
+      // success branch
+      if (arr[1] == 'login') {
+        //succes login
+        $(CONFIG.loginSuccesToast).toast('show');
+        console.log(this._model._curUser);
+      } else {
+        //succes registration
+
+      }
+    }
   }
 
   changeBtnFormState(on = true) {
@@ -43,14 +76,26 @@ export class Ui extends EventEmitter {
     }
   }
 
+  changeRecoveryPswdState(el = CONFIG.elements.authRegForm.querySelector('[type="password"]'),
+                          state = CONFIG.elements.recoveryPswCheckBox.checked) {
+    if (state) {
+      el.required = false;
+      el.parentElement.classList.add(CONFIG.dNone)
+    } else {
+      el.required = true;
+      el.parentElement.classList.remove(CONFIG.dNone)
+    }
+    this.changeBtnFormState(CONFIG.elements.authRegForm.checkValidity());
+  }
+
   observerForAuthRegChange() {
     CONFIG.elements.authRegForm.addEventListener('keyup', (event) => {
-      if (!this.authRegForm) this.validatePswd();
+      if (!this._model._loginUser) this.validatePswd();
       this.changeBtnFormState(CONFIG.elements.authRegForm.checkValidity());
     });
     // for touchscreen
     CONFIG.elements.authRegForm.addEventListener('touchend', (event) => {
-      if (!this.authRegForm) this.validatePswd();
+      if (!this._model._loginUser) this.validatePswd();
       this.changeBtnFormState(CONFIG.elements.authRegForm.checkValidity());
     });
   }
@@ -77,27 +122,36 @@ export class Ui extends EventEmitter {
     //   this._formData = [];
     // });
     //
-    $('.toast').toast();
-    // $('.toast').toast('show');
+    $(CONFIG.toast).toast();
     this.initAuthRegClick();
     this.observerForAuthRegChange();
     this.formListnener();
   }
 
-  collectDataFromForm(regist = true) {
+  showRecoveryToast() {
+    $(CONFIG.recoveryToast).toast('show');
+  }
+
+  emitEventOnForm() {
     let _formData = [];
+    this.changeBtnSendState();
     CONFIG.elements.authRegForm.querySelectorAll('input').forEach(e => _formData.push(e.value));
-    if (!this.authRegForm) {
+    if (!this._model._loginUser) {
       console.log('registr');
       _formData.splice(5);
-      _formData.push(CONFIG.elements.authRegForm.querySelector('#subscribe').checked);
+      _formData.push(CONFIG.elements.subscribeCheckBox.checked);
       console.log(_formData);
-      this.emit('newUser', _formData);
+      this.emit('serverWorkStart', _formData);
     } else {
       console.log('login');
       _formData.splice(1, 3);
       _formData.splice(2);
-      this.emit('logIn', _formData);
+      if (CONFIG.elements.recoveryPswCheckBox.checked) {
+        console.log('recovery');
+        this.emit('pswdRecovery', _formData[0])
+      } else {
+        this.emit('serverWorkStart', _formData);
+      }
     }
   }
 
@@ -108,35 +162,60 @@ export class Ui extends EventEmitter {
     });
     CONFIG.elements.authRegForm.addEventListener('submit', (event) => {
       event.preventDefault();
-      this.collectDataFromForm();
+      this.emitEventOnForm();
+      // the end!!!
+
 
       console.log('SENDING FORM....');
       // $(CONFIG.modalAuthRegID).modal('hide');
       // $('.toast').toast('show')
     });
+    CONFIG.elements.recoveryPswCheckBox.addEventListener('change', () => {
+      this.changeRecoveryPswdState();
+    })
+  }
+
+  changeBtnSendState(send = true) {
+    const el = CONFIG.elements.submitBtnForm;
+    if (send) {
+      el.disabled = true;
+      el.children[0].classList.remove(CONFIG.dNone)
+    } else {
+      el.disabled = false;
+      el.children[0].classList.add(CONFIG.dNone)
+    }
   }
 
   resetForm() {
     CONFIG.elements.authRegForm.reset();
+    this.changeRecoveryPswdState();
     this.changeBtnFormState(false);
+  }
+
+  deepResetForm() {
+    this.changeBtnSendState(false);
+    this.resetForm();
   }
 
   toogleAuthRegForm(auth = true) {
     this.resetForm();
+    console.log(CONFIG.elements.recoveryPsw);
     if (auth) {
-      this.authRegForm = true;
+      this._model._loginUser = true;
       CONFIG.elements.authRegForm.querySelectorAll(CONFIG.forRgs).forEach(e => e.classList.add(CONFIG.dNone));
       CONFIG.elements.authRegForm.querySelector('[type="text"]').required = false;
       CONFIG.elements.authRegForm.querySelectorAll('[type="password"]')[1].required = false;
       CONFIG.elements.authBtn.classList.add(CONFIG.active);
       CONFIG.elements.regBtn.classList.remove(CONFIG.active);
+      CONFIG.elements.recoveryPsw.classList.remove(CONFIG.dNone);
     } else {
-      this.authRegForm =false;
+      this._model._loginUser = false;
       CONFIG.elements.authRegForm.querySelectorAll(CONFIG.forRgs).forEach(e => e.classList.remove(CONFIG.dNone));
       CONFIG.elements.authRegForm.querySelector('[type="text"]').required = true;
       CONFIG.elements.authRegForm.querySelectorAll('[type="password"]')[1].required = true;
       CONFIG.elements.authBtn.classList.remove(CONFIG.active);
       CONFIG.elements.regBtn.classList.add(CONFIG.active);
+      CONFIG.elements.recoveryPsw.classList.add(CONFIG.dNone);
     }
   }
 
@@ -163,7 +242,7 @@ export class Ui extends EventEmitter {
   displayCatalogPage() {
     const productToDisplay = window.location.pathname.trim();
     if (this._model._noAuth) this._model.initTooltip();
-    if (this.isRouteOfCatalog(productToDisplay))  {
+    if (this.isRouteOfCatalog(productToDisplay)) {
       this.clearActiveCatalogNavigation();
       if (productToDisplay === '/catalog') {
         CONFIG.elements.catBtnHome.classList.add(CONFIG.active);
@@ -189,30 +268,36 @@ export class Ui extends EventEmitter {
   displayHomePage() {
     CONFIG.elements.homePage.classList.remove(CONFIG.dNone);
   }
+
   displayErrorPage() {
     CONFIG.elements.nav2Home.after(this.createHtmlForBreadcrump('Указанная страница не найдена'));
     CONFIG.elements.errorPage.classList.remove(CONFIG.dNone);
   }
+
   displayHowToBuyPage() {
     CONFIG.elements.nav2Home.after(this.createHtmlForBreadcrump('Как купить'));
     CONFIG.elements.howToBuyPage.classList.remove(CONFIG.dNone);
     CONFIG.elements.navBtnHowToBuy.classList.add(CONFIG.active);
   }
+
   displayDeliveryPage() {
     CONFIG.elements.nav2Home.after(this.createHtmlForBreadcrump('Доставка'));
     CONFIG.elements.deliveryPage.classList.remove(CONFIG.dNone);
     CONFIG.elements.navBtnDelivery.classList.add(CONFIG.active);
   }
+
   displayPaymentPage() {
     CONFIG.elements.nav2Home.after(this.createHtmlForBreadcrump('Оплата'));
     CONFIG.elements.paymentPage.classList.remove(CONFIG.dNone);
     CONFIG.elements.navBtnPayment.classList.add(CONFIG.active);
   }
+
   displayContactPage() {
     CONFIG.elements.nav2Home.after(this.createHtmlForBreadcrump('Контакты'));
     CONFIG.elements.contactPage.classList.remove(CONFIG.dNone);
     CONFIG.elements.navBtnContact.classList.add(CONFIG.active);
   }
+
   createHtmlForBreadcrump(description, active = true) {
     const li = document.createElement('li');
     li.className = 'breadcrumb-item';
@@ -224,6 +309,7 @@ export class Ui extends EventEmitter {
     }
     return li;
   }
+
   hideAll() {
     CONFIG.elements.homePage.classList.add(CONFIG.dNone);
     CONFIG.elements.errorPage.classList.add(CONFIG.dNone);
@@ -238,10 +324,12 @@ export class Ui extends EventEmitter {
     CONFIG.elements.navBtnPayment.classList.remove(CONFIG.active);
     CONFIG.elements.navBtnContact.classList.remove(CONFIG.active);
   }
+
   render404() {
     window.history.pushState(null, null, '/404');
     this.router.render(decodeURI(window.location.pathname));
   }
+
   // initialization block
   initCatBtn() {
     CONFIG.elements.catBtnHome.addEventListener('click', (event) => {
@@ -288,6 +376,7 @@ export class Ui extends EventEmitter {
       this.emit('navClick', '/');
     });
   }
+
   // rendering templates
   renderProductsToDisplay(data) {
     // compile with handlebars

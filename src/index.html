@@ -49,7 +49,7 @@
         <form id="auth-reg-form">
 
           <!--          toasts-->
-          <div class="toast registration-succes fade hide"
+          <div class="toast registration-succes fade hide mx-auto"
                data-delay="3000"
                role="alert"
                aria-live="polite"
@@ -66,7 +66,7 @@
             </div>
           </div>
 
-          <div class="toast autorization-succes fade hide"
+          <div class="toast autorization-succes fade hide mx-auto"
                data-delay="3000"
                role="alert"
                aria-live="polite"
@@ -83,8 +83,8 @@
             </div>
           </div>
 
-          <div class="toast recovery-send fade hide"
-               data-delay="3000"
+          <div class="toast recovery-send fade hide mx-auto"
+               data-delay="5000"
                role="alert"
                aria-live="polite"
                aria-atomic="true">
@@ -96,11 +96,28 @@
               </button>
             </div>
             <div class="toast-body">
-              Данные отправлены на почтовый ящик
+              Данные отправлены на почтовый ящик. Проверьте пожалуйста вашу почту
             </div>
           </div>
 
-          <div class="toast autorization-error fade hide"
+          <div class="toast autorization-error fade hide mx-auto"
+               data-delay="3000"
+               role="alert"
+               aria-live="polite"
+               aria-atomic="true">
+            <div class="toast-header">
+              <i class="icon-error-alt mr-2 badge-danger rounded"></i>
+              <strong class="mr-auto">Server</strong>
+              <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="toast-body">
+              Ошибка авторизации. Пользователя с таким email не существует
+            </div>
+          </div>
+
+          <div class="toast autorization2-error fade hide mx-auto"
                data-delay="3000"
                role="alert"
                aria-live="polite"
@@ -117,7 +134,7 @@
             </div>
           </div>
 
-          <div class="toast registration-error fade hide"
+          <div class="toast registration-error fade hide mx-auto"
                data-delay="3000"
                role="alert"
                aria-live="polite"
@@ -133,8 +150,6 @@
               Ошибка регистрации. Пользователь с таким email уже существует
             </div>
           </div>
-
-
 
           <div class="form-row align-items-center">
 
@@ -225,7 +240,7 @@
                      aria-describedby="pswdHelpBlock2">
             </div>
 
-            <div class="col-12">
+            <div class="col-12 recovery-pswd">
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="checkbox" id="recovery-pswd">
                 <label class="form-check-label" for="recovery-pswd">
@@ -248,7 +263,9 @@
                       class="btn btn-danger mt-3"
                       data-toggle="tooltip"
                       data-placement="bottom"
+                      id="submit-btn"
                       title="Заполните все поля правильно">
+                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                 Отправить данные
               </button>
             </div>

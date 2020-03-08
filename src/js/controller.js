@@ -1,3 +1,5 @@
+import {CONFIG} from "@/js/config";
+
 export class Controller {
   constructor(model, ui, router) {
     this._model = model;
@@ -8,15 +10,26 @@ export class Controller {
     this._ui.on('navClick', url => this.onNavigationClick(url));
     this._ui.on('catClick', url => this.onCatalogClick(url));
     // this._model.on('productsLoaded', () => this.initCatalogRoutes())
-    this._ui.on('newUserStart', arr => this.onUserRegistration(arr));
-    this._ui.on('logInStart', arr => this.onUserLogin(arr));
+    this._ui.on('serverWorkStart', (arr) => {
+      if (this._model._loginUser) {
+        this.onUserLogin(arr);
+      } else {
+        this.onUserRegistration(arr)
+      }
+    });
+    this._ui.on('pswdRecovery', email => this.onPswRecovery(email));
+  }
+
+  onPswRecovery(email) {
+    this._ui.showRecoveryToast();
+    this._ui.deepResetForm();
   }
 
   onUserLogin(arrData) {
     const email = arrData[0];
     const www = this._model.strToBit(arrData[1]);
-    const _user = { email, www, };
-    this._model.checkUserLogin(_user);
+    this._model._curUser = { email, www, };
+    this._model.getUsers();
   }
 
   onlyNumbers(str) {

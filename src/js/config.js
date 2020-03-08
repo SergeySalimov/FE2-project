@@ -4,7 +4,12 @@ export const CONFIG = {
   dNone: 'd-none',
   active: 'active',
   forRgs: '.for-registration',
+  toast: '.toast',
   modalAuthRegID: '#registration',
+  recoveryToast: '.toast.recovery-send',
+  loginError1Toast: '.toast.autorization-error',
+  loginError2Toast: '.toast.autorization2-error',
+  loginSuccesToast: '.toast.autorization-succes',
   elements: {
     productsPlace: document.getElementById('product-place'),
     homePage: document.getElementById('home'),
@@ -26,12 +31,12 @@ export const CONFIG = {
     catBtnHome: document.getElementById('btn-catalog'),
     authRegForm: document.getElementById('auth-reg-form'),
     clearBtnForm: document.getElementById('clear-btn'),
-    authRegFormId: '#auth-reg-form',
+    submitBtnForm: document.getElementById('submit-btn'),
     authBtn: document.getElementById('auth-btn'),
     regBtn: document.getElementById('reg-btn'),
     subscribeCheckBox: document.getElementById('subscribe'),
     recoveryPswCheckBox: document.getElementById('recovery-pswd'),
-
+    recoveryPsw: document.querySelector('.recovery-pswd'),
   },
 
 };

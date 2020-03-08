@@ -9,11 +9,44 @@ export class Model extends EventEmitter {
     this.allProducts = [];
     this.productsToDisplay = [];
     this._noAuth = true;
+    this._loginUser = true;
+    this._curUser = {};
     this.init();
     this.current = decodeURI(window.location.pathname).split('/')[1];
     this.catalogState = '/catalog';
     this.catalogRoutes = {};
     this.catalogNames = {};
+    this.on('usersLoaded', (users) => {
+      if (this._loginUser) {
+        this.checkUserLogin(users);
+      } else {
+
+      }
+    });
+  }
+
+  checkUserLogin(users) {
+    console.log(this._curUser.email);
+    let usersArr = users.filter(obj => obj.email == this._curUser.email);
+    console.log(usersArr);
+    if (usersArr.length) {
+      if (this.bitToString(this._curUser.www) == this.bitToString(usersArr[0].www)) {
+        this._curUser = {
+          email: usersArr[0].email,
+          name: usersArr[0].name,
+          phone: usersArr[0].phone,
+        };
+        this._noAuth = false;
+        this.emit('serverWorkEnd', ['success', 'login', 0]);
+      } else {
+        this._curUser = {};
+        this.emit('serverWorkEnd', ['error', 'login', 2]);
+      }
+
+    } else {
+      this._curUser = {};
+      this.emit('serverWorkEnd', ['error', 'login', 1]);
+    }
   }
 
   strToBit(str) {
@@ -34,13 +67,7 @@ export class Model extends EventEmitter {
     return newStr;
   }
 
-  checkUserLogin(obj) {
-    console.log(obj);
-
-
-  }
-
-  getUsers(key, value) {
+  getUsers() {
     fetch(`${CONFIG.api}/users`, {
       headers: {
         'Content-type': 'application/json',
@@ -48,8 +75,8 @@ export class Model extends EventEmitter {
     })
         .then((res) => res.json())
         .then((data) => {
-
-    })
+          this.emit('usersLoaded', data)
+        })
   }
 
   saveNewUser(_arr) {
