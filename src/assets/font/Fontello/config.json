@@ -299,6 +299,12 @@
       "css": "error-alt",
       "code": 59414,
       "src": "elusive"
+    },
+    {
+      "uid": "bbfb51903f40597f0b70fd75bc7b5cac",
+      "css": "trash-1",
+      "code": 61944,
+      "src": "fontawesome"
     }
   ]
 }
