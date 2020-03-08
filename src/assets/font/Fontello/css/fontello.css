@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'fontello';
-  src: url('../font/fontello.eot?17258790');
-  src: url('../font/fontello.eot?17258790#iefix') format('embedded-opentype'),
-       url('../font/fontello.woff2?17258790') format('woff2'),
-       url('../font/fontello.woff?17258790') format('woff'),
-       url('../font/fontello.ttf?17258790') format('truetype'),
-       url('../font/fontello.svg?17258790#fontello') format('svg');
+  src: url('../font/fontello.eot?6554420');
+  src: url('../font/fontello.eot?6554420#iefix') format('embedded-opentype'),
+       url('../font/fontello.woff2?6554420') format('woff2'),
+       url('../font/fontello.woff?6554420') format('woff'),
+       url('../font/fontello.ttf?6554420') format('truetype'),
+       url('../font/fontello.svg?6554420#fontello') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'fontello';
-    src: url('../font/fontello.svg?17258790#fontello') format('svg');
+    src: url('../font/fontello.svg?6554420#fontello') format('svg');
   }
 }
 */
@@ -77,10 +77,12 @@
 .icon-zoom-out:before { content: '\e813'; } /* '' */
 .icon-down-circled2:before { content: '\e814'; } /* '' */
 .icon-up-circled2:before { content: '\e815'; } /* '' */
+.icon-error-alt:before { content: '\e816'; } /* '' */
 .icon-spin1:before { content: '\e830'; } /* '' */
 .icon-spin4:before { content: '\e834'; } /* '' */
 .icon-spin5:before { content: '\e838'; } /* '' */
 .icon-facebook:before { content: '\f09a'; } /* '' */
+.icon-lightbulb:before { content: '\f0eb'; } /* '' */
 .icon-bell-alt:before { content: '\f0f3'; } /* '' */
 .icon-angle-double-left:before { content: '\f100'; } /* '' */
 .icon-angle-double-right:before { content: '\f101'; } /* '' */
@@ -98,6 +100,7 @@
 .icon-copyright:before { content: '\f1f9'; } /* '' */
 .icon-at:before { content: '\f1fa'; } /* '' */
 .icon-whatsapp:before { content: '\f232'; } /* '' */
+.icon-server:before { content: '\f233'; } /* '' */
 .icon-user-plus:before { content: '\f234'; } /* '' */
 .icon-user-times:before { content: '\f235'; } /* '' */
 .icon-shopping-basket:before { content: '\f291'; } /* '' */
