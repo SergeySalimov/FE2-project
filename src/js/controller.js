@@ -8,8 +8,8 @@ export class Controller {
     this._ui.on('navClick', url => this.onNavigationClick(url));
     this._ui.on('catClick', url => this.onCatalogClick(url));
     // this._model.on('productsLoaded', () => this.initCatalogRoutes())
-    this._ui.on('newUser', arr => this.onUserRegistration(arr));
-    this._ui.on('logIn', arr => this.onUserLogin(arr));
+    this._ui.on('newUserStart', arr => this.onUserRegistration(arr));
+    this._ui.on('logInStart', arr => this.onUserLogin(arr));
   }
 
   onUserLogin(arrData) {

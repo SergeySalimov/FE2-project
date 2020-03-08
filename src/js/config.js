@@ -29,6 +29,8 @@ export const CONFIG = {
     authRegFormId: '#auth-reg-form',
     authBtn: document.getElementById('auth-btn'),
     regBtn: document.getElementById('reg-btn'),
+    subscribeCheckBox: document.getElementById('subscribe'),
+    recoveryPswCheckBox: document.getElementById('recovery-pswd'),
 
   },
 

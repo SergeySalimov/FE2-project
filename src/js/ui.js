@@ -77,14 +77,28 @@ export class Ui extends EventEmitter {
     //   this._formData = [];
     // });
     //
-    $('.toast').toast({
-      autohide: true,
-      delay: 5000
-    });
+    $('.toast').toast();
     // $('.toast').toast('show');
     this.initAuthRegClick();
     this.observerForAuthRegChange();
     this.formListnener();
+  }
+
+  collectDataFromForm(regist = true) {
+    let _formData = [];
+    CONFIG.elements.authRegForm.querySelectorAll('input').forEach(e => _formData.push(e.value));
+    if (!this.authRegForm) {
+      console.log('registr');
+      _formData.splice(5);
+      _formData.push(CONFIG.elements.authRegForm.querySelector('#subscribe').checked);
+      console.log(_formData);
+      this.emit('newUser', _formData);
+    } else {
+      console.log('login');
+      _formData.splice(1, 3);
+      _formData.splice(2);
+      this.emit('logIn', _formData);
+    }
   }
 
   formListnener() {
@@ -94,24 +108,11 @@ export class Ui extends EventEmitter {
     });
     CONFIG.elements.authRegForm.addEventListener('submit', (event) => {
       event.preventDefault();
-      let _formData = [];
-      if (!this.authRegForm) {
-        console.log('registr');
-        CONFIG.elements.authRegForm.querySelectorAll('input').forEach(e => _formData.push(e.value));
-        _formData.splice(5);
-        _formData.push(CONFIG.elements.authRegForm.querySelector('[type="checkbox"]').checked);
-        this.emit('newUser', _formData);
-      } else {
-        console.log('login');
-        CONFIG.elements.authRegForm.querySelectorAll('input').forEach(e => _formData.push(e.value));
-        _formData.splice(1, 3);
-        _formData.splice(2);
-        this.emit('logIn', _formData);
-      }
+      this.collectDataFromForm();
+
       console.log('SENDING FORM....');
       // $(CONFIG.modalAuthRegID).modal('hide');
-      //   this._formData = [];
-      $('.toast').toast('show')
+      // $('.toast').toast('show')
     });
   }
 
