@@ -199,15 +199,14 @@ export class Ui extends EventEmitter {
     }, time);
   }
 
+  // basket listener !!!! here change to fast access to basket
   basketListener() {
     CONFIG.elements.basket.addEventListener('click', (event) => {
       event.preventDefault();
-      $(CONFIG.basketModal).modal({ show: true });
-      this.renderBasket();
       if (!this._model._noAuth) {
         // only if autorized
-        // $(CONFIG.basketModal).modal({ show: true });
-        // this.renderBasket();
+        $(CONFIG.basketModal).modal({ show: true });
+        this.renderBasket();
       }
     });
     CONFIG.elements.basketBtnClear.addEventListener('click', (event) => {
