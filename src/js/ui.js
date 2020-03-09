@@ -64,7 +64,6 @@ export class Ui extends EventEmitter {
     this.hideFormModal();
     this._model.initTooltip(false);
     this.changeUiOnAutState();
-    console.log(this._model.allProducts);
   }
 
   changeUiOnAutState() {
@@ -161,13 +160,70 @@ export class Ui extends EventEmitter {
     this.basketListener();
   }
 
+  renderEmptyBasketDiv() {
+    const div = document.createElement('div');
+    div.innerHTML = '<h4 class="alert text-center mt-5">Пусто</h4>';
+    CONFIG.elements.basketRenderPlace.append(div);
+  }
+
+  clearBasketUi() {
+    CONFIG.elements.basketRenderPlace.innerHTML = '';
+    this.renderEmptyBasketDiv();
+    CONFIG.elements.basketItemCount.innerText = '0';
+    this._model.basketCount = 0;
+    this._model.clearBasketInAllProducts(this._model.allProducts);
+    this.renderBasketCount();
+    this.displayCatalogPage()
+  }
+
+  renderBasket() {
+    const prdInBasket = this._model.initProducts(this._model.allProducts).filter(obj => obj.inBasket);
+    CONFIG.elements.basketItemCount.innerText = this._model.basketCount;
+    CONFIG.elements.basketRenderPlace.innerHTML = '';
+    if (prdInBasket.length) {
+      const ol = document.createElement('ol');
+      prdInBasket.forEach(obj => {
+        const li = document.createElement('li');
+        li.innerText = obj.header;
+        ol.append(li)
+      });
+      CONFIG.elements.basketRenderPlace.append(ol);
+    } else {
+      this.renderEmptyBasketDiv();
+    }
+  }
+//ToDo сдеалть одну функцию
+  hideBasketModal(time = 2000) {
+    window.setTimeout(() => {
+      $(CONFIG.basketModal).modal('hide');
+    }, time);
+  }
+
   basketListener() {
     CONFIG.elements.basket.addEventListener('click', (event) => {
       event.preventDefault();
       $(CONFIG.basketModal).modal({ show: true });
-
+      this.renderBasket();
       if (!this._model._noAuth) {
         // only if autorized
+        // $(CONFIG.basketModal).modal({ show: true });
+        // this.renderBasket();
+      }
+    });
+    CONFIG.elements.basketBtnClear.addEventListener('click', (event) => {
+      event.preventDefault();
+      if (this._model.basketCount !== 0) {
+        $(CONFIG.basketClearToast).toast('show');
+        this.clearBasketUi();
+        this.hideBasketModal();
+      }
+    });
+    CONFIG.elements.basketBtnSend.addEventListener('click', (event) => {
+      event.preventDefault();
+      if (this._model.basketCount !== 0) {
+        $(CONFIG.basketSendToast).toast('show');
+        this.clearBasketUi();
+        this.hideBasketModal();
       }
     });
   }

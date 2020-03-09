@@ -21,7 +21,8 @@
           </div>
         </div>
         <div class="col-xs-12 col-sm-6 text-center text-sm-right cabinet">
-          <i class="icon-user-add"><a href="#" data-toggle="modal" data-target="#registration">данные пользователя</a></i>
+          <i class="icon-user-add"><a href="#" data-toggle="modal" data-target="#registration">данные
+            пользователя</a></i>
           <!--          <img src="/images/opera_2019-12-04_21-59-08.png" alt="social" height="20"/>-->
         </div>
       </div>
@@ -463,17 +464,59 @@
           </button>
         </div>
         <div class="modal-body">
+
+          <div class="toast clear-basket fade hide mx-auto"
+               data-delay="1500"
+               role="alert"
+               aria-live="polite"
+               aria-atomic="true">
+            <div class="toast-header">
+              <i class="icon-shopping-basket mr-2 badge-primary rounded"></i>
+              <strong class="mr-auto">Basket</strong>
+              <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="toast-body">
+              Корзина очищена
+            </div>
+          </div>
+
+          <div class="toast send-basket fade hide mx-auto"
+               data-delay="3000"
+               role="alert"
+               aria-live="polite"
+               aria-atomic="true">
+            <div class="toast-header">
+              <i class="icon-shopping-basket mr-2 badge-primary rounded"></i>
+              <strong class="mr-auto">Basket</strong>
+              <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="toast-body">
+              Ваш заказ отправлен
+            </div>
+          </div>
+
           <h6>Список выбранных товаров:</h6>
-          <ol id="basket-render-place">
-            <li>Шишки</li>
-            <li>Шишки</li>
-            <li>Шишки</li>
-          </ol>
+          <div id="basket-render-place">
+            <h4 class="alert text-center mt-5">Пусто</h4>
+            <ol>
+
+                          <li>Шишки</li>
+              <!--            <li>Шишки</li>-->
+              <!--            <li>Шишки</li>-->
+              <!--            <li>Шишки</li>-->
+            </ol>
+          </div>
+
 
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Отправить данные из корзины</button>
+          <button type="button" class="btn btn-danger" id="clear-basket">Clear</button>
+          <button type="button" class="btn btn-primary" id="send-basket">Отправить данные</button>
         </div>
 
       </div>

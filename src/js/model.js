@@ -18,19 +18,7 @@ export class Model extends EventEmitter {
     this.catalogRoutes = {};
     this.catalogNames = {};
     this.on('usersLoaded', users => this._loginUser ? this.checkUserLogin(users) : this.checkUserRegistration(users));
-
-
   }
-
-  // basketCount(data, start = 0) {
-  //   for (const item of data) {
-  //     if (item.subitems) {
-  //       this.basketCount(item.content, start);
-  //     } else {
-  //       item.content.forEach(obj => );
-  //     }
-  //   }
-  // }
 
   toogleBasketInAllProducts(data, unique) {
     for (const item of data) {
@@ -47,6 +35,18 @@ export class Model extends EventEmitter {
           return isFind
         });
         this.basketCount = count;
+      }
+    }
+  }
+
+  clearBasketInAllProducts(data) {
+    console.log(data);
+    for (const item of data) {
+      if (item.subitems) {
+        console.log(item.subitems);
+        this.clearBasketInAllProducts(item.content);
+      } else {
+        item.content.forEach(obj => obj.inBasket = false);
       }
     }
   }

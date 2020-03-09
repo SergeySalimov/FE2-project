@@ -12,6 +12,8 @@ export const CONFIG = {
   toast: '.toast',
   modalAuthRegID: '#registration',
   recoveryToast: '.toast.recovery-send',
+  basketSendToast: '.toast.send-basket',
+  basketClearToast: '.toast.clear-basket',
   loginError1Toast: '.toast.autorization-error',
   loginError2Toast: '.toast.autorization2-error',
   loginSuccesToast: '.toast.autorization-succes',
@@ -48,6 +50,10 @@ export const CONFIG = {
     cabinetLink: document.querySelector('.cabinet'),
     basket: document.querySelector('.basket'),
     basketCount: document.querySelector('.basket-count'),
+    basketRenderPlace: document.querySelector('#basket-render-place'),
+    basketItemCount: document.querySelector('#basket-item-number'),
+    basketBtnClear: document.querySelector('#clear-basket'),
+    basketBtnSend: document.querySelector('#send-basket'),
   },
 
 };
