@@ -12,6 +12,7 @@ export class Ui extends EventEmitter {
     this.initNavBtn();
     this.initCatBtn();
     this.initModalRegistration();
+    this.initCatalog();
     // display routes functions
     this.renderPath = {
       '': this.displayHomePage.bind(this),
@@ -22,46 +23,86 @@ export class Ui extends EventEmitter {
       'payment': this.displayPaymentPage.bind(this),
       'contact': this.displayContactPage.bind(this),
     };
-
+    // broadcast block
     this._model.on('productsLoaded', data => this.renderProductsToDisplay(data));
     this.on('pageChange', (page) => {
       this.hideAll();
       $(CONFIG.elements.nav2).children().slice(1).remove();
       this.renderPath[page]();
+      this._model.initTooltip();
+      this._model.initTooltip(this._model._noAuth);
+      this.renderBasketCount();
     });
     this._model.on('serverWorkEnd', response => this.formAfterServerWork(response));
-
+    this._model.on('autorization', () => this.autorizedState());
   }
 
-  formAfterServerWork(arr) {
-    this.deepResetForm();
-    this.toastShow(arr)
-
+  renderBasketCount() {
+    CONFIG.elements.basketCount.innerText = this._model.basketCount;
   }
 
-  toastShow(arr) {
-    if (arr[0] == 'error') {
-      // error branch
-      if (arr[1] == 'login') {
-        // login errors
-        if (arr[2] == 1) {
-          $(CONFIG.loginError1Toast).toast('show');
+  //ToDO Сделать обработку на event 'prdClk'
+  initCatalog() {
+    CONFIG.elements.productsPlace.addEventListener('click', (event) => {
+      event.preventDefault();
+      let parent1 = event.target.parentNode;
+      let parent2 = event.target.parentNode.parentNode;
+      if (parent1.classList.contains(CONFIG.productClck) || parent2.classList.contains(CONFIG.productClck)) {
+        if (event.target.classList.contains(CONFIG.bskClck)) {
+          this.emit('basketPrdClk', event.target.dataset.idprd, event.target);
         } else {
-          $(CONFIG.loginError2Toast).toast('show');
+          let id = parent1.dataset.id || parent2.dataset.id;
+          this.emit('prdClk', id);
         }
-      } else {
-        // registration errors
+      }
+    });
+  }
 
+  autorizedState() {
+    // perehod v avtorizovanoe sostoyanie
+    console.log('AUTORIZATE......');
+    this.hideFormModal();
+    this._model.initTooltip(false);
+    this.changeUiOnAutState();
+    console.log(this._model.allProducts);
+  }
+
+  changeUiOnAutState() {
+    CONFIG.elements.cabinetLink.children[0].className = 'icon-user';
+    CONFIG.elements.cabinetLink.children[0].innerHTML = `
+        <a href="#" data-toggle="modal" data-target="#registration">${this._model._curUser.name}</a>`;
+    CONFIG.elements.basket.classList.remove(CONFIG.noAutoriz);
+  }
+
+  hideFormModal(time = 2000) {
+    window.setTimeout(() => {
+      $(CONFIG.modalAuthRegID).modal('hide');
+    }, time);
+  }
+
+  formAfterServerWork(res) {
+    this.deepResetForm();
+    this.toastShow(res);
+  }
+
+  toastShow(res) {
+    if (res[0] === 'error') {
+      // error branch
+      if (res[1] === 'login') {
+        // login errors 0 => error1 & 1 => error2 only
+        !res[2] ? $(CONFIG.loginError1Toast).toast('show') : $(CONFIG.loginError2Toast).toast('show');
+      } else {
+        // registration errors 0 => error1 & 1 => error2 only
+        !res[2] ? $(CONFIG.registrErrorToast).toast('show') : $(CONFIG.registr2ErrorToast).toast('show');
       }
     } else {
       // success branch
-      if (arr[1] == 'login') {
+      if (res[1] === 'login') {
         //succes login
         $(CONFIG.loginSuccesToast).toast('show');
-        console.log(this._model._curUser);
       } else {
         //succes registration
-
+        $(CONFIG.registrSuccesToast).toast('show');
       }
     }
   }
@@ -88,7 +129,7 @@ export class Ui extends EventEmitter {
     this.changeBtnFormState(CONFIG.elements.authRegForm.checkValidity());
   }
 
-  observerForAuthRegChange() {
+  formAuthRegChanging() {
     CONFIG.elements.authRegForm.addEventListener('keyup', (event) => {
       if (!this._model._loginUser) this.validatePswd();
       this.changeBtnFormState(CONFIG.elements.authRegForm.checkValidity());
@@ -113,19 +154,22 @@ export class Ui extends EventEmitter {
   }
 
   initModalRegistration() {
-    //
-    // $(CONFIG.modalAuthRegID).on('shown.bs.modal', function (e) {
-    //   console.log('Modal is open');
-    // });
-    // $(CONFIG.modalAuthRegID).on('hidden.bs.modal', function (e) {
-    //   console.log('Modal is close');
-    //   this._formData = [];
-    // });
-    //
     $(CONFIG.toast).toast();
     this.initAuthRegClick();
-    this.observerForAuthRegChange();
-    this.formListnener();
+    this.formAuthRegChanging();
+    this.formListener();
+    this.basketListener();
+  }
+
+  basketListener() {
+    CONFIG.elements.basket.addEventListener('click', (event) => {
+      event.preventDefault();
+      $(CONFIG.basketModal).modal({ show: true });
+
+      if (!this._model._noAuth) {
+        // only if autorized
+      }
+    });
   }
 
   showRecoveryToast() {
@@ -137,25 +181,17 @@ export class Ui extends EventEmitter {
     this.changeBtnSendState();
     CONFIG.elements.authRegForm.querySelectorAll('input').forEach(e => _formData.push(e.value));
     if (!this._model._loginUser) {
-      console.log('registr');
       _formData.splice(5);
       _formData.push(CONFIG.elements.subscribeCheckBox.checked);
-      console.log(_formData);
       this.emit('serverWorkStart', _formData);
     } else {
-      console.log('login');
       _formData.splice(1, 3);
       _formData.splice(2);
-      if (CONFIG.elements.recoveryPswCheckBox.checked) {
-        console.log('recovery');
-        this.emit('pswdRecovery', _formData[0])
-      } else {
-        this.emit('serverWorkStart', _formData);
-      }
+      !!CONFIG.elements.recoveryPswCheckBox.checked ? this.emit('pswdRecovery', _formData[0]) : this.emit('serverWorkStart', _formData);
     }
   }
 
-  formListnener() {
+  formListener() {
     CONFIG.elements.clearBtnForm.addEventListener('click', (event) => {
       event.preventDefault();
       this.resetForm();
@@ -163,12 +199,6 @@ export class Ui extends EventEmitter {
     CONFIG.elements.authRegForm.addEventListener('submit', (event) => {
       event.preventDefault();
       this.emitEventOnForm();
-      // the end!!!
-
-
-      console.log('SENDING FORM....');
-      // $(CONFIG.modalAuthRegID).modal('hide');
-      // $('.toast').toast('show')
     });
     CONFIG.elements.recoveryPswCheckBox.addEventListener('change', () => {
       this.changeRecoveryPswdState();
@@ -199,7 +229,6 @@ export class Ui extends EventEmitter {
 
   toogleAuthRegForm(auth = true) {
     this.resetForm();
-    console.log(CONFIG.elements.recoveryPsw);
     if (auth) {
       this._model._loginUser = true;
       CONFIG.elements.authRegForm.querySelectorAll(CONFIG.forRgs).forEach(e => e.classList.add(CONFIG.dNone));
@@ -241,7 +270,6 @@ export class Ui extends EventEmitter {
   // output block
   displayCatalogPage() {
     const productToDisplay = window.location.pathname.trim();
-    if (this._model._noAuth) this._model.initTooltip();
     if (this.isRouteOfCatalog(productToDisplay)) {
       this.clearActiveCatalogNavigation();
       if (productToDisplay === '/catalog') {

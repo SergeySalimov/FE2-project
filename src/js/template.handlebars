@@ -1,6 +1,6 @@
 {{#each this}}
-  <div class="col-sm-6 col-md-4 col-xl-3 my-2" data-id="{{uniqueId}}">
-    <div class="card">
+  <div class="col-sm-6 col-md-4 col-xl-3 my-2">
+    <div class="card entire-product" data-id="{{uniqueId}}">
       <!--              <i class="icon-heart like"></i>-->
       <img src="{{img}}" class="card-img-top" alt="{{header}}">
       <div class="card-body">
@@ -8,14 +8,22 @@
       </div>
       <div class="card-footer">
         <button type="button"
+          {{#if inBasket}}
+                class="btn btn-sm btn-success basket-click"
+          {{else}}
                 class="btn btn-sm btn-outline-success basket-click"
-                id="product-btn-{{uniqueId}}"
-                data-toggle="tooltip"
-                data-placement="top"
-                title="Необходима регистрация">
-          В корзину
-          <i class="icon-shopping-basket"></i>
+          {{/if}}
+                data-idprd="{{uniqueId}}">
+<!--                data-toggle="tooltip"-->
+<!--                data-placement="top"-->
+<!--                title="Необходима регистрация"-->
+          {{#if inBasket}}
+            Отмена
+          {{else}}
+            В корзину
+          {{/if}}
         </button>
+        <i class="icon-shopping-basket"></i>
       </div>
     </div>
   </div>

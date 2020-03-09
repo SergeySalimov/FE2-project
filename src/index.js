@@ -47,30 +47,14 @@ import {Ui} from "@/js/ui";
 import {CONFIG} from "@/js/config";
 import {Router} from "@/js/router";
 import {Controller} from "@/js/controller";
-
-import validate from 'jquery-validation';
-// import jquery-ui library
-// import "../node_modules/jquery-ui/themes/base/all.css";
-// import "../node_modules/jquery-ui/themes/base/theme.css";
-// import 'jquery-ui/ui/widgets/dialog';
-// import 'jquery-ui/ui/widgets/button';
-// import 'jquery-ui/ui/widgets/tabs';
 //
 // import '@popperjs/core';
 // import { transliterate as tr, slugify } from 'transliteration';
 import 'transliteration';
 // MVC model
 document.addEventListener('DOMContentLoaded', () => {
-
   const router = new Router();
   const model = new Model(router);
   const ui = new Ui(model, router);
   const controller = new Controller(model, ui, router);
-
-
-
 });
-
-// /\(?([0-9]{3})\)?([ .-]?)([0-9]{3})\2([0-9]{4})/
-
-

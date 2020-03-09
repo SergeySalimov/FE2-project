@@ -7,17 +7,20 @@ export class Controller {
     this.router = router;
     this.initRouter();
 
+    //broadcast block
     this._ui.on('navClick', url => this.onNavigationClick(url));
     this._ui.on('catClick', url => this.onCatalogClick(url));
     // this._model.on('productsLoaded', () => this.initCatalogRoutes())
-    this._ui.on('serverWorkStart', (arr) => {
-      if (this._model._loginUser) {
-        this.onUserLogin(arr);
-      } else {
-        this.onUserRegistration(arr)
-      }
-    });
+    this._ui.on('serverWorkStart', arr => this._model._loginUser ? this.onUserLogin(arr) : this.onUserRegistration(arr));
     this._ui.on('pswdRecovery', email => this.onPswRecovery(email));
+    this._ui.on('basketPrdClk', idPrd => this.basketChange(idPrd));
+  }
+
+  basketChange(uniqueId) {
+    this._model.toogleBasketInAllProducts(this._model.allProducts, uniqueId);
+    this._ui.renderBasketCount();
+    $(CONFIG.elements.nav2).children().slice(1).remove();
+    this._ui.displayCatalogPage();
   }
 
   onPswRecovery(email) {
@@ -42,11 +45,8 @@ export class Controller {
     const phone = `+${this.onlyNumbers(arrData[2])} ${this.onlyNumbers(arrData[3])}`;
     const www = this._model.strToBit(arrData[4]);
     const news = arrData[5];
-
-    console.log(phone);
-    const _user = { email, name, phone, www, news, };
-
-    this._model.saveNewUser(_user);
+    this._model._curUser = { email, name, phone, www, news, };
+    this._model.getUsers();
   }
 
   onCatalogClick(url) {

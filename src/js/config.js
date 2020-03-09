@@ -3,6 +3,11 @@ export const CONFIG = {
   api: 'http://localhost:3007',
   dNone: 'd-none',
   active: 'active',
+  productClck: 'entire-product',
+  bskClck: 'basket-click',
+  bskClck2: 'basket-click2',
+  basketModal: '#basket-modal',
+  noAutoriz: 'no-autoriz',
   forRgs: '.for-registration',
   toast: '.toast',
   modalAuthRegID: '#registration',
@@ -10,6 +15,9 @@ export const CONFIG = {
   loginError1Toast: '.toast.autorization-error',
   loginError2Toast: '.toast.autorization2-error',
   loginSuccesToast: '.toast.autorization-succes',
+  registrSuccesToast: '.toast.registration-succes',
+  registrErrorToast: '.toast.registration-error',
+  registr2ErrorToast: '.toast.registration2-error',
   elements: {
     productsPlace: document.getElementById('product-place'),
     homePage: document.getElementById('home'),
@@ -37,6 +45,9 @@ export const CONFIG = {
     subscribeCheckBox: document.getElementById('subscribe'),
     recoveryPswCheckBox: document.getElementById('recovery-pswd'),
     recoveryPsw: document.querySelector('.recovery-pswd'),
+    cabinetLink: document.querySelector('.cabinet'),
+    basket: document.querySelector('.basket'),
+    basketCount: document.querySelector('.basket-count'),
   },
 
 };

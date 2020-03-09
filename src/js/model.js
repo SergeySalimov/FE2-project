@@ -11,41 +11,76 @@ export class Model extends EventEmitter {
     this._noAuth = true;
     this._loginUser = true;
     this._curUser = {};
+    this.basketCount = Number(0);
     this.init();
     this.current = decodeURI(window.location.pathname).split('/')[1];
     this.catalogState = '/catalog';
     this.catalogRoutes = {};
     this.catalogNames = {};
-    this.on('usersLoaded', (users) => {
-      if (this._loginUser) {
-        this.checkUserLogin(users);
-      } else {
+    this.on('usersLoaded', users => this._loginUser ? this.checkUserLogin(users) : this.checkUserRegistration(users));
 
+
+  }
+
+  // basketCount(data, start = 0) {
+  //   for (const item of data) {
+  //     if (item.subitems) {
+  //       this.basketCount(item.content, start);
+  //     } else {
+  //       item.content.forEach(obj => );
+  //     }
+  //   }
+  // }
+
+  toogleBasketInAllProducts(data, unique) {
+    for (const item of data) {
+      if (item.subitems) {
+        this.toogleBasketInAllProducts(item.content, unique);
+      } else {
+        let count = this.basketCount;
+        item.content.some(function(obj) {
+          let isFind = obj.uniqueId === unique;
+          if (isFind) {
+            obj.inBasket = !obj.inBasket;
+            obj.inBasket ? count++ : count--;
+          }
+          return isFind
+        });
+        this.basketCount = count;
       }
-    });
+    }
+  }
+
+  checkEmail(users) {
+    return users.filter(obj => obj.email === this._curUser.email);
+  }
+
+  checkUserRegistration(users) {
+    let usersArr = this.checkEmail(users);
+    !usersArr.length ? this.saveNewUser(this._curUser) : this.emit('serverWorkEnd', ['error', 'regist', 0]);
   }
 
   checkUserLogin(users) {
-    console.log(this._curUser.email);
-    let usersArr = users.filter(obj => obj.email == this._curUser.email);
-    console.log(usersArr);
+    let usersArr = this.checkEmail(users);
     if (usersArr.length) {
-      if (this.bitToString(this._curUser.www) == this.bitToString(usersArr[0].www)) {
+      if (this.bitToString(this._curUser.www) === this.bitToString(usersArr[0].www)) {
+        // user logged
         this._curUser = {
           email: usersArr[0].email,
           name: usersArr[0].name,
           phone: usersArr[0].phone,
         };
-        this._noAuth = false;
         this.emit('serverWorkEnd', ['success', 'login', 0]);
+        this._noAuth = false;
+        this.emit('autorization');
       } else {
         this._curUser = {};
-        this.emit('serverWorkEnd', ['error', 'login', 2]);
+        this.emit('serverWorkEnd', ['error', 'login', 1]);
       }
 
     } else {
       this._curUser = {};
-      this.emit('serverWorkEnd', ['error', 'login', 1]);
+      this.emit('serverWorkEnd', ['error', 'login', 0]);
     }
   }
 
@@ -61,7 +96,7 @@ export class Model extends EventEmitter {
   bitToString(bit) {
     let newStr = '';
     bit.split(' ').forEach(bin => {
-      let binary = new Number(bin);
+      let binary = Number(bin);
       newStr += String.fromCharCode(parseInt(binary, 2))
     });
     return newStr;
@@ -79,23 +114,27 @@ export class Model extends EventEmitter {
         })
   }
 
-  saveNewUser(_arr) {
-    console.log(_arr);
+  saveNewUser(_user) {
     console.log('Save new USER.....');
     fetch(`${CONFIG.api}/users`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(_arr)
+      body: JSON.stringify(_user)
     })
         .then((res) => res.json())
         .then((data) => {
-          this.emit('newUserSaved', data);
+          delete this._curUser.www;
+          delete this._curUser.news;
+          console.log(this._curUser);
+          this.emit('serverWorkEnd', ['success', 'regist', 1]);
+          this._noAuth = false;
+          this.emit('autorization')
 
         })
         .catch((error) => {
-          this.emit('newUserSaveError', error);
+          this.emit('serverWorkEnd', ['error', 'regist', 1, error]);
           console.error('Error:', error);
         });
   }
@@ -121,7 +160,7 @@ export class Model extends EventEmitter {
           const curPage = decodeURI(window.location.pathname).split('/')[1];
           this.router.render(curPage);
           // popup for basket
-          this.initTooltip(this._noAuth);
+          this.initTooltip();
           this.current = curPage;
 
           // $('#exampleModal').modal();
@@ -129,15 +168,7 @@ export class Model extends EventEmitter {
   }
 
   initTooltip(on = true) {
-    if (on) {
-      $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
-      })
-    } else {
-      $(function () {
-        $('[data-toggle="tooltip"]').tooltip('disable')
-      })
-    }
+    !!on ? $(() => $('[data-toggle="tooltip"]').tooltip()) : $(() => $('[data-toggle="tooltip"]').tooltip('dispose'));
   }
 
   initProducts(data) {
