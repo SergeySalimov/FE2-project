@@ -14,9 +14,10 @@ header {
   height: 300px;
   @media (min-width: map-get($grid-breakpoints, "md")) {
     height: 350px;
+    background-position-x: -484px;
   }
   background-attachment: fixed;
-  background-position-x: -384px;
+  background-position-x: -25px;
 
 
   .top-line {
@@ -159,6 +160,15 @@ main {
           @media (min-width: map-get($grid-breakpoints, "sm")) {
             font-size: 0.9rem;
             text-align: left;
+          }
+          @media (min-width: map-get($grid-breakpoints, "md")) {
+            font-size: 0.7rem;
+          }
+          @media (min-width: map-get($grid-breakpoints, "lg")) {
+            font-size: 1.2rem;
+          }
+          @media (min-width: map-get($grid-breakpoints, "xl")) {
+            font-size: 1.1rem;
           }
           font-size: 1.5rem;
           text-align: center;

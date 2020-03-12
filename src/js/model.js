@@ -12,11 +12,19 @@ export class Model extends EventEmitter {
     this._loginUser = true;
     this._curUser = {};
     this.basketCount = Number(0);
+    // loaded from server
+    // this.catalogRoutes = {};
+    // this.catalogNames = {};
+    // this.getDataCatalogRoutesFromServer();
+    // this.getDataCatalogNamesFromServer();
     this.init();
     this.current = decodeURI(window.location.pathname).split('/')[1];
+
     this.catalogState = '/catalog';
     this.catalogRoutes = {};
     this.catalogNames = {};
+
+
     this.on('usersLoaded', users => this._loginUser ? this.checkUserLogin(users) : this.checkUserRegistration(users));
   }
 
@@ -149,27 +157,90 @@ export class Model extends EventEmitter {
         .then((res) => res.json())
         .then((data) => {
           this.allProducts = data;
+
+          // this data is loaded now from server !!!!!
+          // ??? unused
           this.productsToDisplay = this.initProducts(this.allProducts);
           this.catalogRoutes['/catalog'] = this.productsToDisplay;
           this.catalogNames[''] = '/catalog';
           this.addCatalogRoutes(this.allProducts);
           this.addCatalogNames(this.allProducts);
-          this.emit('productsLoaded', this.productsToDisplay);
-          // console.log(this.catalogRoutes);
-          // console.log(this.catalogNames);
-          const curPage = decodeURI(window.location.pathname).split('/')[1];
-          this.router.render(curPage);
-          // popup for basket
-          this.initTooltip();
-          this.current = curPage;
 
-          // $('#exampleModal').modal();
+          // sending routes to DB
+          // this.sendDataToServer('catalogRoutes', this.catalogRoutes);
+          // this.sendDataToServer('catalogNames', this.catalogNames);
+
+          // console.dir(this.catalogNames);
+          // console.dir(this.catalogRoutes);
+
+          this.firstPageRender();
         });
   }
 
-  initTooltip(on = true) {
-    !!on ? $(() => $('[data-toggle="tooltip"]').tooltip()) : $(() => $('[data-toggle="tooltip"]').tooltip('dispose'));
+  sendDataToServer(field, data) {
+    fetch(`${CONFIG.api}/${field}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log('SEND TO SERVER > data:' + data);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
   }
+
+  getDataCatalogRoutesFromServer() {
+    fetch(`${CONFIG.api}/catalogRoutes`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+        .then((res) => res.json())
+        .then((data) => {
+          this.catalogRoutes = data;
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+  }
+
+  getDataCatalogNamesFromServer() {
+    fetch(`${CONFIG.api}/catalogNames`, {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+        .then((res) => res.json())
+        .then((data) => {
+          this.catalogNames = data;
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+  }
+
+  firstPageRender() {
+    let path = localStorage.getItem('path');
+    if (path) {
+      localStorage.removeItem('path');
+      window.history.pushState(null, null, path);
+      this.router.render(decodeURI(window.location.pathname).split('/')[1]);
+      this.current = path;
+    } else {
+      const curPage = decodeURI(window.location.pathname).split('/')[1];
+      this.router.render(curPage);
+      this.current = curPage;
+    }
+  }
+  //
+  // initTooltip(on = true) {
+  //   !!on ? $(() => $('[data-toggle="tooltip"]').tooltip()) : $(() => $('[data-toggle="tooltip"]').tooltip('dispose'));
+  // }
 
   initProducts(data) {
     let productsAccumulate = [];
@@ -210,19 +281,19 @@ export class Model extends EventEmitter {
       }
     }
   }
-
-  addCatalogBreadcrum(data) {
-    for (const item of data) {
-      let routes = addedRoutes;
-      if (item.subitems) {
-        routes = `${routes}/${slugify(item.name)}`;
-        this.catalogNames[item.name] = `/catalog${routes}`;
-        this.addCatalogNames(item.content, routes)
-      } else {
-        this.catalogNames[item.name] = `/catalog${routes}/${slugify(item.name)}`;
-      }
-    }
-
-  }
+  //
+  // addCatalogBreadcrum(data) {
+  //   for (const item of data) {
+  //     let routes = addedRoutes;
+  //     if (item.subitems) {
+  //       routes = `${routes}/${slugify(item.name)}`;
+  //       this.catalogNames[item.name] = `/catalog${routes}`;
+  //       this.addCatalogNames(item.content, routes)
+  //     } else {
+  //       this.catalogNames[item.name] = `/catalog${routes}/${slugify(item.name)}`;
+  //     }
+  //   }
+  //
+  // }
 
 }

@@ -29,8 +29,8 @@ export class Ui extends EventEmitter {
       this.hideAll();
       $(CONFIG.elements.nav2).children().slice(1).remove();
       this.renderPath[page]();
-      this._model.initTooltip();
-      this._model.initTooltip(this._model._noAuth);
+      // this._model.initTooltip();
+      // this._model.initTooltip(this._model._noAuth);
       this.renderBasketCount();
     });
     this._model.on('serverWorkEnd', response => this.formAfterServerWork(response));
@@ -62,7 +62,7 @@ export class Ui extends EventEmitter {
     // perehod v avtorizovanoe sostoyanie
     console.log('AUTORIZATE......');
     this.hideFormModal();
-    this._model.initTooltip(false);
+    // this._model.initTooltip(false);
     this.changeUiOnAutState();
   }
 
@@ -70,7 +70,7 @@ export class Ui extends EventEmitter {
     CONFIG.elements.cabinetLink.children[0].className = 'icon-user';
     CONFIG.elements.cabinetLink.children[0].innerHTML = `
         <a href="#" data-toggle="modal" data-target="#registration">${this._model._curUser.name}</a>`;
-    CONFIG.elements.basket.classList.remove(CONFIG.noAutoriz);
+    // CONFIG.elements.basket.classList.remove(CONFIG.noAutoriz);
   }
 
   hideFormModal(time = 2000) {
@@ -203,11 +203,11 @@ export class Ui extends EventEmitter {
   basketListener() {
     CONFIG.elements.basket.addEventListener('click', (event) => {
       event.preventDefault();
-      if (!this._model._noAuth) {
+      $(CONFIG.basketModal).modal({ show: true });
+      this.renderBasket();
+      // if (!this._model._noAuth) {
         // only if autorized
-        $(CONFIG.basketModal).modal({ show: true });
-        this.renderBasket();
-      }
+      // }
     });
     CONFIG.elements.basketBtnClear.addEventListener('click', (event) => {
       event.preventDefault();

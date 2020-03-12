@@ -4,9 +4,64 @@ const HTMLWebpackPlugin = require('html-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const TerserPlugin = require('terser-webpack-plugin');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const DIR_FROM = 'src';
 const DIR_TO = 'dist';
+
+const optimization = () => {
+  const config = {
+    splitChunks: {
+      chunks: 'all',
+    },
+  };
+
+  if (isProd) {
+    config.minimize = true;
+    config.minimizer = [
+        new OptimizeCssAssetsPlugin(),
+        new TerserPlugin({
+          extractComments: 'all',
+        }),
+    ];
+  }
+
+  return config;
+};
+const plugins = () => {
+  const base = [
+    new webpack.ProvidePlugin({
+      '$': 'jquery',
+      'jQuery': 'jquery',
+      'window.jQuery': 'jquery',
+    }),
+    new HTMLWebpackPlugin({
+      template: './index.html',
+      minify: {
+        collapseWhitespace: isProd,
+      },
+    }),
+    new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin({
+      // filename: 'style.[hash].css',
+      filename: '[name].css',
+      // chunkFilename: '[id].css',
+    }),
+    new CopyWebpackPlugin([
+      {
+        from: path.resolve(__dirname, `${DIR_FROM}/favicon.ico`),
+        to: path.resolve(__dirname, DIR_TO),
+      },
+    ]),
+  ];
+
+  if (isProd) {
+    base.push(new BundleAnalyzerPlugin());
+  }
+  return base;
+};
 
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
@@ -18,6 +73,7 @@ module.exports = {
     main: './index.js',
   },
   devtool: 'inline-source-map',
+  optimization: optimization(),
   resolve: {
     extensions: ['.js'],
     alias: {
@@ -44,31 +100,7 @@ module.exports = {
     // publicPath: '/',
     // hot: isDev,
   },
-  plugins: [
-    new webpack.ProvidePlugin({
-      '$': 'jquery',
-      'jQuery': 'jquery',
-      'window.jQuery': 'jquery',
-    }),
-    new HTMLWebpackPlugin({
-      template: './index.html',
-      minify: {
-        collapseWhitespace: isProd,
-      },
-    }),
-    new CleanWebpackPlugin(),
-    new MiniCssExtractPlugin({
-      // filename: 'style.[hash].css',
-      filename: '[name].css',
-      // chunkFilename: '[id].css',
-    }),
-    new CopyWebpackPlugin([
-      {
-        from: path.resolve(__dirname, `${DIR_FROM}/favicon.ico`),
-        to: path.resolve(__dirname, DIR_TO),
-      },
-    ]),
-  ],
+  plugins: plugins(),
   module: {
     rules: [
       {
