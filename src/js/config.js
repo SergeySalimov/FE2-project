@@ -3,6 +3,7 @@ export const CONFIG = {
   // api: 'http://localhost:3007',
   dNone: 'd-none',
   active: 'active',
+  navBar: '#navbar9',
   productClck: 'entire-product',
   bskClck: 'basket-click',
   bskClck2: 'basket-click2',
