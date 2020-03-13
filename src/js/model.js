@@ -48,10 +48,8 @@ export class Model extends EventEmitter {
   }
 
   clearBasketInAllProducts(data) {
-    console.log(data);
     for (const item of data) {
       if (item.subitems) {
-        console.log(item.subitems);
         this.clearBasketInAllProducts(item.content);
       } else {
         item.content.forEach(obj => obj.inBasket = false);

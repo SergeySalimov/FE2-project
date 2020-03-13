@@ -61,7 +61,6 @@ export class Controller {
   }
 
   onNavigationClick(url) {
-    console.log('navClick');
     $(CONFIG.navBar).collapse('hide');
     const newState = url.split('/')[1];
     if (newState !== this._model.current) {
