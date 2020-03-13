@@ -296,6 +296,27 @@
           "uniqueId": "6-1"
         }
       ]
+    },
+    {
+      "id": 7,
+      "name": "Капы и сувели",
+      "subitems": false,
+      "content": [
+        {
+          "header": "Капы",
+          "description": "Lorem ipsum",
+          "img": "/images/kapa.jpg",
+          "inBasket": false,
+          "uniqueId": "7-1"
+        },
+        {
+          "header": "Сувели",
+          "description": "Lorem ipsum",
+          "img": "/images/suvel.jpg",
+          "inBasket": false,
+          "uniqueId": "7-2"
+        }
+      ]
     }
   ],
   "users": [
