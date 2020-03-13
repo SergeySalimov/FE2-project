@@ -10,14 +10,27 @@ $backGrey: #e9ecef;
 
 header {
   background: url("/images/sunlight-forest-nature.jpg");
-  background-size: cover;
-  height: 300px;
+  //background-size: cover;
+  background-size: contain;
+  height: 100px;
+  @media (min-width: map-get($grid-breakpoints, "sm")) {
+    height: 190px;
+    //background-position-x: -184px;
+  }
   @media (min-width: map-get($grid-breakpoints, "md")) {
-    height: 350px;
-    background-position-x: -484px;
+    height: 240px;
+    //background-position-x: -670px;
+  }
+  @media (min-width: map-get($grid-breakpoints, "lg")) {
+    height: 300px;
+    //background-position-x: -391px;
+  }
+  @media (min-width: map-get($grid-breakpoints, "xl")) {
+    height: 330px;
+    //background-position-x: -391px;
   }
   background-attachment: fixed;
-  background-position-x: -25px;
+  //background-position-x: -985px;
 
 
   .top-line {
@@ -222,26 +235,29 @@ footer {
   //background-repeat: repeat-x;
 }
 
-.scroll-up-top {
+.scroll-up-top,
+.scroll-up-nav {
+  @media (min-width: map-get($grid-breakpoints, "sm")) {
+    left: 0;
+  }
+  @media (min-width: map-get($grid-breakpoints, "md")) {
+    left: 30px;
+  }
   @media (min-width: map-get($grid-breakpoints, "lg")) {
     left: 40px;
   }
   @media (min-width: map-get($grid-breakpoints, "xl")) {
     left: 70px;
   }
-  bottom: 75px;
   left: 20px;
 ;
 }
 
+.scroll-up-top {
+  bottom: 75px;
+}
+
 .scroll-up-nav {
-  @media (min-width: map-get($grid-breakpoints, "lg")) {
-    left: 40px;
-  }
-  @media (min-width: map-get($grid-breakpoints, "xl")) {
-    left: 70px;
-  }
   bottom: 30px;
-  left: 20px;
 ;
 }
