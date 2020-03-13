@@ -27,69 +27,37 @@ export class Ui extends EventEmitter {
     };
     // broadcast block
     this._model.on('productsLoaded', data => this.renderProductsToDisplay(data));
-    this.on('pageChange', (page) => {
-      this.hideAll();
-      $(CONFIG.elements.nav2).children().slice(1).remove();
-      this.renderPath[page]();
-      // this._model.initTooltip();
-      // this._model.initTooltip(this._model._noAuth);
-      this.renderBasketCount();
-    });
+    this.on('pageChange', page => this.onPageChange(page));
     this._model.on('serverWorkEnd', response => this.formAfterServerWork(response));
     this._model.on('autorization', () => this.autorizedState());
   }
 
-  initButtons(time = 3000) {
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 250) {
-        $(CONFIG.scrollUp).addClass('show');
-        if (window.scrollY > 350 && this._model.current === 'catalog') {
-          $(CONFIG.scrollUpNav).addClass('show');
-        }
-      } else {
-        $(CONFIG.scrollUp).removeClass('show');
-        $(CONFIG.scrollUpNav).removeClass('show');
-      }
-    });
-    $(CONFIG.scrollUp).on('click', () => {
-      $('html, body').animate({ scrollTop: 0 }, 1500);
-    });
-    $(CONFIG.scrollUpNav).on('click', () => {
-      const destination = $('.nav2').offset().top - 58;
-      $('html, body').animate({ scrollTop: destination }, 1500);
-    });
+  onPageChange(page) {
+    this.hideAll();
+    this.clearBreadCrumps();
+    this.renderPath[page]();
+    // this._model.initTooltip();
+    // this._model.initTooltip(this._model._noAuth);
+    this.renderBasketCount();
   }
 
-  renderBasketCount() {
-    CONFIG.elements.basketCount.innerText = this._model.basketCount;
+  clearBreadCrumps() {
+    $(CONFIG.elements.nav2).children().slice(1).remove();
   }
-
 
 
   autorizedState() {
     // perehod v avtorizovanoe sostoyanie
     console.log('AUTORIZATE......');
-    this.hideFormModal();
+    this.hideModal(CONFIG.modalAuthRegID);
     // this._model.initTooltip(false);
     this.changeUiOnAutState();
   }
-
   changeUiOnAutState() {
     CONFIG.elements.cabinetLink.children[0].className = 'icon-user';
     CONFIG.elements.cabinetLink.children[0].innerHTML = `
         <a href="#" data-toggle="modal" data-target="#registration">${this._model._curUser.name}</a>`;
     // CONFIG.elements.basket.classList.remove(CONFIG.noAutoriz);
-  }
-
-  hideFormModal(time = 2000) {
-    window.setTimeout(() => {
-      $(CONFIG.modalAuthRegID).modal('hide');
-    }, time);
-  }
-
-  formAfterServerWork(res) {
-    this.deepResetForm();
-    this.toastShow(res);
   }
 
   toastShow(res) {
@@ -114,40 +82,6 @@ export class Ui extends EventEmitter {
     }
   }
 
-  changeBtnFormState(on = true) {
-    if (on) {
-      CONFIG.elements.authRegForm.querySelector('[type="submit"]').className = 'btn btn-success mt-3';
-      $('[data-toggle="tooltip"]').tooltip('disable');
-    } else {
-      CONFIG.elements.authRegForm.querySelector('[type="submit"]').className = 'btn btn-danger mt-3';
-      $('[data-toggle="tooltip"]').tooltip('enable');
-    }
-  }
-
-  changeRecoveryPswdState(el = CONFIG.elements.authRegForm.querySelector('[type="password"]'),
-                          state = CONFIG.elements.recoveryPswCheckBox.checked) {
-    if (state) {
-      el.required = false;
-      el.parentElement.classList.add(CONFIG.dNone)
-    } else {
-      el.required = true;
-      el.parentElement.classList.remove(CONFIG.dNone)
-    }
-    this.changeBtnFormState(CONFIG.elements.authRegForm.checkValidity());
-  }
-
-  formAuthRegChanging() {
-    CONFIG.elements.authRegForm.addEventListener('keyup', (event) => {
-      if (!this._model._loginUser) this.validatePswd();
-      this.changeBtnFormState(CONFIG.elements.authRegForm.checkValidity());
-    });
-    // for touchscreen
-    CONFIG.elements.authRegForm.addEventListener('touchend', (event) => {
-      if (!this._model._loginUser) this.validatePswd();
-      this.changeBtnFormState(CONFIG.elements.authRegForm.checkValidity());
-    });
-  }
-
   validatePswd() {
     const _pswd = [];
     const pswdInput = CONFIG.elements.authRegForm.querySelectorAll('[type="password"]');
@@ -168,22 +102,6 @@ export class Ui extends EventEmitter {
     this.basketListener();
   }
 
-  renderEmptyBasketDiv() {
-    const div = document.createElement('div');
-    div.innerHTML = '<h4 class="alert text-center mt-5">Пусто</h4>';
-    CONFIG.elements.basketRenderPlace.append(div);
-  }
-
-  clearBasketUi() {
-    CONFIG.elements.basketRenderPlace.innerHTML = '';
-    this.renderEmptyBasketDiv();
-    CONFIG.elements.basketItemCount.innerText = '0';
-    this._model.basketCount = 0;
-    this._model.clearBasketInAllProducts(this._model.allProducts);
-    this.renderBasketCount();
-    this.displayCatalogPage()
-  }
-
   renderBasket() {
     const prdInBasket = this._model.initProducts(this._model.allProducts).filter(obj => obj.inBasket);
     CONFIG.elements.basketItemCount.innerText = this._model.basketCount;
@@ -200,10 +118,10 @@ export class Ui extends EventEmitter {
       this.renderEmptyBasketDiv();
     }
   }
-//ToDo сдеалть одну функцию
-  hideBasketModal(time = 2000) {
+
+  hideModal(el, time = 2000) {
     window.setTimeout(() => {
-      $(CONFIG.basketModal).modal('hide');
+      $(el).modal('hide');
     }, time);
   }
 
@@ -223,7 +141,7 @@ export class Ui extends EventEmitter {
       if (this._model.basketCount !== 0) {
         $(CONFIG.basketClearToast).toast('show');
         this.clearBasketUi();
-        this.hideBasketModal();
+        this.hideModal(CONFIG.basketModal);
       }
     });
     CONFIG.elements.basketBtnSend.addEventListener('click', (event) => {
@@ -231,15 +149,36 @@ export class Ui extends EventEmitter {
       if (this._model.basketCount !== 0) {
         $(CONFIG.basketSendToast).toast('show');
         this.clearBasketUi();
-        this.hideBasketModal();
+        this.hideModal(CONFIG.basketModal);
       }
     });
   }
+  clearBasketUi() {
+    CONFIG.elements.basketRenderPlace.innerHTML = '';
+    this.renderEmptyBasketDiv();
+    CONFIG.elements.basketItemCount.innerText = '0';
+    this._model.basketCount = 0;
+    this._model.clearBasketInAllProducts(this._model.allProducts);
 
+    this.renderBasketCount();
+    if (this._model.current === 'catalog') {
+      this.clearBreadCrumps();
+      this.displayCatalogPage();
+    }
+  }
+  renderEmptyBasketDiv() {
+    const div = document.createElement('div');
+    div.innerHTML = '<h4 class="alert text-center mt-5">Пусто</h4>';
+    CONFIG.elements.basketRenderPlace.append(div);
+  }
+  renderBasketCount() {
+    CONFIG.elements.basketCount.innerText = this._model.basketCount;
+  }
+
+  // Form work!!
   showRecoveryToast() {
     $(CONFIG.recoveryToast).toast('show');
   }
-
   emitEventOnForm() {
     let _formData = [];
     this.changeBtnSendState();
@@ -254,7 +193,6 @@ export class Ui extends EventEmitter {
       !!CONFIG.elements.recoveryPswCheckBox.checked ? this.emit('pswdRecovery', _formData[0]) : this.emit('serverWorkStart', _formData);
     }
   }
-
   formListener() {
     CONFIG.elements.clearBtnForm.addEventListener('click', (event) => {
       event.preventDefault();
@@ -268,7 +206,6 @@ export class Ui extends EventEmitter {
       this.changeRecoveryPswdState();
     })
   }
-
   changeBtnSendState(send = true) {
     const el = CONFIG.elements.submitBtnForm;
     if (send) {
@@ -279,18 +216,15 @@ export class Ui extends EventEmitter {
       el.children[0].classList.add(CONFIG.dNone)
     }
   }
-
   resetForm() {
     CONFIG.elements.authRegForm.reset();
     this.changeRecoveryPswdState();
     this.changeBtnFormState(false);
   }
-
   deepResetForm() {
     this.changeBtnSendState(false);
     this.resetForm();
   }
-
   toogleAuthRegForm(auth = true) {
     this.resetForm();
     if (auth) {
@@ -311,7 +245,6 @@ export class Ui extends EventEmitter {
       CONFIG.elements.recoveryPsw.classList.add(CONFIG.dNone);
     }
   }
-
   initAuthRegClick() {
     CONFIG.elements.authBtn.addEventListener('click', (event) => {
       event.preventDefault();
@@ -326,12 +259,48 @@ export class Ui extends EventEmitter {
       }
     });
   }
+  formAfterServerWork(res) {
+    this.deepResetForm();
+    this.toastShow(res);
+  }
+  changeBtnFormState(on = true) {
+    if (on) {
+      CONFIG.elements.authRegForm.querySelector('[type="submit"]').className = 'btn btn-success mt-3';
+      $('[data-toggle="tooltip"]').tooltip('disable');
+    } else {
+      CONFIG.elements.authRegForm.querySelector('[type="submit"]').className = 'btn btn-danger mt-3';
+      $('[data-toggle="tooltip"]').tooltip('enable');
+    }
+  }
+  formAuthRegChanging() {
+    CONFIG.elements.authRegForm.addEventListener('keyup', (event) => {
+      if (!this._model._loginUser) this.validatePswd();
+      this.changeBtnFormState(CONFIG.elements.authRegForm.checkValidity());
+    });
+    // for touchscreen
+    CONFIG.elements.authRegForm.addEventListener('touchend', (event) => {
+      if (!this._model._loginUser) this.validatePswd();
+      this.changeBtnFormState(CONFIG.elements.authRegForm.checkValidity());
+    });
+  }
+  changeRecoveryPswdState(el = CONFIG.elements.authRegForm.querySelector('[type="password"]'),
+                          state = CONFIG.elements.recoveryPswCheckBox.checked) {
+    if (state) {
+      el.required = false;
+      el.parentElement.classList.add(CONFIG.dNone)
+    } else {
+      el.required = true;
+      el.parentElement.classList.remove(CONFIG.dNone)
+    }
+    this.changeBtnFormState(CONFIG.elements.authRegForm.checkValidity());
+  }
 
   isRouteOfCatalog(route) {
     return Object.keys(this._model.catalogRoutes).includes(route);
   }
 
   // output block
+  //ToDO Разбить на функции, слишком сложно
   displayCatalogPage() {
     const productToDisplay = window.location.pathname.trim();
     if (this.isRouteOfCatalog(productToDisplay)) {
@@ -351,7 +320,6 @@ export class Ui extends EventEmitter {
       this.renderProductsToDisplay(this._model.catalogRoutes[productToDisplay]);
       CONFIG.elements.nav2Home.after(this.createHtmlForBreadcrump('Каталог'));
       CONFIG.elements.catalogPage.classList.remove(CONFIG.dNone);
-      console.log(this.currentScrollY);
       window.scrollTo(0, this.currentScrollY);
       CONFIG.elements.navBtnCatalog.classList.add(CONFIG.active);
     } else {
@@ -425,7 +393,6 @@ export class Ui extends EventEmitter {
   }
 
   // initialization block
-
   //ToDO Сделать обработку на event 'prdClk'
   initCatalog() {
     CONFIG.elements.productsPlace.addEventListener('click', (event) => {
@@ -442,7 +409,6 @@ export class Ui extends EventEmitter {
       }
     });
   }
-
   initCatBtn() {
     CONFIG.elements.catBtnHome.addEventListener('click', (event) => {
       this.emit('catClick', '/catalog');
@@ -453,11 +419,9 @@ export class Ui extends EventEmitter {
       }
     });
   }
-
   clearActiveCatalogNavigation() {
     CONFIG.elements.catBtn.querySelectorAll('.active').forEach(el => el.classList.remove('active'));
   }
-
   initNavBtn() {
     CONFIG.elements.navBtnCatalog.addEventListener('click', (event) => {
       event.preventDefault();
@@ -486,6 +450,26 @@ export class Ui extends EventEmitter {
     CONFIG.elements.errorBack.addEventListener('click', (event) => {
       event.preventDefault();
       this.emit('navClick', '/');
+    });
+  }
+  initButtons(time = 3000) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 250) {
+        $(CONFIG.scrollUp).addClass('show');
+        if (window.scrollY > 350 && this._model.current === 'catalog') {
+          $(CONFIG.scrollUpNav).addClass('show');
+        }
+      } else {
+        $(CONFIG.scrollUp).removeClass('show');
+        $(CONFIG.scrollUpNav).removeClass('show');
+      }
+    });
+    $(CONFIG.scrollUp).on('click', () => {
+      $('html, body').animate({ scrollTop: 0 }, 1500);
+    });
+    $(CONFIG.scrollUpNav).on('click', () => {
+      const destination = $('.nav2').offset().top - 65;
+      $('html, body').animate({ scrollTop: destination }, 1500);
     });
   }
 

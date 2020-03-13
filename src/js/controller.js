@@ -20,7 +20,7 @@ export class Controller {
     this._ui.currentScrollY = window.scrollY;
     this._model.toogleBasketInAllProducts(this._model.allProducts, uniqueId);
     this._ui.renderBasketCount();
-    $(CONFIG.elements.nav2).children().slice(1).remove();
+    this._ui.clearBreadCrumps();
     this._ui.displayCatalogPage();
   }
 
