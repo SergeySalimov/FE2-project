@@ -13,6 +13,8 @@ export class Ui extends EventEmitter {
     this.initCatBtn();
     this.initModalRegistration();
     this.initCatalog();
+    this.initButtons();
+    this.currentScrollY = null;
     // display routes functions
     this.renderPath = {
       '': this.displayHomePage.bind(this),
@@ -37,26 +39,32 @@ export class Ui extends EventEmitter {
     this._model.on('autorization', () => this.autorizedState());
   }
 
+  initButtons(time = 3000) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 250) {
+        $(CONFIG.scrollUp).addClass('show');
+        if (window.scrollY > 350 && this._model.current === 'catalog') {
+          $(CONFIG.scrollUpNav).addClass('show');
+        }
+      } else {
+        $(CONFIG.scrollUp).removeClass('show');
+        $(CONFIG.scrollUpNav).removeClass('show');
+      }
+    });
+    $(CONFIG.scrollUp).on('click', () => {
+      $('html, body').animate({ scrollTop: 0 }, 1500);
+    });
+    $(CONFIG.scrollUpNav).on('click', () => {
+      const destination = $('.nav2').offset().top - 58;
+      $('html, body').animate({ scrollTop: destination }, 1500);
+    });
+  }
+
   renderBasketCount() {
     CONFIG.elements.basketCount.innerText = this._model.basketCount;
   }
 
-  //ToDO Сделать обработку на event 'prdClk'
-  initCatalog() {
-    CONFIG.elements.productsPlace.addEventListener('click', (event) => {
-      event.preventDefault();
-      let parent1 = event.target.parentNode;
-      let parent2 = event.target.parentNode.parentNode;
-      if (parent1.classList.contains(CONFIG.productClck) || parent2.classList.contains(CONFIG.productClck)) {
-        if (event.target.classList.contains(CONFIG.bskClck)) {
-          this.emit('basketPrdClk', event.target.dataset.idprd, event.target);
-        } else {
-          let id = parent1.dataset.id || parent2.dataset.id;
-          this.emit('prdClk', id);
-        }
-      }
-    });
-  }
+
 
   autorizedState() {
     // perehod v avtorizovanoe sostoyanie
@@ -203,6 +211,7 @@ export class Ui extends EventEmitter {
   basketListener() {
     CONFIG.elements.basket.addEventListener('click', (event) => {
       event.preventDefault();
+      this.currentScrollY = window.scrollY;
       $(CONFIG.basketModal).modal({ show: true });
       this.renderBasket();
       // if (!this._model._noAuth) {
@@ -342,6 +351,8 @@ export class Ui extends EventEmitter {
       this.renderProductsToDisplay(this._model.catalogRoutes[productToDisplay]);
       CONFIG.elements.nav2Home.after(this.createHtmlForBreadcrump('Каталог'));
       CONFIG.elements.catalogPage.classList.remove(CONFIG.dNone);
+      console.log(this.currentScrollY);
+      window.scrollTo(0, this.currentScrollY);
       CONFIG.elements.navBtnCatalog.classList.add(CONFIG.active);
     } else {
       this.render404()
@@ -414,6 +425,24 @@ export class Ui extends EventEmitter {
   }
 
   // initialization block
+
+  //ToDO Сделать обработку на event 'prdClk'
+  initCatalog() {
+    CONFIG.elements.productsPlace.addEventListener('click', (event) => {
+      event.preventDefault();
+      let parent1 = event.target.parentNode;
+      let parent2 = event.target.parentNode.parentNode;
+      if (parent1.classList.contains(CONFIG.productClck) || parent2.classList.contains(CONFIG.productClck)) {
+        if (event.target.classList.contains(CONFIG.bskClck)) {
+          this.emit('basketPrdClk', event.target.dataset.idprd, event.target);
+        } else {
+          let id = parent1.dataset.id || parent2.dataset.id;
+          this.emit('prdClk', id);
+        }
+      }
+    });
+  }
+
   initCatBtn() {
     CONFIG.elements.catBtnHome.addEventListener('click', (event) => {
       this.emit('catClick', '/catalog');

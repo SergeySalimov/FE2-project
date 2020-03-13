@@ -11,6 +11,8 @@ export const CONFIG = {
   noAutoriz: 'no-autoriz',
   forRgs: '.for-registration',
   toast: '.toast',
+  scrollUp: '.scroll-up-top',
+  scrollUpNav: '.scroll-up-nav',
   modalAuthRegID: '#registration',
   recoveryToast: '.toast.recovery-send',
   basketSendToast: '.toast.send-basket',
@@ -55,6 +57,7 @@ export const CONFIG = {
     basketItemCount: document.querySelector('#basket-item-number'),
     basketBtnClear: document.querySelector('#clear-basket'),
     basketBtnSend: document.querySelector('#send-basket'),
+    scrollUp: document.querySelector('.scroll-up'),
   },
 
 };

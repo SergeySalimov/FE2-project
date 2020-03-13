@@ -17,6 +17,7 @@ export class Controller {
   }
 
   basketChange(uniqueId) {
+    this._ui.currentScrollY = window.scrollY;
     this._model.toogleBasketInAllProducts(this._model.allProducts, uniqueId);
     this._ui.renderBasketCount();
     $(CONFIG.elements.nav2).children().slice(1).remove();
@@ -52,6 +53,7 @@ export class Controller {
   onCatalogClick(url) {
     const newCatalogState = url;
     if (newCatalogState !== this._model.catalogState) {
+      this._ui.currentScrollY = window.scrollY;
       this._model.catalogState = newCatalogState;
       window.history.pushState(null, null, newCatalogState);
       this.router.render('catalog');

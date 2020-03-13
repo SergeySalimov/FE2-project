@@ -221,3 +221,27 @@ footer {
   //background-position-y: 80px;
   //background-repeat: repeat-x;
 }
+
+.scroll-up-top {
+  @media (min-width: map-get($grid-breakpoints, "lg")) {
+    left: 40px;
+  }
+  @media (min-width: map-get($grid-breakpoints, "xl")) {
+    left: 70px;
+  }
+  bottom: 75px;
+  left: 20px;
+;
+}
+
+.scroll-up-nav {
+  @media (min-width: map-get($grid-breakpoints, "lg")) {
+    left: 40px;
+  }
+  @media (min-width: map-get($grid-breakpoints, "xl")) {
+    left: 70px;
+  }
+  bottom: 30px;
+  left: 20px;
+;
+}
