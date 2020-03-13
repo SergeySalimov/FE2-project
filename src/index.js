@@ -41,6 +41,8 @@ import '@assets/img/products/torc-viaz.jpg';
 import '@assets/img/products/sfagnum.jpg';
 import '@assets/img/products/yagel.jpg';
 import '@assets/img/products/chaga.jpg';
+import '@assets/img/products/kapa.jpg';
+import '@assets/img/products/suvel.jpg';
 // import JS
 import {Model} from "@/js/model";
 import {Ui} from "@/js/ui";
