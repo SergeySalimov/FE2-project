@@ -22,6 +22,7 @@
   "homepage": "https://github.com/SergeySalimov/FE2-project#readme",
   "dependencies": {
     "bootstrap": "^4.4.1",
+    "firebase-tools": "^7.15.1",
     "handlebars": "^4.7.3",
     "jquery": "^3.4.1",
     "transliteration": "^2.1.8",
