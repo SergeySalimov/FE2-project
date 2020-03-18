@@ -53,6 +53,7 @@ import {Controller} from "@/js/controller";
 // import '@popperjs/core';
 // import { transliterate as tr, slugify } from 'transliteration';
 import 'transliteration';
+
 // MVC model
 document.addEventListener('DOMContentLoaded', () => {
   const router = new Router();

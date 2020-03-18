@@ -66,6 +66,7 @@ export class Controller {
     if (newState !== this._model.current) {
       this._model.current = newState;
       if (newState === 'catalog') {
+        if (this._model.catalogState === null) this._model.catalogState = CONFIG.defaultCatalogState;
         window.history.pushState(null, null, this._model.catalogState);
       } else {
         window.history.pushState(null, null, url);

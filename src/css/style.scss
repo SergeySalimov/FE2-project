@@ -10,7 +10,6 @@ $backGrey: #e9ecef;
 
 header {
   background: url("/images/sunlight-forest-nature.jpg");
-  //background-size: cover;
   background-size: contain;
   height: 100px;
   @media (min-width: map-get($grid-breakpoints, "sm")) {
@@ -154,7 +153,12 @@ main {
 
   #catalog {
     background: url("/images/wall.jpg");
-    background-size: auto;
+    background-size: contain;
+    background-repeat: repeat-y;
+    //background-size: auto;
+    //@media (min-width: map-get($grid-breakpoints, "md")) {
+    //  background-size: cover;
+    //}
     #catalog-navigation {
       //font-weight: bolder;
       li {

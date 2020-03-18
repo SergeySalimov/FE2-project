@@ -20,7 +20,8 @@ export class Model extends EventEmitter {
     this.init();
     this.current = decodeURI(window.location.pathname).split('/')[1];
 
-    this.catalogState = '/catalog';
+    // this.catalogState = '/catalog';
+    this.catalogState = null;
     this.catalogRoutes = {};
     this.catalogNames = {};
 
@@ -147,15 +148,14 @@ export class Model extends EventEmitter {
 
   init() {
     console.log('init');
-    fetch(`${CONFIG.api}/products`, {
+    fetch(`${CONFIG.api}/products.json`, {
       headers: {
         'Content-Type': 'application/json',
       },
     })
-        .then((res) => res.json())
-        .then((data) => {
+        .then(res => res.json())
+        .then(data => {
           this.allProducts = data;
-          console.dir(data);
 
           // this data is loaded now from server !!!!!
           // ??? unused
