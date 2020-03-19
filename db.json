@@ -3,10 +3,12 @@
     {
       "id": 1,
       "name": "Плоды",
+      "transName": "plody",
       "subitems": true,
       "content": [
         {
           "name": "Шишки",
+          "transName": "shishki",
           "subitems": false,
           "content": [
             {
@@ -41,6 +43,7 @@
         },
         {
           "name": "Желуди",
+          "transName": "zheludi",
           "subitems": false,
           "content": [
             {
@@ -54,6 +57,7 @@
         },
         {
           "name": "Каштаны",
+          "transName": "kashtany",
           "subitems": false,
           "content": [
             {
@@ -67,6 +71,7 @@
         },
         {
           "name": "Ягоды",
+          "transName": "yagody",
           "subitems": false,
           "content": [
             {
@@ -97,6 +102,7 @@
     {
       "id": 2,
       "name": "Травы",
+      "transName": "travy",
       "subitems": false,
       "content": [
         {
@@ -181,6 +187,7 @@
     {
       "id": 3,
       "name": "Стружка декоративная древесная",
+      "transName": "struzhka-dekorativnaya-drevesnaya",
       "subitems": false,
       "content": [
         {
@@ -223,6 +230,7 @@
     {
       "id": 4,
       "name": "Торцевые спилы дерева",
+      "transName": "torcevye-spily-dereva",
       "subitems": false,
       "content": [
         {
@@ -265,6 +273,7 @@
     {
       "id": 5,
       "name": "Мох",
+      "transName": "moh",
       "subitems": false,
       "content": [
         {
@@ -286,6 +295,7 @@
     {
       "id": 6,
       "name": "Грибы",
+      "transName": "griby",
       "subitems": false,
       "content": [
         {
@@ -300,6 +310,7 @@
     {
       "id": 7,
       "name": "Капы и сувели",
+      "transName": "kapy-i-suveli",
       "subitems": false,
       "content": [
         {
@@ -344,5 +355,18 @@
       "news": false,
       "id": 3
     }
-  ]
+  ],
+  "translatedNames": {
+    "Плоды": "plody",
+    "Шишки": "shishki",
+    "Желуди": "zheludi",
+    "Каштаны": "kashtany",
+    "Ягоды": "yagody",
+    "Травы": "travy",
+    "Стружка декоративная древесная": "struzhka-dekorativnaya-drevesnaya",
+    "Торцевые спилы дерева": "torcevye-spily-dereva",
+    "Мох": "moh",
+    "Грибы": "griby",
+    "Капы и сувели": "kapy-i-suveli"
+  }
 }

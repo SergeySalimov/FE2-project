@@ -153,8 +153,12 @@ main {
 
   #catalog {
     background: url("/images/wall.jpg");
-    background-size: contain;
-    background-repeat: repeat-y;
+    background-size: auto;
+    background-repeat: repeat;
+    //@media (min-width: map-get($grid-breakpoints, "md")) {
+    //  background-repeat: repeat;
+    //  background-position: -585px 0;
+    //}
     //background-size: auto;
     //@media (min-width: map-get($grid-breakpoints, "md")) {
     //  background-size: cover;
@@ -253,8 +257,7 @@ footer {
   @media (min-width: map-get($grid-breakpoints, "xl")) {
     left: 70px;
   }
-  left: 20px;
-;
+  left: 20px;;
 }
 
 .scroll-up-top {
@@ -262,6 +265,5 @@ footer {
 }
 
 .scroll-up-nav {
-  bottom: 30px;
-;
+  bottom: 30px;;
 }

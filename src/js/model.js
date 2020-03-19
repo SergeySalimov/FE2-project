@@ -1,6 +1,5 @@
 import {CONFIG} from "@/js/config";
 import {EventEmitter} from "@/js/event-emitter";
-import {slugify} from "transliteration";
 
 export class Model extends EventEmitter {
   constructor(router) {
@@ -12,19 +11,12 @@ export class Model extends EventEmitter {
     this._loginUser = true;
     this._curUser = {};
     this.basketCount = Number(0);
-    // loaded from server
-    // this.catalogRoutes = {};
-    // this.catalogNames = {};
-    // this.getDataCatalogRoutesFromServer();
-    // this.getDataCatalogNamesFromServer();
-    this.init();
-    this.current = decodeURI(window.location.pathname).split('/')[1];
-
-    // this.catalogState = '/catalog';
-    this.catalogState = null;
     this.catalogRoutes = {};
     this.catalogNames = {};
 
+    this.init();
+    this.current = decodeURI(window.location.pathname).split('/')[1];
+    this.catalogState = null;
 
     this.on('usersLoaded', users => this._loginUser ? this.checkUserLogin(users) : this.checkUserRegistration(users));
   }
@@ -157,20 +149,12 @@ export class Model extends EventEmitter {
         .then(data => {
           this.allProducts = data;
 
-          // this data is loaded now from server !!!!!
-          // ??? unused
           this.productsToDisplay = this.initProducts(this.allProducts);
           this.catalogRoutes['/catalog'] = this.productsToDisplay;
           this.catalogNames[''] = '/catalog';
+
           this.addCatalogRoutes(this.allProducts);
           this.addCatalogNames(this.allProducts);
-
-          // sending routes to DB
-          // this.sendDataToServer('catalogRoutes', this.catalogRoutes);
-          // this.sendDataToServer('catalogNames', this.catalogNames);
-
-          // console.dir(this.catalogNames);
-          // console.dir(this.catalogRoutes);
 
           this.firstPageRender();
         });
@@ -193,36 +177,6 @@ export class Model extends EventEmitter {
         });
   }
 
-  getDataCatalogRoutesFromServer() {
-    fetch(`${CONFIG.api}/catalogRoutes`, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-        .then((res) => res.json())
-        .then((data) => {
-          this.catalogRoutes = data;
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
-  }
-
-  getDataCatalogNamesFromServer() {
-    fetch(`${CONFIG.api}/catalogNames`, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-        .then((res) => res.json())
-        .then((data) => {
-          this.catalogNames = data;
-        })
-        .catch((error) => {
-          console.error('Error:', error);
-        });
-  }
-
   firstPageRender() {
     let path = localStorage.getItem('path');
     if (path) {
@@ -236,6 +190,7 @@ export class Model extends EventEmitter {
       this.current = curPage;
     }
   }
+
   //
   // initTooltip(on = true) {
   //   !!on ? $(() => $('[data-toggle="tooltip"]').tooltip()) : $(() => $('[data-toggle="tooltip"]').tooltip('dispose'));
@@ -257,13 +212,12 @@ export class Model extends EventEmitter {
     for (const item of data) {
       let routes = addedRoutes;
       if (item.subitems) {
-        routes = `${routes}/${slugify(item.name)}`;
+        routes = `${routes}/${item.transName}`;
         this.catalogRoutes[`/catalog${routes}`] = this.initProducts(item.content);
 
         this.addCatalogRoutes(item.content, routes)
       } else {
-
-        this.catalogRoutes[`/catalog${routes}/${slugify(item.name)}`] = item.content;
+        this.catalogRoutes[`/catalog${routes}/${item.transName}`] = item.content;
       }
     }
   }
@@ -272,11 +226,11 @@ export class Model extends EventEmitter {
     for (const item of data) {
       let routes = addedRoutes;
       if (item.subitems) {
-        routes = `${routes}/${slugify(item.name)}`;
+        routes = `${routes}/${item.transName}`;
         this.catalogNames[item.name] = `/catalog${routes}`;
         this.addCatalogNames(item.content, routes)
       } else {
-        this.catalogNames[item.name] = `/catalog${routes}/${slugify(item.name)}`;
+        this.catalogNames[item.name] = `/catalog${routes}/${item.transName}`;
       }
     }
   }

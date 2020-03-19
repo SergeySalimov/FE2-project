@@ -7,7 +7,8 @@ import '@assets/img/oak-sm.png';
 import '@assets/img/cart2-sm.png';
 import '@assets/img/sunlight-forest-nature.jpg';
 import '@assets/img/wall.jpg';
-// import '@assets/img/footer.jpg';
+
+//all single products
 import '@assets/img/products/cones-of-alder.jpg';
 import '@assets/img/products/fir-cones.jpg';
 import '@assets/img/products/pine-cones.jpg';
@@ -46,13 +47,12 @@ import '@assets/img/products/suvel.jpg';
 // import JS
 import {Model} from "@/js/model";
 import {Ui} from "@/js/ui";
-import {CONFIG} from "@/js/config";
 import {Router} from "@/js/router";
 import {Controller} from "@/js/controller";
 //
 // import '@popperjs/core';
 // import { transliterate as tr, slugify } from 'transliteration';
-import 'transliteration';
+// import 'transliteration';
 
 // MVC model
 document.addEventListener('DOMContentLoaded', () => {

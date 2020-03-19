@@ -45,7 +45,6 @@ export class Ui extends EventEmitter {
     $(CONFIG.elements.nav2).children().slice(1).remove();
   }
 
-
   autorizedState() {
     // perehod v avtorizovanoe sostoyanie
     console.log('AUTORIZATE......');
@@ -53,6 +52,7 @@ export class Ui extends EventEmitter {
     // this._model.initTooltip(false);
     this.changeUiOnAutState();
   }
+
   changeUiOnAutState() {
     CONFIG.elements.cabinetLink.children[0].className = 'icon-user';
     CONFIG.elements.cabinetLink.children[0].innerHTML = `
@@ -118,7 +118,6 @@ export class Ui extends EventEmitter {
       this.renderEmptyBasketDiv();
     }
   }
-
   hideModal(el, time = 2000) {
     window.setTimeout(() => {
       $(el).modal('hide');
@@ -330,30 +329,25 @@ export class Ui extends EventEmitter {
   displayHomePage() {
     CONFIG.elements.homePage.classList.remove(CONFIG.dNone);
   }
-
   displayErrorPage() {
     CONFIG.elements.nav2Home.after(this.createHtmlForBreadcrump('Указанная страница не найдена'));
     CONFIG.elements.errorPage.classList.remove(CONFIG.dNone);
   }
-
   displayHowToBuyPage() {
     CONFIG.elements.nav2Home.after(this.createHtmlForBreadcrump('Как купить'));
     CONFIG.elements.howToBuyPage.classList.remove(CONFIG.dNone);
     CONFIG.elements.navBtnHowToBuy.classList.add(CONFIG.active);
   }
-
   displayDeliveryPage() {
     CONFIG.elements.nav2Home.after(this.createHtmlForBreadcrump('Доставка'));
     CONFIG.elements.deliveryPage.classList.remove(CONFIG.dNone);
     CONFIG.elements.navBtnDelivery.classList.add(CONFIG.active);
   }
-
   displayPaymentPage() {
     CONFIG.elements.nav2Home.after(this.createHtmlForBreadcrump('Оплата'));
     CONFIG.elements.paymentPage.classList.remove(CONFIG.dNone);
     CONFIG.elements.navBtnPayment.classList.add(CONFIG.active);
   }
-
   displayContactPage() {
     CONFIG.elements.nav2Home.after(this.createHtmlForBreadcrump('Контакты'));
     CONFIG.elements.contactPage.classList.remove(CONFIG.dNone);
