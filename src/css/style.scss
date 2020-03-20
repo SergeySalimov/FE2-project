@@ -242,8 +242,8 @@ main {
     border-radius: 7px;
     box-shadow: 2px 4px 8px 0 $alterFontColor;
 
-    background: rgb(52,154,49);
-    background: linear-gradient(5deg, rgba(52,154,49,1) 0%, rgba(237,238,66,0.14329481792717091) 57%, rgba(106,210,67,1) 100%);
+    background: rgb(52, 154, 49);
+    background: linear-gradient(5deg, rgba(52, 154, 49, 1) 0%, rgba(237, 238, 66, 0.14329481792717091) 57%, rgba(106, 210, 67, 1) 100%);
 
   }
 
@@ -266,18 +266,15 @@ footer {
 
 .scroll-up-top,
 .scroll-up-nav {
-  right: 20px;
-  @media (min-width: map-get($grid-breakpoints, "sm")) {
-    right: 0;
-  }
+  left: 0;
   @media (min-width: map-get($grid-breakpoints, "md")) {
-    right: 30px;
+    left: 30px;
   }
   @media (min-width: map-get($grid-breakpoints, "lg")) {
-    right: 40px;
+    left: 40px;
   }
   @media (min-width: map-get($grid-breakpoints, "xl")) {
-    right: 70px;
+    left: 70px;
   }
 }
 
@@ -299,10 +296,7 @@ footer {
 
 .phone-call,
 .scroll-down-contact-us {
-  right: 20px;
-  @media (min-width: map-get($grid-breakpoints, "sm")) {
-    right: 0;
-  }
+  right: 0;
   @media (min-width: map-get($grid-breakpoints, "md")) {
     right: 30px;
   }
