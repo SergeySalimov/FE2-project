@@ -7,7 +7,6 @@
   <meta name="author" content="Sergey Salimov"/>
   <meta name="keywords" content="дары леса, дары, лес, шишки, cone"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-  <!--  <link rel="icon" type="image/png" sizes="192x192" href="/android-icon-192x192.png">-->
 </head>
 <body>
 
@@ -36,6 +35,8 @@
 
 <button type="button" class="btn btn-dark scroll-up-top fixed-bottom fade"><i class="icon-up-open"></i></button>
 <button type="button" class="btn btn-dark scroll-up-nav fixed-bottom fade"><i class="icon-angle-double-up"></i></button>
+<button type="button" class="show btn btn-dark phone-call fade"><i class="icon-phone"></i></button>
+<button type="button" class="show btn btn-dark scroll-down-contact-us fade"><i class="icon-mail"></i></button>
 
 <!-- Modal Registration-->
 <div class="modal fade" id="registration" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
@@ -620,15 +621,17 @@
                      id="FormInputGroupPhonePre"
                      value="+375"
                      placeholder="префикс"
+                     required
                      aria-describedby="phoneHelpContactUs">
               <input type="tel"
                      class="form-control col-9"
                      id="FormInputGroupPhone"
                      placeholder="Номер телефона"
+                     required
                      aria-describedby="phoneHelpContactUs">
             </div>
 
-            <label class="sr-only" for="FormInputGroupText">Еуче</label>
+            <label class="sr-only" for="FormInputGroupText">Text</label>
             <small id="textHelpContactUs" class="form-text text-muted">
               Введите ваше сообщение, минимум 10 символов
             </small>
@@ -639,10 +642,11 @@
               <textarea class="form-control"
                         id="FormInputGroupText"
                         minlength="10"
-                        required
+                        rows="4"
+                        placeholder="Минимум 10 символов"
+                        aria-label="With textarea"
                         aria-describedby="textHelpContactUs"
-                        aria-label="With textarea">
-              </textarea>
+                        required></textarea>
             </div>
 
             <div class="input-group my-4">

@@ -12,8 +12,10 @@ export class Ui extends EventEmitter {
     this.router = router;
     this.templateScript = compiledTemplate;
     // initialization block
-    const buttons = new Buttons(this._model);
+    const buttons = new Buttons(this._model, this);
     const contactUs = new ContactUs(this._model, this);
+    const isMobile = /Mobile|webOS|BlackBerry|IEMobile|MeeGo|mini|Fennec|Windows Phone|Android|iP(ad|od|hone)/i.test(navigator.userAgent);
+
     this.initNavBtn();
     this.initCatBtn();
     this.initModalRegistration();
@@ -40,15 +42,15 @@ export class Ui extends EventEmitter {
     this.hideAll();
     this.clearBreadCrumps();
     this.renderPath[page]();
-    // this._model.initTooltip();
-    // this._model.initTooltip(this._model._noAuth);
+    this._model.initTooltip();
     this.renderBasketCount();
   }
 
+  // ToDO move
   clearBreadCrumps() {
     $(CONFIG.elements.nav2).children().slice(1).remove();
   }
-
+  // ToDO move
   autorizedState() {
     // perehod v avtorizovanoe sostoyanie
     console.log('AUTORIZATE......');
@@ -56,7 +58,7 @@ export class Ui extends EventEmitter {
     // this._model.initTooltip(false);
     this.changeUiOnAutState();
   }
-
+  // ToDO move
   changeUiOnAutState() {
     CONFIG.elements.cabinetLink.children[0].className = 'icon-user';
     CONFIG.elements.cabinetLink.children[0].innerHTML = `
@@ -95,9 +97,9 @@ export class Ui extends EventEmitter {
     } else {
       pswdInput[1].setCustomValidity('');
     }
-
   }
 
+  // ToDO move
   initModalRegistration() {
     $(CONFIG.toast).toast();
     this.initAuthRegClick();
@@ -105,7 +107,7 @@ export class Ui extends EventEmitter {
     this.formListener();
     this.basketListener();
   }
-
+  // ToDO move
   renderBasket() {
     const prdInBasket = this._model.initProducts(this._model.allProducts).filter(obj => obj.inBasket);
     CONFIG.elements.basketItemCount.innerText = this._model.basketCount;
@@ -122,6 +124,7 @@ export class Ui extends EventEmitter {
       this.renderEmptyBasketDiv();
     }
   }
+
   hideModal(el, time = 2000) {
     window.setTimeout(() => {
       $(el).modal('hide');
@@ -129,6 +132,7 @@ export class Ui extends EventEmitter {
   }
 
   // basket listener !!!! here change to fast access to basket
+  // ToDO move all
   basketListener() {
     CONFIG.elements.basket.addEventListener('click', (event) => {
       event.preventDefault();
@@ -178,7 +182,8 @@ export class Ui extends EventEmitter {
     CONFIG.elements.basketCount.innerText = this._model.basketCount;
   }
 
-  // Form work!!
+  // Form Auth work!!
+  // ToDO move all
   showRecoveryToast() {
     $(CONFIG.recoveryToast).toast('show');
   }
@@ -207,7 +212,7 @@ export class Ui extends EventEmitter {
     });
     CONFIG.elements.recoveryPswCheckBox.addEventListener('change', () => {
       this.changeRecoveryPswdState();
-    })
+    });
   }
   changeBtnSendState(send = true) {
     const el = CONFIG.elements.submitBtnForm;
@@ -266,6 +271,8 @@ export class Ui extends EventEmitter {
     this.deepResetForm();
     this.toastShow(res);
   }
+
+// ToDO переписать
   changeBtnFormState(on = true) {
     if (on) {
       CONFIG.elements.authRegForm.querySelector('[type="submit"]').className = 'btn btn-success mt-3';
@@ -275,6 +282,27 @@ export class Ui extends EventEmitter {
       $('[data-toggle="tooltip"]').tooltip('enable');
     }
   }
+
+  changeBtnSubmitState(form, isValid, btnOpt) {
+    const button = form.querySelector('[type="submit"]');
+    if (isValid) {
+      button.className = btnOpt.classForValid;
+    } else {
+      button.className = btnOpt.classForNoValid;
+    }
+  }
+
+  formChanging(form, btnOpt) {
+    form.addEventListener('keyup', (event) => {
+      this.changeBtnSubmitState(form, form.checkValidity(), btnOpt);
+    });
+    // for touchscreen
+    CONFIG.elements.authRegForm.addEventListener('touchend', (event) => {
+      this.changeBtnSubmitState(form, form.checkValidity(), btnOpt);
+    });
+  }
+
+  // ToDO переписать
   formAuthRegChanging() {
     CONFIG.elements.authRegForm.addEventListener('keyup', (event) => {
       if (!this._model._loginUser) this.validatePswd();
@@ -286,6 +314,8 @@ export class Ui extends EventEmitter {
       this.changeBtnFormState(CONFIG.elements.authRegForm.checkValidity());
     });
   }
+
+  // ToDo написать другой метод и заменить!!
   changeRecoveryPswdState(el = CONFIG.elements.authRegForm.querySelector('[type="password"]'),
                           state = CONFIG.elements.recoveryPswCheckBox.checked) {
     if (state) {

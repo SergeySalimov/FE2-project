@@ -191,10 +191,10 @@ export class Model extends EventEmitter {
     }
   }
 
-  //
-  // initTooltip(on = true) {
-  //   !!on ? $(() => $('[data-toggle="tooltip"]').tooltip()) : $(() => $('[data-toggle="tooltip"]').tooltip('dispose'));
-  // }
+
+  initTooltip(on = true) {
+    !!on ? $(() => $('[data-toggle="tooltip"]').tooltip()) : $(() => $('[data-toggle="tooltip"]').tooltip('dispose'));
+  }
 
   initProducts(data) {
     let productsAccumulate = [];

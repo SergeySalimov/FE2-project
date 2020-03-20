@@ -26,6 +26,10 @@ export const CONFIG = {
   registrSuccesToast: '.toast.registration-succes',
   registrErrorToast: '.toast.registration-error',
   registr2ErrorToast: '.toast.registration2-error',
+  formContactUsBtnOptions: {
+    'classForValid': 'btn btn-dark w-75',
+    'classForNoValid': 'btn btn-danger w-75',
+  },
   elements: {
     productsPlace: document.getElementById('product-place'),
     homePage: document.getElementById('home'),
@@ -61,6 +65,8 @@ export const CONFIG = {
     basketBtnClear: document.querySelector('#clear-basket'),
     basketBtnSend: document.querySelector('#send-basket'),
     scrollUp: document.querySelector('.scroll-up'),
+    formContactUs: document.querySelector('#contact-us'),
+
   },
 
 };

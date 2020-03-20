@@ -1,8 +1,9 @@
 import {CONFIG} from "@/js/config";
 
 export class Buttons {
-  constructor(model) {
+  constructor(model, ui) {
     this._model = model;
+    this.ui = ui;
     this.initButtons();
   }
 

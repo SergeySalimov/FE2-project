@@ -242,8 +242,8 @@ main {
     border-radius: 7px;
     box-shadow: 2px 4px 8px 0 $alterFontColor;
 
-    background: rgb(52, 154, 49);
-    background: linear-gradient(5deg, rgba(52, 154, 49, 1) 0%, rgba(239, 241, 4, 0.19371498599439774) 57%, rgba(129, 160, 237, 1) 100%);
+    background: rgb(52,154,49);
+    background: linear-gradient(5deg, rgba(52,154,49,1) 0%, rgba(237,238,66,0.14329481792717091) 57%, rgba(106,210,67,1) 100%);
 
   }
 
@@ -258,27 +258,60 @@ footer {
   //background-repeat: repeat-x;
 }
 
+.scroll-down-contact-us,
+.phone-call {
+  position: fixed;
+  z-index: 1030;
+}
+
 .scroll-up-top,
 .scroll-up-nav {
+  right: 20px;
   @media (min-width: map-get($grid-breakpoints, "sm")) {
-    left: 0;
+    right: 0;
   }
   @media (min-width: map-get($grid-breakpoints, "md")) {
-    left: 30px;
+    right: 30px;
   }
   @media (min-width: map-get($grid-breakpoints, "lg")) {
-    left: 40px;
+    right: 40px;
   }
   @media (min-width: map-get($grid-breakpoints, "xl")) {
-    left: 70px;
+    right: 70px;
   }
-  left: 20px;;
 }
 
-.scroll-up-top {
-  bottom: 75px;
+.scroll-up-top,
+.phone-call {
+  bottom: 41px;
+  @media (min-width: map-get($grid-breakpoints, "md")) {
+    bottom: 75px;
+  }
 }
 
-.scroll-up-nav {
-  bottom: 30px;;
+.scroll-up-nav,
+.scroll-down-contact-us {
+  bottom: 0;
+  @media (min-width: map-get($grid-breakpoints, "md")) {
+    bottom: 30px;
+  }
 }
+
+.phone-call,
+.scroll-down-contact-us {
+  right: 20px;
+  @media (min-width: map-get($grid-breakpoints, "sm")) {
+    right: 0;
+  }
+  @media (min-width: map-get($grid-breakpoints, "md")) {
+    right: 30px;
+  }
+  @media (min-width: map-get($grid-breakpoints, "lg")) {
+    right: 40px;
+  }
+  @media (min-width: map-get($grid-breakpoints, "xl")) {
+    right: 70px;
+  }
+}
+
+
