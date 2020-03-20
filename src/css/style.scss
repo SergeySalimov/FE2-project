@@ -176,6 +176,7 @@ main {
     }
 
     #product-place {
+      transition: opacity 1s;
       .card {
         h5 {
           @media (min-width: map-get($grid-breakpoints, "sm")) {
