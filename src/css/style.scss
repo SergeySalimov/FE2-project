@@ -8,6 +8,10 @@ $alterFontColor: black;
 $additFontColor: #0088cc;
 $backGrey: #e9ecef;
 
+body {
+  background-color: $backGrey;
+}
+
 header {
   background: url("/images/sunlight-forest-nature.jpg");
   background-size: contain;
@@ -153,16 +157,9 @@ main {
 
   #catalog {
     background: url("/images/wall.jpg");
-    background-size: auto;
-    background-repeat: repeat;
-    //@media (min-width: map-get($grid-breakpoints, "md")) {
-    //  background-repeat: repeat;
-    //  background-position: -585px 0;
-    //}
     //background-size: auto;
-    //@media (min-width: map-get($grid-breakpoints, "md")) {
-    //  background-size: cover;
-    //}
+    background-repeat: repeat;
+
     #catalog-navigation {
       //font-weight: bolder;
       li {
@@ -176,7 +173,7 @@ main {
     }
 
     #product-place {
-      transition: opacity 1s;
+      //transition: opacity 1s;
       .card {
         h5 {
           @media (min-width: map-get($grid-breakpoints, "sm")) {
@@ -233,10 +230,27 @@ main {
     }
   }
 
+  .contact-us {
+    //background-color: $backGrey;
+    //background: url("/images/wall.jpg");
+    //background-repeat: repeat;
+  }
+
+  .contact-us .container .col-sm-12 {
+
+    border: solid 1px $alterFontColor;
+    border-radius: 7px;
+    box-shadow: 2px 4px 8px 0 $alterFontColor;
+
+    background: rgb(52, 154, 49);
+    background: linear-gradient(5deg, rgba(52, 154, 49, 1) 0%, rgba(239, 241, 4, 0.19371498599439774) 57%, rgba(129, 160, 237, 1) 100%);
+
+  }
+
 }
 
 footer {
-  background-color: $backGrey;
+  //background-color: $backGrey;
   //background: url("/images/footer.jpg");
   //background-size: contain;
   //background-attachment: fixed;

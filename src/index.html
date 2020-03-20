@@ -69,7 +69,6 @@
               Регистрация прошла успешно
             </div>
           </div>
-
           <div class="toast autorization-succes fade hide mx-auto"
                data-delay="3000"
                role="alert"
@@ -86,7 +85,6 @@
               Вы авторизированы
             </div>
           </div>
-
           <div class="toast recovery-send fade hide mx-auto"
                data-delay="5000"
                role="alert"
@@ -103,7 +101,6 @@
               Данные отправлены на почтовый ящик. Проверьте пожалуйста вашу почту
             </div>
           </div>
-
           <div class="toast autorization-error fade hide mx-auto"
                data-delay="3000"
                role="alert"
@@ -120,7 +117,6 @@
               Ошибка авторизации. Пользователя с таким email не существует
             </div>
           </div>
-
           <div class="toast autorization2-error fade hide mx-auto"
                data-delay="3000"
                role="alert"
@@ -137,7 +133,6 @@
               Ошибка авторизации. Неправильный email или пароль
             </div>
           </div>
-
           <div class="toast registration-error fade hide mx-auto"
                data-delay="3000"
                role="alert"
@@ -154,7 +149,6 @@
               Ошибка регистрации. Пользователь с таким email уже существует
             </div>
           </div>
-
           <div class="toast registration2-error fade hide mx-auto"
                data-delay="3000"
                role="alert"
@@ -302,6 +296,7 @@
           </div>
 
         </form>
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-outline-primary btn-sm mx-auto active" id="auth-btn">Авторизация</button>
@@ -341,7 +336,7 @@
         </li>
       </ul>
     </div>
-<!--    add class to basket: '.no-autoriz' for no-autorizate state-->
+    <!--    add class to basket: '.no-autoriz' for no-autorizate state-->
     <a class="navbar-brand basket">
       <img src="/images/cart2-sm.png" class="d-inline-block align-top"
            alt="oak">
@@ -426,21 +421,21 @@
           <div class="row card-group" id="product-place">
 
 
-<!--                      <div class="col-sm-6 col-md-4 col-xl-3 my-1">-->
-<!--                        <div class="card">-->
-<!--            &lt;!&ndash;              <i class="icon-heart like"></i>&ndash;&gt;-->
-<!--                          <img src="/images/cones-of-alder.jpg" class="card-img-top" alt="cones-of-alder">-->
-<!--                          <div class="card-body">-->
-<!--                            <h5 class="card-title">Шишки ольхи</h5>-->
-<!--                          </div>-->
-<!--                          <div class="card-footer">-->
-<!--                            <button type="button" class="btn btn-sm btn-outline-success">-->
-<!--                              В корзину-->
-<!--                              <i class="icon-shopping-basket"></i>-->
-<!--                            </button>-->
-<!--                          </div>-->
-<!--                        </div>-->
-<!--                      </div>-->
+            <!--                      <div class="col-sm-6 col-md-4 col-xl-3 my-1">-->
+            <!--                        <div class="card">-->
+            <!--            &lt;!&ndash;              <i class="icon-heart like"></i>&ndash;&gt;-->
+            <!--                          <img src="/images/cones-of-alder.jpg" class="card-img-top" alt="cones-of-alder">-->
+            <!--                          <div class="card-body">-->
+            <!--                            <h5 class="card-title">Шишки ольхи</h5>-->
+            <!--                          </div>-->
+            <!--                          <div class="card-footer">-->
+            <!--                            <button type="button" class="btn btn-sm btn-outline-success">-->
+            <!--                              В корзину-->
+            <!--                              <i class="icon-shopping-basket"></i>-->
+            <!--                            </button>-->
+            <!--                          </div>-->
+            <!--                        </div>-->
+            <!--                      </div>-->
 
 
           </div>
@@ -506,7 +501,7 @@
             <h4 class="alert text-center mt-5">Пусто</h4>
             <ol>
 
-                          <li>Шишки</li>
+              <li>Шишки</li>
               <!--            <li>Шишки</li>-->
               <!--            <li>Шишки</li>-->
               <!--            <li>Шишки</li>-->
@@ -569,7 +564,127 @@
     </div>
   </div>
 
+  <div class="contact-us my-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 offset-md-2 col-md-8">
+
+          <h4 class="text-center my-3">Форма обратной связи</h4>
+
+          <form id="contact-us" class="text-left">
+
+            <label class="sr-only" for="formInputGroupName">Name</label>
+            <small id="nameHelpContactUS" class="form-text text-muted">
+              Представьтесь
+            </small>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text"><i class="icon-user"></i></div>
+              </div>
+              <input type="text"
+                     class="form-control"
+                     id="formInputGroupName"
+                     placeholder="Имя"
+                     minlength="2"
+                     required
+                     aria-describedby="nameHelpContactUS">
+            </div>
+
+
+            <label class="sr-only" for="FormInputGroupEmail">Email</label>
+            <small id="emailHelpContactUs" class="form-text text-muted">
+              Введите Email и/или телефон
+            </small>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text"><i class="icon-at"></i></div>
+              </div>
+              <input type="email"
+                     class="form-control"
+                     id="FormInputGroupEmail"
+                     placeholder="Email"
+                     required
+                     aria-describedby="emailHelpContactUs">
+            </div>
+
+            <label class="sr-only" for="FormInputGroupPhone">Phone</label>
+            <small id="phoneHelpContactUs" class="form-text text-muted">
+              Введите ваш номер телефона в формате +375 33 1234567
+            </small>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text"><i class="icon-mobile"></i></div>
+              </div>
+              <input type="tel"
+                     class="form-control col-3 text-center"
+                     id="FormInputGroupPhonePre"
+                     value="+375"
+                     placeholder="префикс"
+                     aria-describedby="phoneHelpContactUs">
+              <input type="tel"
+                     class="form-control col-9"
+                     id="FormInputGroupPhone"
+                     placeholder="Номер телефона"
+                     aria-describedby="phoneHelpContactUs">
+            </div>
+
+            <label class="sr-only" for="FormInputGroupText">Еуче</label>
+            <small id="textHelpContactUs" class="form-text text-muted">
+              Введите ваше сообщение, минимум 10 символов
+            </small>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text"><i class="icon-edit"></i></div>
+              </div>
+              <textarea class="form-control"
+                        id="FormInputGroupText"
+                        minlength="10"
+                        required
+                        aria-describedby="textHelpContactUs"
+                        aria-label="With textarea">
+              </textarea>
+            </div>
+
+            <div class="input-group my-4">
+              <div class="input-group-prepend">
+                <div class="input-group-text"><i class="icon-mail"></i></div>
+              </div>
+              <button type="submit"
+                      class="btn btn-danger w-75"
+                      id="contact-us-btn">
+                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                Отправить данные
+              </button>
+            </div>
+
+            <!--                      toasts-->
+            <div class="toast send-succes hide fade mx-auto mb-3"
+                 data-delay="3000"
+                 role="alert"
+                 aria-live="polite"
+                 aria-atomic="true">
+              <div class="toast-header">
+                <i class="icon-thumbs-up mr-2 badge-primary rounded"></i>
+                <strong class="mr-auto">Server</strong>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="toast-body">
+                Ваши данные были отправлены. Мы свяжемся с вами в ближайшее время
+              </div>
+            </div>
+
+          </form>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
 </main>
+
 
 <footer>
   <h5 class="text-center py-5"><i class="icon-copyright">2020</i></h5>

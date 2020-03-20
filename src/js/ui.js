@@ -1,5 +1,7 @@
 import {CONFIG} from "@/js/config";
 import {EventEmitter} from "@/js/event-emitter";
+import {Buttons} from "@/js/buttons";
+import {ContactUs} from "@/js/contactUs";
 
 const compiledTemplate = require('./template.handlebars');
 
@@ -9,11 +11,13 @@ export class Ui extends EventEmitter {
     this._model = model;
     this.router = router;
     this.templateScript = compiledTemplate;
+    // initialization block
+    const buttons = new Buttons(this._model);
+    const contactUs = new ContactUs(this._model, this);
     this.initNavBtn();
     this.initCatBtn();
     this.initModalRegistration();
     this.initCatalog();
-    this.initButtons();
     this.currentScrollY = null;
     // display routes functions
     this.renderPath = {
@@ -444,26 +448,6 @@ export class Ui extends EventEmitter {
     CONFIG.elements.errorBack.addEventListener('click', (event) => {
       event.preventDefault();
       this.emit('navClick', '/');
-    });
-  }
-  initButtons(time = 3000) {
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 250) {
-        $(CONFIG.scrollUp).addClass('show');
-        if (window.scrollY > 350 && this._model.current === 'catalog') {
-          $(CONFIG.scrollUpNav).addClass('show');
-        }
-      } else {
-        $(CONFIG.scrollUp).removeClass('show');
-        $(CONFIG.scrollUpNav).removeClass('show');
-      }
-    });
-    $(CONFIG.scrollUp).on('click', () => {
-      $('html, body').animate({ scrollTop: 0 }, 1500);
-    });
-    $(CONFIG.scrollUpNav).on('click', () => {
-      const destination = $('.nav2').offset().top - 65;
-      $('html, body').animate({ scrollTop: destination }, 1500);
     });
   }
 
