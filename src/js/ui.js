@@ -3,7 +3,7 @@ import {EventEmitter} from "@/js/event-emitter";
 import {Buttons} from "@/js/buttons";
 import {ContactUs} from "@/js/contactUs";
 
-const compiledTemplate = require('./template.handlebars');
+const compiledTemplate = require('./templates/template.handlebars');
 
 export class Ui extends EventEmitter {
   constructor(model, router) {

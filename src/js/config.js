@@ -4,6 +4,7 @@ export const CONFIG = {
   api: 'https://forestdecor-base.firebaseio.com',
   keyApi: 'AIzaSyDGOUqNfJvgfjSnC4Ltil6yZofKlqvyI88',
   defaultCatalogState: '/catalog/plody',
+  localStorageMessageID: 'userMessagesId',
   dNone: 'd-none',
   active: 'active',
   navBar: '#navbar9',
@@ -29,6 +30,8 @@ export const CONFIG = {
   registrSuccesToast: '.toast.registration-succes',
   registrErrorToast: '.toast.registration-error',
   registr2ErrorToast: '.toast.registration2-error',
+  contactUsSendedClass: '.send-contact-us-success',
+  contactUsNoAuthClass: '.send-contact-us-no-auth',
   formContactUsBtnOptions: {
     'classForValid': 'btn btn-dark w-75',
     'classForNoValid': 'btn btn-danger w-75',
@@ -70,6 +73,23 @@ export const CONFIG = {
     scrollUp: document.querySelector('.scroll-up'),
     formContactUs: document.querySelector('#contact-us'),
     clearContactUsBtn: document.querySelector('#clear-contact-us'),
+    contactUsAlertPlace: document.querySelector('.place-for-alert'),
+  },
+  alerts: {
+    contactUsSended: `
+    <div class="alert alert-success alert-dismissible send-contact-us-success show fade" role="alert">
+      Ваши данные были отправлены. Мы свяжемся с вами в ближайшее время.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+     </div>`,
+    contactUsNoAuth: `
+    <div class="alert alert-info alert-dismissible send-contact-us-no-auth show fade" role="alert">
+      Если вы хотите видеть свои сообщения и наши ответы здесь, авторизируйтесь пожалуйста.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+     </div>`,
   },
 
 };

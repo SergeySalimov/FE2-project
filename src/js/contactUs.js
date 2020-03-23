@@ -5,8 +5,6 @@ export class ContactUs {
     this._model = model;
     this.ui = ui;
     this.initForm();
-    this.contactUs = {};
-
   }
 
   initForm() {
@@ -17,12 +15,9 @@ export class ContactUs {
     const phones = form.querySelectorAll('[type="tel"]');
     form.addEventListener('submit', event => {
       event.preventDefault();
-      this.ui.changeBtnSendState(true, button);
-      this.collectData();
-
-      // this.resetForm(form);
+      this.sendContactUsFormtoServer(ContactUs.collectData(), button);
     });
-    buttonClear.addEventListener('click', () => this.resetForm(form));
+    buttonClear.addEventListener('click', () => this.resetForm());
     this.ui.formChanging(form, CONFIG.formContactUsBtnOptions);
     form.addEventListener('input', () => {
       const phoneState = !!(phones[0].value) && !!(phones[1].value);
@@ -44,12 +39,46 @@ export class ContactUs {
     button.addEventListener('pointerleave', () => form.classList.remove('was-validated'));
   }
 
-  resetForm(form) {
+  addAlert(data) {
+    const div = document.createElement('div');
+    div.innerHTML = data;
+    CONFIG.elements.contactUsAlertPlace.append(div);
+  }
+
+  sendContactUsFormtoServer(data, button) {
+    this.ui.changeBtnSendState(true, button);
+    fetch(`${CONFIG.api}/messages.json`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    }).then(res => res.json())
+        .then(id => {
+          this.ui.changeBtnSendState(false, button);
+          this.resetForm();
+          this.addToLocalStorage(id);
+          this.addAlert(CONFIG.alerts.contactUsSended);
+          if (!this._model.token) this.addAlert(CONFIG.alerts.contactUsNoAuth);
+        })
+  }
+
+  addToLocalStorage(arrOfId) {
+    const all = ContactUs.getMessagesFormLocalStorage();
+    all.push(arrOfId);
+    localStorage.setItem(CONFIG.localStorageMessageID, JSON.stringify(all));
+  }
+
+  static getMessagesFormLocalStorage() {
+    return JSON.parse(localStorage.getItem(CONFIG.localStorageMessageID) || '[]');
+  }
+
+  resetForm(form = CONFIG.elements.formContactUs) {
     form.reset();
     form.dispatchEvent(new Event('keyup'));
   }
 
-  collectData() {
+  static collectData() {
     const form = CONFIG.elements.formContactUs;
     const name = form.querySelector('[type="text"]').value;
     const email = form.querySelector('[type="email"]').value;
@@ -58,12 +87,11 @@ export class ContactUs {
     phone = '+' + phone.replace(/\D/g, '');
     const text = form.querySelector('textarea').value;
     const date = new Date().toJSON();
-
-    this.contactUs = { name, email, phone, text, date, };
-    this.contactUs.readed = false;
-    this.contactUs.answered = false;
-    this.contactUs.showed = true;
-    console.dir(this.contactUs);
+    return { name, email, phone, text, date,
+      'readed': false,
+      'answered': false,
+      'showed': true,
+    };
   }
 
 }

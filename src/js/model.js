@@ -7,7 +7,7 @@ export class Model extends EventEmitter {
     this.router = router;
     this.allProducts = [];
     this.productsToDisplay = [];
-    this._noAuth = true;
+    this._token = '';
     this._loginUser = true;
     this._curUser = {};
     this.basketCount = Number(0);
@@ -21,6 +21,7 @@ export class Model extends EventEmitter {
     this.on('usersLoaded', users => this._loginUser ? this.checkUserLogin(users) : this.checkUserRegistration(users));
   }
 
+  // OLD CODE BELLOW
   toogleBasketInAllProducts(data, unique) {
     for (const item of data) {
       if (item.subitems) {
