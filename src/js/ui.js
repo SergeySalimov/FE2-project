@@ -2,6 +2,7 @@ import {CONFIG} from "@/js/config";
 import {EventEmitter} from "@/js/event-emitter";
 import {Buttons} from "@/js/buttons";
 import {ContactUs} from "@/js/contactUs";
+import {Auth} from "@/js/auth";
 
 const compiledTemplate = require('./templates/template.handlebars');
 
@@ -12,14 +13,15 @@ export class Ui extends EventEmitter {
     this.router = router;
     this.templateScript = compiledTemplate;
     // initialization block
-    const buttons = new Buttons(this._model, this);
-    const contactUs = new ContactUs(this._model, this);
+    new Buttons(this._model, this);
+    new ContactUs(this._model, this);
+    new Auth(this._model, this);
     // const isMobile = /Mobile|webOS|BlackBerry|IEMobile|MeeGo|mini|Fennec|Windows Phone|Android|iP(ad|od|hone)/i.test(navigator.userAgent);
     // this.initPhoneNumber(CONFIG.phoneNumber);
 
     this.initNavBtn();
     this.initCatBtn();
-    this.initModalRegistration();
+    // this.initModalRegistration();
     this.initCatalog();
     this.currentScrollY = null;
     // display routes functions
@@ -27,7 +29,9 @@ export class Ui extends EventEmitter {
       '': this.displayHomePage.bind(this),
       '404': this.displayErrorPage.bind(this),
       'catalog': this.displayCatalogPage.bind(this),
+      'registration-or-autorization': this.displayRegistration.bind(this),
       'how-to-buy': this.displayHowToBuyPage.bind(this),
+      'messages': this.displayHowToBuyPage.bind(this),
       'delivery': this.displayDeliveryPage.bind(this),
       'payment': this.displayPaymentPage.bind(this),
       'contact': this.displayContactPage.bind(this),
@@ -45,7 +49,6 @@ export class Ui extends EventEmitter {
     this.clearBreadCrumps();
     this.renderPath[page]();
     this._model.initTooltip();
-    this.renderBasketCount();
   }
 
   // ToDO move
@@ -109,79 +112,11 @@ export class Ui extends EventEmitter {
     this.formListener();
     this.basketListener();
   }
-  // ToDO move
-  renderBasket() {
-    const prdInBasket = this._model.initProducts(this._model.allProducts).filter(obj => obj.inBasket);
-    CONFIG.elements.basketItemCount.innerText = this._model.basketCount;
-    CONFIG.elements.basketRenderPlace.innerHTML = '';
-    if (prdInBasket.length) {
-      const ol = document.createElement('ol');
-      prdInBasket.forEach(obj => {
-        const li = document.createElement('li');
-        li.innerText = obj.header;
-        ol.append(li)
-      });
-      CONFIG.elements.basketRenderPlace.append(ol);
-    } else {
-      this.renderEmptyBasketDiv();
-    }
-  }
 
   hideModal(el, time = 2000) {
     window.setTimeout(() => {
       $(el).modal('hide');
     }, time);
-  }
-
-  // basket listener !!!! here change to fast access to basket
-  // ToDO move all
-  basketListener() {
-    CONFIG.elements.basket.addEventListener('click', (event) => {
-      event.preventDefault();
-      this.currentScrollY = window.scrollY;
-      $(CONFIG.basketModal).modal({ show: true });
-      this.renderBasket();
-      // if (!this._model._noAuth) {
-        // only if autorized
-      // }
-    });
-    CONFIG.elements.basketBtnClear.addEventListener('click', (event) => {
-      event.preventDefault();
-      if (this._model.basketCount !== 0) {
-        $(CONFIG.basketClearToast).toast('show');
-        this.clearBasketUi();
-        this.hideModal(CONFIG.basketModal);
-      }
-    });
-    CONFIG.elements.basketBtnSend.addEventListener('click', (event) => {
-      event.preventDefault();
-      if (this._model.basketCount !== 0) {
-        $(CONFIG.basketSendToast).toast('show');
-        this.clearBasketUi();
-        this.hideModal(CONFIG.basketModal);
-      }
-    });
-  }
-  clearBasketUi() {
-    CONFIG.elements.basketRenderPlace.innerHTML = '';
-    this.renderEmptyBasketDiv();
-    CONFIG.elements.basketItemCount.innerText = '0';
-    this._model.basketCount = 0;
-    this._model.clearBasketInAllProducts(this._model.allProducts);
-
-    this.renderBasketCount();
-    if (this._model.current === 'catalog') {
-      this.clearBreadCrumps();
-      this.displayCatalogPage();
-    }
-  }
-  renderEmptyBasketDiv() {
-    const div = document.createElement('div');
-    div.innerHTML = '<h4 class="alert text-center mt-5">Пусто</h4>';
-    CONFIG.elements.basketRenderPlace.append(div);
-  }
-  renderBasketCount() {
-    CONFIG.elements.basketCount.innerText = this._model.basketCount;
   }
 
   // Form Auth work!!
@@ -274,7 +209,7 @@ export class Ui extends EventEmitter {
     this.toastShow(res);
   }
 
-// ToDO переписать used changeBtnSubmitState
+// ToDO переписать used changeBtnSubmitState DELETE?
   changeBtnFormState(on = true) {
     if (on) {
       CONFIG.elements.authRegForm.querySelector('[type="submit"]').className = 'btn btn-success mt-3';
@@ -299,7 +234,7 @@ export class Ui extends EventEmitter {
       this.changeBtnSubmitState(form, form.checkValidity(), btnOpt);
     });
     // for touchscreen
-    CONFIG.elements.authRegForm.addEventListener('touchend', (event) => {
+    form.addEventListener('touchend', (event) => {
       this.changeBtnSubmitState(form, form.checkValidity(), btnOpt);
     });
   }
@@ -374,6 +309,13 @@ export class Ui extends EventEmitter {
     CONFIG.elements.howToBuyPage.classList.remove(CONFIG.dNone);
     CONFIG.elements.navBtnHowToBuy.classList.add(CONFIG.active);
   }
+  displayRegistration() {
+    CONFIG.elements.nav2Home.after(this.createHtmlForBreadcrump('Регистрация или авторизация'));
+    CONFIG.elements.contactUsAll.classList.add(CONFIG.dNone);
+    console.log(CONFIG.elements.contactUsAll.classList);
+    CONFIG.elements.registrationPage.classList.remove(CONFIG.dNone);
+    CONFIG.elements.navBtnRegistration.classList.add(CONFIG.active);
+  }
   displayDeliveryPage() {
     CONFIG.elements.nav2Home.after(this.createHtmlForBreadcrump('Доставка'));
     CONFIG.elements.deliveryPage.classList.remove(CONFIG.dNone);
@@ -410,11 +352,15 @@ export class Ui extends EventEmitter {
     CONFIG.elements.deliveryPage.classList.add(CONFIG.dNone);
     CONFIG.elements.paymentPage.classList.add(CONFIG.dNone);
     CONFIG.elements.contactPage.classList.add(CONFIG.dNone);
+    CONFIG.elements.registrationPage.classList.add(CONFIG.dNone);
     CONFIG.elements.navBtnCatalog.classList.remove(CONFIG.active);
     CONFIG.elements.navBtnHowToBuy.classList.remove(CONFIG.active);
     CONFIG.elements.navBtnDelivery.classList.remove(CONFIG.active);
     CONFIG.elements.navBtnPayment.classList.remove(CONFIG.active);
     CONFIG.elements.navBtnContact.classList.remove(CONFIG.active);
+    CONFIG.elements.navBtnRegistration.classList.remove(CONFIG.active);
+    // show contact us
+    CONFIG.elements.contactUsAll.classList.remove(CONFIG.dNone);
   }
 
   render404() {
@@ -461,6 +407,11 @@ export class Ui extends EventEmitter {
       event.preventDefault();
       this.emit('navClick', '/how-to-buy');
     });
+    //ToDo
+    CONFIG.elements.navBtnMessages.addEventListener('click', (event) => {
+      event.preventDefault();
+      this.emit('navClick', '/how-to-buy');
+    });
     CONFIG.elements.navBtnDelivery.addEventListener('click', (event) => {
       event.preventDefault();
       this.emit('navClick', '/delivery');
@@ -480,6 +431,10 @@ export class Ui extends EventEmitter {
     CONFIG.elements.errorBack.addEventListener('click', (event) => {
       event.preventDefault();
       this.emit('navClick', '/');
+    });
+    CONFIG.elements.navBtnRegistration.addEventListener('click', (event) => {
+      event.preventDefault();
+      this.emit('navClick', '/registration-or-autorization');
     });
   }
 

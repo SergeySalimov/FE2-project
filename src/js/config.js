@@ -41,12 +41,16 @@ export const CONFIG = {
     homePage: document.getElementById('home'),
     errorPage: document.getElementById('error-page'),
     howToBuyPage: document.getElementById('how-to-buy'),
+    registrationPage: document.getElementById('registration-page'),
     catalogPage: document.getElementById('catalog'),
     deliveryPage: document.getElementById('delivery'),
     paymentPage: document.getElementById('payment'),
     contactPage: document.getElementById('contact'),
+    contactUsAll: document.getElementById('contact-us-all'),
     navBtnCatalog: document.querySelector('.btn-nav-catalog'),
+    navBtnRegistration: document.querySelector('.btn-nav-registration'),
     navBtnHowToBuy: document.querySelector('.btn-nav-how-to-buy'),
+    navBtnMessages: document.querySelector('.btn-nav-messages'),
     navBtnDelivery: document.querySelector('.btn-nav-delivery'),
     navBtnPayment: document.querySelector('.btn-nav-payment'),
     navBtnContact: document.querySelector('.btn-nav-contact'),
@@ -78,7 +82,7 @@ export const CONFIG = {
   alerts: {
     contactUsSended: `
     <div class="alert alert-success alert-dismissible send-contact-us-success show fade" role="alert">
-      Ваши данные были отправлены. Мы свяжемся с вами в ближайшее время.
+      Ваши сообщение было отправлено. Мы ответим вам в ближайшее время.
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>

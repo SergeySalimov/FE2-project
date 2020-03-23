@@ -16,14 +16,6 @@ export class Controller {
     this._ui.on('basketPrdClk', idPrd => this.basketChange(idPrd));
   }
 
-  basketChange(uniqueId) {
-    this._ui.currentScrollY = window.scrollY;
-    this._model.toogleBasketInAllProducts(this._model.allProducts, uniqueId);
-    this._ui.renderBasketCount();
-    this._ui.clearBreadCrumps();
-    this._ui.displayCatalogPage();
-  }
-
   onPswRecovery(email) {
     this._ui.showRecoveryToast();
     this._ui.deepResetForm();
@@ -80,20 +72,22 @@ export class Controller {
     this.router.addRoute('', this._ui.emit.bind(this._ui, 'pageChange', ''));
     this.router.addRoute('404', this._ui.emit.bind(this._ui, 'pageChange', '404'));
     this.router.addRoute('catalog', this._ui.emit.bind(this._ui, 'pageChange', 'catalog'));
+    this.router.addRoute('registration-or-autorization', this._ui.emit.bind(this._ui, 'pageChange', 'registration-or-autorization'));
     this.router.addRoute('how-to-buy', this._ui.emit.bind(this._ui, 'pageChange', 'how-to-buy'));
+    this.router.addRoute('messages', this._ui.emit.bind(this._ui, 'pageChange', 'messages'));
     this.router.addRoute('delivery', this._ui.emit.bind(this._ui, 'pageChange', 'delivery'));
     this.router.addRoute('payment', this._ui.emit.bind(this._ui, 'pageChange', 'payment'));
     this.router.addRoute('contact', this._ui.emit.bind(this._ui, 'pageChange', 'contact'));
   }
 
-  initCatalogRoutes() {
-    console.log('Catalog router initialization');
-    const catalogRoutes = this._model.catalogRoutes;
-    for (const catPrd in catalogRoutes) {
-      if (catPrd !== '') {
-        this.router.addRoute(catPrd, this._ui.emit.bind(this._ui, 'catalogChange', catalogRoutes[catPrd]))
-      }
-    }
-  }
+  // initCatalogRoutes() {
+  //   console.log('Catalog router initialization');
+  //   const catalogRoutes = this._model.catalogRoutes;
+  //   for (const catPrd in catalogRoutes) {
+  //     if (catPrd !== '') {
+  //       this.router.addRoute(catPrd, this._ui.emit.bind(this._ui, 'catalogChange', catalogRoutes[catPrd]))
+  //     }
+  //   }
+  // }
 
 }

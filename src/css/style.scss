@@ -118,6 +118,10 @@ header {
     }
   }
 
+  .btn-nav-registration.active {
+    color: yellow;
+  }
+
   .navbar-brand {
     padding: 5px;
 
@@ -236,7 +240,7 @@ main {
     //background-repeat: repeat;
   }
 
-  .contact-us .container .col-sm-12 {
+  #contact-us-all .container .col-sm-12 {
 
     border: solid 1px $alterFontColor;
     border-radius: 7px;

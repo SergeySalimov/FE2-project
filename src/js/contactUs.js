@@ -57,20 +57,20 @@ export class ContactUs {
         .then(id => {
           this.ui.changeBtnSendState(false, button);
           this.resetForm();
-          this.addToLocalStorage(id);
+          this.addToSessionStorage(id);
           this.addAlert(CONFIG.alerts.contactUsSended);
           if (!this._model.token) this.addAlert(CONFIG.alerts.contactUsNoAuth);
         })
   }
 
-  addToLocalStorage(arrOfId) {
-    const all = ContactUs.getMessagesFormLocalStorage();
+  addToSessionStorage(arrOfId) {
+    const all = ContactUs.getMessagesFormSessionStorage();
     all.push(arrOfId);
-    localStorage.setItem(CONFIG.localStorageMessageID, JSON.stringify(all));
+    sessionStorage.setItem(CONFIG.localStorageMessageID, JSON.stringify(all));
   }
 
-  static getMessagesFormLocalStorage() {
-    return JSON.parse(localStorage.getItem(CONFIG.localStorageMessageID) || '[]');
+  static getMessagesFormSessionStorage() {
+    return JSON.parse(sessionStorage.getItem(CONFIG.localStorageMessageID) || '[]');
   }
 
   resetForm(form = CONFIG.elements.formContactUs) {
