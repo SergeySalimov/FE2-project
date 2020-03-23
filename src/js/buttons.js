@@ -4,7 +4,7 @@ export class Buttons {
   constructor(model, ui) {
     this._model = model;
     this.ui = ui;
-    this.initButtons();
+    this.initButtons(1500);
   }
 
   initButtons(time = 3000) {
@@ -20,11 +20,11 @@ export class Buttons {
       }
     });
     $(CONFIG.scrollUp).on('click', () => {
-      $('html, body').animate({ scrollTop: 0 }, 1500);
+      $('html, body').animate({ scrollTop: 0 }, time);
     });
     $(CONFIG.scrollUpNav).on('click', () => {
       const destination = $('.nav2').offset().top - 65;
-      $('html, body').animate({ scrollTop: destination }, 1500);
+      $('html, body').animate({ scrollTop: destination }, time);
     });
   }
 }

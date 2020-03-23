@@ -35,8 +35,8 @@
 
 <button type="button" class="btn btn-dark scroll-up-top fixed-bottom fade"><i class="icon-up-open"></i></button>
 <button type="button" class="btn btn-dark scroll-up-nav fixed-bottom fade"><i class="icon-angle-double-up"></i></button>
-<button type="button" class="show btn btn-dark phone-call fade"><i class="icon-phone"></i></button>
-<button type="button" class="show btn btn-dark scroll-down-contact-us fade"><i class="icon-mail"></i></button>
+<button type="button" class="btn btn-warning phone-call fade"><i class="icon-phone"><a href="tel:+1234567890">+375 29 123-45-67</a></i></button>
+<button type="button" class="btn btn-primary scroll-down-contact-us fade"><i class="icon-edit"></i></button>
 
 <!-- Modal Registration-->
 <div class="modal fade" id="registration" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
@@ -633,7 +633,7 @@
 
             <label class="sr-only" for="FormInputGroupText">Text</label>
             <small id="textHelpContactUs" class="form-text text-muted">
-              Введите ваше сообщение, минимум 10 символов
+              Введите ваше сообщение
             </small>
             <div class="input-group mb-2">
               <div class="input-group-prepend">
@@ -649,7 +649,7 @@
                         required></textarea>
             </div>
 
-            <div class="input-group my-4">
+            <div class="input-group btn-group my-4">
               <div class="input-group-prepend">
                 <div class="input-group-text"><i class="icon-mail"></i></div>
               </div>
@@ -659,10 +659,15 @@
                 <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
                 Отправить данные
               </button>
+              <button type="button"
+                      class="btn btn-secondary"
+                      id="clear-contact-us">
+                <i class="icon-cancel"></i>
+              </button>
             </div>
 
             <!--                      toasts-->
-            <div class="toast send-succes hide fade mx-auto mb-3"
+            <div class="toast send-success hide fade mx-auto mb-3"
                  data-delay="3000"
                  role="alert"
                  aria-live="polite"

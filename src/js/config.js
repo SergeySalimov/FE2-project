@@ -16,6 +16,9 @@ export const CONFIG = {
   toast: '.toast',
   scrollUp: '.scroll-up-top',
   scrollUpNav: '.scroll-up-nav',
+  scrollContactUs: '.scroll-down-contact-us',
+  phoneCall: '.phone-number',
+  phoneNumber: '+375 29 123-45-67',
   modalAuthRegID: '#registration',
   recoveryToast: '.toast.recovery-send',
   basketSendToast: '.toast.send-basket',
@@ -66,7 +69,7 @@ export const CONFIG = {
     basketBtnSend: document.querySelector('#send-basket'),
     scrollUp: document.querySelector('.scroll-up'),
     formContactUs: document.querySelector('#contact-us'),
-
+    clearContactUsBtn: document.querySelector('#clear-contact-us'),
   },
 
 };

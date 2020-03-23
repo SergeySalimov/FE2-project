@@ -14,7 +14,8 @@ export class Ui extends EventEmitter {
     // initialization block
     const buttons = new Buttons(this._model, this);
     const contactUs = new ContactUs(this._model, this);
-    const isMobile = /Mobile|webOS|BlackBerry|IEMobile|MeeGo|mini|Fennec|Windows Phone|Android|iP(ad|od|hone)/i.test(navigator.userAgent);
+    // const isMobile = /Mobile|webOS|BlackBerry|IEMobile|MeeGo|mini|Fennec|Windows Phone|Android|iP(ad|od|hone)/i.test(navigator.userAgent);
+    // this.initPhoneNumber(CONFIG.phoneNumber);
 
     this.initNavBtn();
     this.initCatBtn();
@@ -37,6 +38,7 @@ export class Ui extends EventEmitter {
     this._model.on('serverWorkEnd', response => this.formAfterServerWork(response));
     this._model.on('autorization', () => this.autorizedState());
   }
+
 
   onPageChange(page) {
     this.hideAll();
@@ -214,8 +216,8 @@ export class Ui extends EventEmitter {
       this.changeRecoveryPswdState();
     });
   }
-  changeBtnSendState(send = true) {
-    const el = CONFIG.elements.submitBtnForm;
+  // working method!!
+  changeBtnSendState(send = true, el = CONFIG.elements.submitBtnForm) {
     if (send) {
       el.disabled = true;
       el.children[0].classList.remove(CONFIG.dNone)
@@ -272,7 +274,7 @@ export class Ui extends EventEmitter {
     this.toastShow(res);
   }
 
-// ToDO переписать
+// ToDO переписать used changeBtnSubmitState
   changeBtnFormState(on = true) {
     if (on) {
       CONFIG.elements.authRegForm.querySelector('[type="submit"]').className = 'btn btn-success mt-3';
@@ -302,7 +304,7 @@ export class Ui extends EventEmitter {
     });
   }
 
-  // ToDO переписать
+  // ToDO переписать used formChanging
   formAuthRegChanging() {
     CONFIG.elements.authRegForm.addEventListener('keyup', (event) => {
       if (!this._model._loginUser) this.validatePswd();

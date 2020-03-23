@@ -259,6 +259,13 @@ footer {
 }
 
 .scroll-down-contact-us,
+.phone-call,
+.scroll-up-top,
+.scroll-up-nav {
+  opacity: 0.55;
+}
+
+.scroll-down-contact-us,
 .phone-call {
   position: fixed;
   z-index: 1030;
@@ -279,7 +286,7 @@ footer {
 }
 
 .scroll-up-top,
-.phone-call {
+.scroll-down-contact-us {
   bottom: 41px;
   @media (min-width: map-get($grid-breakpoints, "md")) {
     bottom: 75px;
@@ -287,7 +294,7 @@ footer {
 }
 
 .scroll-up-nav,
-.scroll-down-contact-us {
+.phone-call {
   bottom: 0;
   @media (min-width: map-get($grid-breakpoints, "md")) {
     bottom: 30px;
