@@ -568,143 +568,189 @@
   <div class="mt-5" id="registration-page">
     <div class="container">
       <div class="row">
+        <div class="col-sm-12 offset-md-1 col-md-7 text-justify">
 
-        <div class="card my-3 col-12">
+          <div class="row">
+
+            <button type="button"
+                    class="btn btn-block btn-sm btn-outline-primary active col-6" id="auth-btn">
+              Авторизация
+            </button>
+            <button type="button"
+                    class="btn btn-sm btn-outline-success col-6" id="reg-btn">
+              Регистрация</button>
+          </div>
+        </div>
+
+        <div class="card my-3 col-sm-12 offset-md-1 col-md-7">
           <div class="card-body">
-            <h3 class="card-title text-center">Регистрация / авторизация</h3>
+            <h3 class="card-title text-center">Авторизация</h3>
 
-            <div class="row">
+            <form class="registration-form d-none">
 
-              <div class="col-sm-6">
-                <label class="sr-only" for="inlineFormInputGroupEmail">Email</label>
-                <small id="emailHelpBlock" class="form-text text-muted">
-                  Введите Email
-                </small>
-                <div class="input-group mb-2">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text"><i class="icon-at"></i></div>
-                  </div>
-                  <input type="email"
-                         class="form-control"
-                         id="inlineFormInputGroupEmail"
-                         placeholder="Email"
-                         required
-                         aria-describedby="emailHelpBlock">
+              <label class="sr-only" for="registrEmail">Email</label>
+              <small id="registrEmailHelpBlock" class="form-text text-muted">
+                Введите Email
+              </small>
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><i class="icon-at"></i></div>
                 </div>
-              </div>
-
-              <div class="col-sm-6 for-registration d-none">
-                <label class="sr-only" for="inlineFormInputGroupName">Name</label>
-                <small id="nameHelpBlock" class="form-text text-muted">
-                  Представьтесь (минимум 2 символа)
-                </small>
-                <div class="input-group mb-2">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text"><i class="icon-user"></i></div>
-                  </div>
-                  <input type="text"
-                         class="form-control"
-                         id="inlineFormInputGroupName"
-                         placeholder="Jonh Smith"
-                         minlength="2"
-                         aria-describedby="nameHelpBlock">
-                </div>
-              </div>
-
-              <div class="col-12 for-registration d-none">
-                <label class="sr-only" for="inlineFormInputGroupPhone">Phone</label>
-                <small id="phoneHelpBlock" class="form-text text-muted">
-                  Введите ваш номер телефона в формате +375 33 1234567
-                </small>
-                <div class="input-group mb-2">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text"><i class="icon-mobile"></i></div>
-                  </div>
-
-                  <input type="tel"
-                         class="form-control col-3 text-center"
-                         id="inlineFormInputGroupPhonePre"
-                         value="+375"
-                         placeholder="prefix"
-                         aria-describedby="phoneHelpBlock">
-                  <input type="tel"
-                         class="form-control col-9"
-                         id="inlineFormInputGroupPhone"
-                         placeholder="Mobile number"
-                         aria-describedby="phoneHelpBlock">
-                </div>
-              </div>
-
-              <div class="col-sm-6">
-                <label class="sr-only" for="inlineFormInputPswd">Password</label>
-                <small id="pswdHelpBlock" class="form-text text-muted">
-                  Введите пароль (минимум 4 символа)
-                </small>
-                <input type="password"
-                       class="form-control mb-2"
-                       id="inlineFormInputPswd"
-                       placeholder="Пароль"
-                       minlength="4"
+                <input type="email"
+                       class="form-control"
+                       id="registrEmail"
+                       placeholder="Email"
                        required
-                       aria-describedby="pswdHelpBlock">
+                       aria-describedby="registrEmailHelpBlock">
               </div>
 
-              <div class="col-sm-6 for-registration d-none">
-                <label class="sr-only" for="inlineFormInputPswd2">Password</label>
-                <small id="pswdHelpBlock2" class="form-text text-muted">
-                  Введите пароль еще раз
-                </small>
-                <input type="password"
-                       class="form-control mb-2"
-                       id="inlineFormInputPswd2"
-                       placeholder="Пароль"
-                       minlength="4"
-                       aria-describedby="pswdHelpBlock2">
+              <label class="sr-only" for="registrName">Name</label>
+              <small id="registrNameHelpBlock" class="form-text text-muted">
+                Представьтесь (минимум 2 символа)
+              </small>
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><i class="icon-user"></i></div>
+                </div>
+                <input type="text"
+                       class="form-control"
+                       id="registrName"
+                       placeholder="Jonh Smith"
+                       minlength="2"
+                       aria-describedby="registrNameHelpBlock">
               </div>
 
-              <div class="col-12 recovery-pswd">
-                <div class="form-check form-check-inline">
+              <label class="sr-only" for="registrPhone">Phone</label>
+              <small id="registrPhoneHelpBlock" class="form-text text-muted">
+                Введите ваш номер телефона в формате +375 33 1234567
+              </small>
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><i class="icon-mobile"></i></div>
+                </div>
+
+                <input type="tel"
+                       class="form-control col-3 text-center"
+                       id="registrPhonePre"
+                       value="+375"
+                       placeholder="prefix"
+                       aria-describedby="registrPhoneHelpBlock">
+                <input type="tel"
+                       class="form-control col-9"
+                       id="registrPhone"
+                       placeholder="Mobile number"
+                       aria-describedby="registrPhoneHelpBlock">
+              </div>
+
+
+              <label class="sr-only" for="registrPswd">Password</label>
+              <small id="registrPswdHelpBlock" class="form-text text-muted">
+                Введите пароль (минимум 6 символов)
+              </small>
+              <input type="password"
+                     class="form-control mb-2"
+                     id="registrPswd"
+                     placeholder="Пароль"
+                     minlength="6"
+                     required
+                     aria-describedby="registrPswdHelpBlock">
+
+
+              <label class="sr-only" for="registrPswd2">Password</label>
+              <small id="registrPswdHelpBlock2" class="form-text text-muted">
+                Введите пароль еще раз
+              </small>
+              <input type="password"
+                     class="form-control mb-2"
+                     id="registrPswd2"
+                     placeholder="Пароль"
+                     minlength="6"
+                     aria-describedby="registrPswdHelpBlock2">
+
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" checked id="subscribe">
+                <label class="form-check-label small" for="subscribe">
+                  Подписаться на наши новости и обновления товаров
+                </label>
+              </div>
+
+              <button type="submit"
+                      class="btn btn-danger mt-3"
+                      data-toggle="tooltip"
+                      data-placement="bottom"
+                      id="submit-registr-btn"
+                      title="Заполните все поля правильно">
+                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                Отправить данные
+              </button>
+
+              <button type="button"
+                      class="btn btn-primary mt-3"
+                      id="clear-registr-btn">
+                Очистить данные
+              </button>
+
+            </form>
+            <hr>
+            <form class="autorization-form">
+
+              <label class="sr-only" for="authorEmail">Email</label>
+              <small id="authorEmailHelpBlock" class="form-text text-muted">
+                Введите Email
+              </small>
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <div class="input-group-text"><i class="icon-at"></i></div>
+                </div>
+                <input type="email"
+                       class="form-control"
+                       id="authorEmail"
+                       placeholder="Email"
+                       required
+                       aria-describedby="authorEmailHelpBlock">
+              </div>
+
+              <label class="sr-only" for="authorPswd">Password</label>
+              <small id="authorPswdHelpBlock" class="form-text text-muted">
+                Введите пароль (минимум 6 символов)
+              </small>
+              <input type="password"
+                     class="form-control mb-2"
+                     id="authorPswd"
+                     placeholder="Пароль"
+                     minlength="6"
+                     required
+                     aria-describedby="authorPswdHelpBlock">
+
+                <div class="form-check form-check-inline mt-1">
                   <input class="form-check-input" type="checkbox" id="recovery-pswd">
                   <label class="form-check-label" for="recovery-pswd">
                     Вспомнить пароль
                   </label>
                 </div>
-              </div>
 
-              <div class="col-12 for-registration d-none">
-                <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="checkbox" checked id="subscribe">
-                  <label class="form-check-label" for="subscribe">
-                    Подписаться на наши новости и обновления товаров
-                  </label>
-                </div>
-              </div>
+              <hr/>
 
-              <div class="col-sm-6">
+
                 <button type="submit"
-                        class="btn btn-danger mt-3"
-                        data-toggle="tooltip"
-                        data-placement="bottom"
-                        id="submit-btn"
-                        title="Заполните все поля правильно">
-                  <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
-                  Отправить данные
-                </button>
-              </div>
+                      class="btn btn-danger mt-3"
+                      data-toggle="tooltip"
+                      data-placement="bottom"
+                      id="submit-author-btn"
+                      title="Заполните все поля правильно">
+                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+                Отправить данные
+              </button>
 
-              <div class="col-sm-6 for-registration d-none">
-                <button type="button"
-                        class="btn btn-primary mt-3"
-                        id="clear-btn">
-                  Очистить данные
-                </button>
-              </div>
+              <button type="button"
+                      class="btn btn-primary mt-3"
+                      id="clear-author-btn">
+                Очистить данные
+              </button>
+
+            </form>
 
 
-              <a href="#" class="card-link">Ссылка карты</a>
-              <a href="#" class="card-link">Другая ссылка</a>
-
-            </div>
           </div>
         </div>
 
