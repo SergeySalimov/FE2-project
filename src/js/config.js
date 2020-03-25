@@ -2,7 +2,8 @@ export const CONFIG = {
   // api: 'https://my-json-server.typicode.com/SergeySalimov/FE2-project',
   // api: 'http://localhost:3007',
   api: 'https://forestdecor-base.firebaseio.com',
-  keyApi: 'AIzaSyDGOUqNfJvgfjSnC4Ltil6yZofKlqvyI88',
+  apiKey: 'AIzaSyDGOUqNfJvgfjSnC4Ltil6yZofKlqvyI88',
+  authUrl: 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=',
   defaultCatalogState: '/catalog/plody',
   localStorageMessageID: 'userMessagesId',
   dNone: 'd-none',
@@ -33,9 +34,14 @@ export const CONFIG = {
   contactUsSendedClass: '.send-contact-us-success',
   contactUsNoAuthClass: '.send-contact-us-no-auth',
   formContactUsBtnOptions: {
-    'classForValid': 'btn btn-dark w-75',
-    'classForNoValid': 'btn btn-danger w-75',
+    'classForValid': 'btn btn-dark w-50',
+    'classForNoValid': 'btn btn-danger w-50',
   },
+  formAuthBtnOptions: {
+    'classForValid': 'btn btn-success mt-3',
+    'classForNoValid': 'btn btn-danger mt-3',
+  },
+
   elements: {
     productsPlace: document.getElementById('product-place'),
     homePage: document.getElementById('home'),
@@ -78,11 +84,12 @@ export const CONFIG = {
     formContactUs: document.querySelector('#contact-us'),
     clearContactUsBtn: document.querySelector('#clear-contact-us'),
     contactUsAlertPlace: document.querySelector('.place-for-alert'),
+    autorizForm: document.querySelector('.autorization-form'),
   },
   alerts: {
     contactUsSended: `
     <div class="alert alert-success alert-dismissible send-contact-us-success show fade" role="alert">
-      Ваши сообщение было отправлено. Мы ответим вам в ближайшее время.
+      Ваши сообщение было отправлено. Мы свяжемся с вами в ближайшее время.
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>

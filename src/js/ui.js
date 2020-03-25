@@ -312,7 +312,6 @@ export class Ui extends EventEmitter {
   displayRegistration() {
     CONFIG.elements.nav2Home.after(this.createHtmlForBreadcrump('Регистрация или авторизация'));
     CONFIG.elements.contactUsAll.classList.add(CONFIG.dNone);
-    console.log(CONFIG.elements.contactUsAll.classList);
     CONFIG.elements.registrationPage.classList.remove(CONFIG.dNone);
     CONFIG.elements.navBtnRegistration.classList.add(CONFIG.active);
   }
