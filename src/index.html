@@ -19,7 +19,7 @@
             <i class="icon-mobile"><a href="tel:+375291234567">+375 29 123-45-67</a></i>
           </div>
         </div>
-        <div class="col-xs-12 col-sm-6 text-center text-sm-right cabinet">
+        <div class="col-xs-12 col-sm-6 text-center text-sm-right cabinet d-none">
           <i class="icon-login"><a href="#" data-toggle="modal" data-target="#registration">регистрация</a></i>
           <!--          <img src="/images/opera_2019-12-04_21-59-08.png" alt="social" height="20"/>-->
         </div>
@@ -37,275 +37,6 @@
 <button type="button" class="btn btn-warning phone-call fade"><i class="icon-phone"><a href="tel:+1234567890">+375 29
   123-45-67</a></i></button>
 <button type="button" class="btn btn-primary scroll-down-contact-us fade"><i class="icon-edit"></i></button>
-
-<!-- Modal Registration-->
-<!--<div class="modal fade" id="registration" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"-->
-<!--     aria-hidden="true">-->
-<!--  <div class="modal-dialog" role="document">-->
-<!--    <div class="modal-content">-->
-<!--      <div class="modal-header">-->
-<!--        <h5 class="modal-title" id="ModalLabel">Пользовательские данные</h5>-->
-<!--        <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--          <span aria-hidden="true">&times;</span>-->
-<!--        </button>-->
-<!--      </div>-->
-<!--      <div class="modal-body">-->
-
-<!--        <form id="auth-reg-form">-->
-
-<!--          &lt;!&ndash;          toasts&ndash;&gt;-->
-<!--          <div class="toast registration-succes fade hide mx-auto"-->
-<!--               data-delay="3000"-->
-<!--               role="alert"-->
-<!--               aria-live="polite"-->
-<!--               aria-atomic="true">-->
-<!--            <div class="toast-header">-->
-<!--              <i class="icon-thumbs-up mr-2 badge-primary rounded"></i>-->
-<!--              <strong class="mr-auto">Server</strong>-->
-<!--              <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">-->
-<!--                <span aria-hidden="true">&times;</span>-->
-<!--              </button>-->
-<!--            </div>-->
-<!--            <div class="toast-body">-->
-<!--              Регистрация прошла успешно-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="toast autorization-succes fade hide mx-auto"-->
-<!--               data-delay="3000"-->
-<!--               role="alert"-->
-<!--               aria-live="polite"-->
-<!--               aria-atomic="true">-->
-<!--            <div class="toast-header">-->
-<!--              <i class="icon-thumbs-up mr-2 badge-primary rounded"></i>-->
-<!--              <strong class="mr-auto">Server</strong>-->
-<!--              <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">-->
-<!--                <span aria-hidden="true">&times;</span>-->
-<!--              </button>-->
-<!--            </div>-->
-<!--            <div class="toast-body">-->
-<!--              Вы авторизированы-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="toast recovery-send fade hide mx-auto"-->
-<!--               data-delay="5000"-->
-<!--               role="alert"-->
-<!--               aria-live="polite"-->
-<!--               aria-atomic="true">-->
-<!--            <div class="toast-header">-->
-<!--              <i class="icon-thumbs-up mr-2 badge-info rounded"></i>-->
-<!--              <strong class="mr-auto">Server</strong>-->
-<!--              <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">-->
-<!--                <span aria-hidden="true">&times;</span>-->
-<!--              </button>-->
-<!--            </div>-->
-<!--            <div class="toast-body">-->
-<!--              Данные отправлены на почтовый ящик. Проверьте пожалуйста вашу почту-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="toast autorization-error fade hide mx-auto"-->
-<!--               data-delay="3000"-->
-<!--               role="alert"-->
-<!--               aria-live="polite"-->
-<!--               aria-atomic="true">-->
-<!--            <div class="toast-header">-->
-<!--              <i class="icon-error-alt mr-2 badge-danger rounded"></i>-->
-<!--              <strong class="mr-auto">Server</strong>-->
-<!--              <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">-->
-<!--                <span aria-hidden="true">&times;</span>-->
-<!--              </button>-->
-<!--            </div>-->
-<!--            <div class="toast-body">-->
-<!--              Ошибка авторизации. Пользователя с таким email не существует-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="toast autorization2-error fade hide mx-auto"-->
-<!--               data-delay="3000"-->
-<!--               role="alert"-->
-<!--               aria-live="polite"-->
-<!--               aria-atomic="true">-->
-<!--            <div class="toast-header">-->
-<!--              <i class="icon-error-alt mr-2 badge-danger rounded"></i>-->
-<!--              <strong class="mr-auto">Server</strong>-->
-<!--              <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">-->
-<!--                <span aria-hidden="true">&times;</span>-->
-<!--              </button>-->
-<!--            </div>-->
-<!--            <div class="toast-body">-->
-<!--              Ошибка авторизации. Неправильный email или пароль-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="toast registration-error fade hide mx-auto"-->
-<!--               data-delay="3000"-->
-<!--               role="alert"-->
-<!--               aria-live="polite"-->
-<!--               aria-atomic="true">-->
-<!--            <div class="toast-header">-->
-<!--              <i class="icon-error-alt mr-2 badge-danger rounded"></i>-->
-<!--              <strong class="mr-auto">Server</strong>-->
-<!--              <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">-->
-<!--                <span aria-hidden="true">&times;</span>-->
-<!--              </button>-->
-<!--            </div>-->
-<!--            <div class="toast-body">-->
-<!--              Ошибка регистрации. Пользователь с таким email уже существует-->
-<!--            </div>-->
-<!--          </div>-->
-<!--          <div class="toast registration2-error fade hide mx-auto"-->
-<!--               data-delay="3000"-->
-<!--               role="alert"-->
-<!--               aria-live="polite"-->
-<!--               aria-atomic="true">-->
-<!--            <div class="toast-header">-->
-<!--              <i class="icon-error-alt mr-2 badge-danger rounded"></i>-->
-<!--              <strong class="mr-auto">Server</strong>-->
-<!--              <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">-->
-<!--                <span aria-hidden="true">&times;</span>-->
-<!--              </button>-->
-<!--            </div>-->
-<!--            <div class="toast-body">-->
-<!--              Ошибка регистрации. Не удалось связаться с сервером-->
-<!--            </div>-->
-<!--          </div>-->
-
-<!--          <div class="form-row align-items-center">-->
-
-<!--            <div class="col-sm-6">-->
-<!--              <label class="sr-only" for="inlineFormInputGroupEmail">Email</label>-->
-<!--              <small id="emailHelpBlock" class="form-text text-muted">-->
-<!--                Введите Email-->
-<!--              </small>-->
-<!--              <div class="input-group mb-2">-->
-<!--                <div class="input-group-prepend">-->
-<!--                  <div class="input-group-text"><i class="icon-at"></i></div>-->
-<!--                </div>-->
-<!--                <input type="email"-->
-<!--                       class="form-control"-->
-<!--                       id="inlineFormInputGroupEmail"-->
-<!--                       placeholder="Email"-->
-<!--                       required-->
-<!--                       aria-describedby="emailHelpBlock">-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <div class="col-sm-6 for-registration d-none">-->
-<!--              <label class="sr-only" for="inlineFormInputGroupName">Name</label>-->
-<!--              <small id="nameHelpBlock" class="form-text text-muted">-->
-<!--                Представьтесь (минимум 2 символа)-->
-<!--              </small>-->
-<!--              <div class="input-group mb-2">-->
-<!--                <div class="input-group-prepend">-->
-<!--                  <div class="input-group-text"><i class="icon-user"></i></div>-->
-<!--                </div>-->
-<!--                <input type="text"-->
-<!--                       class="form-control"-->
-<!--                       id="inlineFormInputGroupName"-->
-<!--                       placeholder="Jonh Smith"-->
-<!--                       minlength="2"-->
-<!--                       aria-describedby="nameHelpBlock">-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <div class="col-12 for-registration d-none">-->
-<!--              <label class="sr-only" for="inlineFormInputGroupPhone">Phone</label>-->
-<!--              <small id="phoneHelpBlock" class="form-text text-muted">-->
-<!--                Введите ваш номер телефона в формате +375 33 1234567-->
-<!--              </small>-->
-<!--              <div class="input-group mb-2">-->
-<!--                <div class="input-group-prepend">-->
-<!--                  <div class="input-group-text"><i class="icon-mobile"></i></div>-->
-<!--                </div>-->
-
-<!--                <input type="tel"-->
-<!--                       class="form-control col-3 text-center"-->
-<!--                       id="inlineFormInputGroupPhonePre"-->
-<!--                       value="+375"-->
-<!--                       placeholder="prefix"-->
-<!--                       aria-describedby="phoneHelpBlock">-->
-<!--                <input type="tel"-->
-<!--                       class="form-control col-9"-->
-<!--                       id="inlineFormInputGroupPhone"-->
-<!--                       placeholder="Mobile number"-->
-<!--                       aria-describedby="phoneHelpBlock">-->
-<!--              </div>-->
-<!--            </div>-->
-<!--            -->
-<!--            <div class="col-sm-6">-->
-<!--              <label class="sr-only" for="inlineFormInputPswd">Password</label>-->
-<!--              <small id="pswdHelpBlock" class="form-text text-muted">-->
-<!--                Введите пароль (минимум 4 символа)-->
-<!--              </small>-->
-<!--              <input type="password"-->
-<!--                     class="form-control mb-2"-->
-<!--                     id="inlineFormInputPswd"-->
-<!--                     placeholder="Пароль"-->
-<!--                     minlength="4"-->
-<!--                     required-->
-<!--                     aria-describedby="pswdHelpBlock">-->
-<!--            </div>-->
-
-<!--            <div class="col-sm-6 for-registration d-none">-->
-<!--              <label class="sr-only" for="inlineFormInputPswd2">Password</label>-->
-<!--              <small id="pswdHelpBlock2" class="form-text text-muted">-->
-<!--                Введите пароль еще раз-->
-<!--              </small>-->
-<!--              <input type="password"-->
-<!--                     class="form-control mb-2"-->
-<!--                     id="inlineFormInputPswd2"-->
-<!--                     placeholder="Пароль"-->
-<!--                     minlength="4"-->
-<!--                     aria-describedby="pswdHelpBlock2">-->
-<!--            </div>-->
-
-<!--            <div class="col-12 recovery-pswd">-->
-<!--              <div class="form-check form-check-inline">-->
-<!--                <input class="form-check-input" type="checkbox" id="recovery-pswd">-->
-<!--                <label class="form-check-label" for="recovery-pswd">-->
-<!--                  Вспомнить пароль-->
-<!--                </label>-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <div class="col-12 for-registration d-none">-->
-<!--              <div class="form-check form-check-inline">-->
-<!--                <input class="form-check-input" type="checkbox" checked id="subscribe">-->
-<!--                <label class="form-check-label" for="subscribe">-->
-<!--                  Подписаться на наши новости и обновления товаров-->
-<!--                </label>-->
-<!--              </div>-->
-<!--            </div>-->
-
-<!--            <div class="col-sm-6">-->
-<!--              <button type="submit"-->
-<!--                      class="btn btn-danger mt-3"-->
-<!--                      data-toggle="tooltip"-->
-<!--                      data-placement="bottom"-->
-<!--                      id="submit-btn"-->
-<!--                      title="Заполните все поля правильно">-->
-<!--                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>-->
-<!--                Отправить данные-->
-<!--              </button>-->
-<!--            </div>-->
-
-<!--            <div class="col-sm-6 for-registration d-none">-->
-<!--              <button type="button"-->
-<!--                      class="btn btn-primary mt-3"-->
-<!--                      id="clear-btn">-->
-<!--                Очистить данные-->
-<!--              </button>-->
-<!--            </div>-->
-
-<!--          </div>-->
-
-<!--        </form>-->
-
-<!--      </div>-->
-<!--      <div class="modal-footer">-->
-<!--        <button type="button" class="btn btn-outline-primary btn-sm mx-auto active" id="auth-btn">Авторизация</button>-->
-<!--        <button type="button" class="btn btn-outline-success btn-sm mx-auto" id="reg-btn">Регистрация</button>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--</div>-->
 
 <nav class="nav1 navbar navbar-expand-md navbar-dark bg-dark sticky-top ">
   <div class="container form-inline">
@@ -369,9 +100,9 @@
       <div class="row">
         <div class="col-sm-12">
           <h2 class="my-3 text-center">Добро пожаловать на сайт-витрину.</h2>
-          <p>Здесь вы можете просмотреть, выбрать товары из нашего каталога, узнать о способах их оплаты и доставки. А
-            также вы можете связаться с нами, либо оставить свой заказ через корзину для нас и мы свяжемся с вами в
-            ближайшее возможное время.</p>
+          <p>Здесь вы можете просмотреть товары из нашего каталога, узнать о способах их оплаты и доставки. А
+            также вы можете связаться с нами через форму обратной связи, либо позвонив по указанным телефонам. </p>
+          <p>Другие способы связаться с нами указаны в разделе "Контакты"</p>
           <p>Обращаем Ваше внимание: данный сайт служит для презентации и рекламы товаров и <b>не является</b>
             сайтом-магазином.</p>
 
@@ -503,7 +234,8 @@
             </button>
             <button type="button"
                     class="btn btn-sm btn-outline-success col-6" id="reg-btn">
-              Регистрация</button>
+              Регистрация
+            </button>
           </div>
         </div>
 
@@ -647,14 +379,17 @@
                      required
                      aria-describedby="authorPswdHelpBlock">
 
-                <div class="form-check form-check-inline mt-1">
-                  <input class="form-check-input" type="checkbox" id="recovery-pswd">
-                  <label class="form-check-label" for="recovery-pswd">
-                    Вспомнить пароль
-                  </label>
-                </div>
+              <div class="form-check form-check-inline mt-1">
+                <input class="form-check-input" type="checkbox" id="recovery-pswd">
+                <label class="form-check-label" for="recovery-pswd">
+                  Вспомнить пароль
+                </label>
+              </div>
               <hr/>
-                <button type="submit"
+
+              <div class="place-for-alert-auth"></div>
+
+              <button type="submit"
                       class="btn btn-danger mt-3"
                       id="submit-author-btn">
                 <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>

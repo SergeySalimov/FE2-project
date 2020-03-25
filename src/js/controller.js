@@ -10,10 +10,14 @@ export class Controller {
     //broadcast block
     this._ui.on('navClick', url => this.onNavigationClick(url));
     this._ui.on('catClick', url => this.onCatalogClick(url));
+    // registration or authentication
+    this._ui.on('login', data => console.log(data))
+
     // this._model.on('productsLoaded', () => this.initCatalogRoutes())
-    this._ui.on('serverWorkStart', arr => this._model._loginUser ? this.onUserLogin(arr) : this.onUserRegistration(arr));
-    this._ui.on('pswdRecovery', email => this.onPswRecovery(email));
-    this._ui.on('basketPrdClk', idPrd => this.basketChange(idPrd));
+
+    // this._ui.on('serverWorkStart', arr => this._model._loginUser ? this.onUserLogin(arr) : this.onUserRegistration(arr));
+    // this._ui.on('pswdRecovery', email => this.onPswRecovery(email));
+    // this._ui.on('basketPrdClk', idPrd => this.basketChange(idPrd));
   }
 
   onPswRecovery(email) {

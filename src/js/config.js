@@ -10,12 +10,12 @@ export const CONFIG = {
   active: 'active',
   navBar: '#navbar9',
   productClck: 'entire-product',
-  bskClck: 'basket-click',
-  bskClck2: 'basket-click2',
-  basketModal: '#basket-modal',
-  noAutoriz: 'no-autoriz',
-  forRgs: '.for-registration',
-  toast: '.toast',
+  // bskClck: 'basket-click',
+  // bskClck2: 'basket-click2',
+  // basketModal: '#basket-modal',
+  // noAutoriz: 'no-autoriz',
+  // forRgs: '.for-registration',
+  // toast: '.toast',
   scrollUp: '.scroll-up-top',
   scrollUpNav: '.scroll-up-nav',
   scrollContactUs: '.scroll-down-contact-us',
@@ -84,6 +84,8 @@ export const CONFIG = {
     formContactUs: document.querySelector('#contact-us'),
     clearContactUsBtn: document.querySelector('#clear-contact-us'),
     contactUsAlertPlace: document.querySelector('.place-for-alert'),
+    registrAlertPlace: document.querySelector('.place-for-alert-registr'),
+    authAlertPlace: document.querySelector('.place-for-alert-auth'),
     autorizForm: document.querySelector('.autorization-form'),
   },
   alerts: {
@@ -97,6 +99,19 @@ export const CONFIG = {
     contactUsNoAuth: `
     <div class="alert alert-info alert-dismissible send-contact-us-no-auth show fade" role="alert">
       Если вы хотите видеть свои сообщения и наши ответы здесь, авторизируйтесь пожалуйста.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+     </div>`,
+    authError: `
+    <div class="alert alert-danger alert-dismissible show fade" role="alert">      
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+     </div>`,
+    authSuccess: `
+    <div class="alert alert-success alert-dismissible show fade" role="alert">
+       Вы успешно авторизировались.      
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>

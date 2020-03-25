@@ -1,9 +1,7 @@
-import {EventEmitter} from "@/js/event-emitter";
 import {CONFIG} from "@/js/config";
 
-export class Auth extends EventEmitter {
+export class Auth {
   constructor(model, ui) {
-    super();
     this.model = model;
     this.ui = ui;
     this.authForm = CONFIG.elements.autorizForm;
@@ -67,13 +65,37 @@ export class Auth extends EventEmitter {
     }).then(res => res.json())
         .then(data => {
           console.log(data);
+          console.log(data.error);
+          if (data.error) {
+            this.addAlert(CONFIG.alerts.authError, data.error.message, true, 3000);
+          }
+          if (data.idToken) {
+            this.addAlert(CONFIG.alerts.authSuccess, '', true, 2000);
+            console.log(data.idToken);
+            this.ui.emit('login', data);
+          }
           this.ui.changeBtnSendState(false, this.authBtnSubmit);
           this.resetForm();
         })
         .catch(data => {
-
+          // console.log(data.error.message);
         });
   }
 
+  addAlert(data, text, auth = true, time = 0) {
+    const alert = document.createElement('div');
+    alert.innerHTML = data;
+    if (!!text) {
+      const txt = document.createTextNode(text);
+      alert.firstElementChild.prepend(txt);
+    }
+    auth ? CONFIG.elements.authAlertPlace.append(alert) : CONFIG.elements.registrAlertPlace.append(alert);
+    if (!!time) this.closeAlert(time);
+  }
 
+  closeAlert(time) {
+    window.setTimeout(() => {
+      $('.alert').alert('close');
+    }, time);
+  }
 }
