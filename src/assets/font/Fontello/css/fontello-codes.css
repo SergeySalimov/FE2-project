@@ -33,6 +33,7 @@
 .icon-spin1:before { content: '\e830'; } /* '' */
 .icon-spin4:before { content: '\e834'; } /* '' */
 .icon-spin5:before { content: '\e838'; } /* '' */
+.icon-spin6:before { content: '\e839'; } /* '' */
 .icon-login-1:before { content: '\f02c'; } /* '' */
 .icon-logout-1:before { content: '\f02d'; } /* '' */
 .icon-facebook:before { content: '\f09a'; } /* '' */
@@ -43,6 +44,7 @@
 .icon-angle-double-up:before { content: '\f102'; } /* '' */
 .icon-angle-double-down:before { content: '\f103'; } /* '' */
 .icon-mobile:before { content: '\f10b'; } /* '' */
+.icon-spinner:before { content: '\f110'; } /* '' */
 .icon-attention-alt:before { content: '\f12a'; } /* '' */
 .icon-anchor:before { content: '\f13d'; } /* '' */
 .icon-instagram:before { content: '\f16d'; } /* '' */

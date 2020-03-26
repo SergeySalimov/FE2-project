@@ -12,6 +12,28 @@ body {
   background-color: $backGrey;
 }
 
+#globalModal {
+  i {
+    position: fixed;
+    color: $backGrey;
+    top: 35%;
+    left: 40%;
+    font-size: 4rem;
+    @media (min-width: map-get($grid-breakpoints, "sm")) {
+     font-size: 5rem;
+    }
+    @media (min-width: map-get($grid-breakpoints, "md")) {
+      font-size: 7rem;
+    }
+    @media (min-width: map-get($grid-breakpoints, "lg")) {
+      font-size: 10rem;
+    }
+    @media (min-width: map-get($grid-breakpoints, "xl")) {
+      font-size: 13rem;
+    }
+  }
+}
+
 header {
   background: url("/images/sunlight-forest-nature.jpg");
   background-size: contain;

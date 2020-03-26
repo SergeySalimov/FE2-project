@@ -39,10 +39,7 @@ export class Ui extends EventEmitter {
     // broadcast block
     this._model.on('productsLoaded', data => this.renderProductsToDisplay(data));
     this.on('pageChange', page => this.onPageChange(page));
-    this._model.on('serverWorkEnd', response => this.formAfterServerWork(response));
-    this._model.on('autorization', () => this.autorizedState());
   }
-
 
   onPageChange(page) {
     this.hideAll();
@@ -51,10 +48,10 @@ export class Ui extends EventEmitter {
     this._model.initTooltip();
   }
 
-  // ToDO move
   clearBreadCrumps() {
     $(CONFIG.elements.nav2).children().slice(1).remove();
   }
+
   // ToDO move
   autorizedState() {
     // perehod v avtorizovanoe sostoyanie
@@ -96,14 +93,13 @@ export class Ui extends EventEmitter {
   // ToDO move
   initModalRegistration() {
     $(CONFIG.toast).toast();
-    this.initAuthRegClick();
-    this.formAuthRegChanging();
-    this.formListener();
     this.basketListener();
   }
 
   hideModal(el, time = 2000) {
     window.setTimeout(() => {
+      console.log('hide');
+      console.log(el);
       $(el).modal('hide');
     }, time);
   }
@@ -113,33 +109,7 @@ export class Ui extends EventEmitter {
   showRecoveryToast() {
     $(CONFIG.recoveryToast).toast('show');
   }
-  emitEventOnForm() {
-    let _formData = [];
-    this.changeBtnSendState();
-    CONFIG.elements.authRegForm.querySelectorAll('input').forEach(e => _formData.push(e.value));
-    if (!this._model._loginUser) {
-      _formData.splice(5);
-      _formData.push(CONFIG.elements.subscribeCheckBox.checked);
-      this.emit('serverWorkStart', _formData);
-    } else {
-      _formData.splice(1, 3);
-      _formData.splice(2);
-      !!CONFIG.elements.recoveryPswCheckBox.checked ? this.emit('pswdRecovery', _formData[0]) : this.emit('serverWorkStart', _formData);
-    }
-  }
-  formListener() {
-    CONFIG.elements.clearBtnForm.addEventListener('click', (event) => {
-      event.preventDefault();
-      this.resetForm();
-    });
-    CONFIG.elements.authRegForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      this.emitEventOnForm();
-    });
-    CONFIG.elements.recoveryPswCheckBox.addEventListener('change', () => {
-      this.changeRecoveryPswdState();
-    });
-  }
+
   // working method!!
   changeBtnSendState(send = true, el = CONFIG.elements.submitBtnForm) {
     if (send) {
@@ -174,65 +144,6 @@ export class Ui extends EventEmitter {
     return phone;
   }
 
-  resetForm() {
-    CONFIG.elements.authRegForm.reset();
-    this.changeRecoveryPswdState();
-    this.changeBtnFormState(false);
-  }
-  deepResetForm() {
-    this.changeBtnSendState(false);
-    this.resetForm();
-  }
-  toogleAuthRegForm(auth = true) {
-    this.resetForm();
-    if (auth) {
-      this._model._loginUser = true;
-      CONFIG.elements.authRegForm.querySelectorAll(CONFIG.forRgs).forEach(e => e.classList.add(CONFIG.dNone));
-      CONFIG.elements.authRegForm.querySelector('[type="text"]').required = false;
-      CONFIG.elements.authRegForm.querySelectorAll('[type="password"]')[1].required = false;
-      CONFIG.elements.authBtn.classList.add(CONFIG.active);
-      CONFIG.elements.regBtn.classList.remove(CONFIG.active);
-      CONFIG.elements.recoveryPsw.classList.remove(CONFIG.dNone);
-    } else {
-      this._model._loginUser = false;
-      CONFIG.elements.authRegForm.querySelectorAll(CONFIG.forRgs).forEach(e => e.classList.remove(CONFIG.dNone));
-      CONFIG.elements.authRegForm.querySelector('[type="text"]').required = true;
-      CONFIG.elements.authRegForm.querySelectorAll('[type="password"]')[1].required = true;
-      CONFIG.elements.authBtn.classList.remove(CONFIG.active);
-      CONFIG.elements.regBtn.classList.add(CONFIG.active);
-      CONFIG.elements.recoveryPsw.classList.add(CONFIG.dNone);
-    }
-  }
-  initAuthRegClick() {
-    CONFIG.elements.authBtn.addEventListener('click', (event) => {
-      event.preventDefault();
-      if (!CONFIG.elements.authBtn.classList.contains(CONFIG.active)) {
-        this.toogleAuthRegForm();
-      }
-    });
-    CONFIG.elements.regBtn.addEventListener('click', (event) => {
-      event.preventDefault();
-      if (!CONFIG.elements.regBtn.classList.contains(CONFIG.active)) {
-        this.toogleAuthRegForm(false);
-      }
-    });
-  }
-  formAfterServerWork(res) {
-    this.deepResetForm();
-    this.toastShow(res);
-  }
-
-// ToDO переписать used changeBtnSubmitState DELETE?
-  changeBtnFormState(on = true) {
-    if (on) {
-      CONFIG.elements.authRegForm.querySelector('[type="submit"]').className = 'btn btn-success mt-3';
-      $('[data-toggle="tooltip"]').tooltip('disable');
-    } else {
-      CONFIG.elements.authRegForm.querySelector('[type="submit"]').className = 'btn btn-danger mt-3';
-      $('[data-toggle="tooltip"]').tooltip('enable');
-    }
-  }
-
   changeBtnSubmitState(form, isValid, btnOpt) {
     const button = form.querySelector('[type="submit"]');
     if (isValid) {
@@ -252,32 +163,6 @@ export class Ui extends EventEmitter {
       if (registr) this.validatePswd();
       this.changeBtnSubmitState(form, form.checkValidity(), btnOpt);
     });
-  }
-
-  // ToDO переписать used formChanging
-  formAuthRegChanging() {
-    CONFIG.elements.authRegForm.addEventListener('keyup', (event) => {
-      if (!this._model._loginUser) this.validatePswd();
-      this.changeBtnFormState(CONFIG.elements.authRegForm.checkValidity());
-    });
-    // for touchscreen
-    CONFIG.elements.authRegForm.addEventListener('touchend', (event) => {
-      if (!this._model._loginUser) this.validatePswd();
-      this.changeBtnFormState(CONFIG.elements.authRegForm.checkValidity());
-    });
-  }
-
-  // ToDo написать другой метод и заменить!!
-  changeRecoveryPswdState(el = CONFIG.elements.authRegForm.querySelector('[type="password"]'),
-                          state = CONFIG.elements.recoveryPswCheckBox.checked) {
-    if (state) {
-      el.required = false;
-      el.parentElement.classList.add(CONFIG.dNone)
-    } else {
-      el.required = true;
-      el.parentElement.classList.remove(CONFIG.dNone)
-    }
-    this.changeBtnFormState(CONFIG.elements.authRegForm.checkValidity());
   }
 
   isRouteOfCatalog(route) {
@@ -438,6 +323,11 @@ export class Ui extends EventEmitter {
       event.preventDefault();
       this.emit('navClick', '/contact');
     });
+    CONFIG.elements.nav2HomeOak.addEventListener('click', (event) => {
+      event.preventDefault();
+      // this.emit('navClick', '/');
+      this.underConstruction();
+    });
     CONFIG.elements.nav2Home.addEventListener('click', (event) => {
       event.preventDefault();
       this.emit('navClick', '/');
@@ -457,5 +347,16 @@ export class Ui extends EventEmitter {
     // compile with handlebars
     CONFIG.elements.productsPlace.innerHTML = this.templateScript(data);
   }
+
+  // change state login logout
+  underConstruction(start = true) {
+    $(CONFIG.globalModal).modal({
+      backdrop: 'static'
+    });
+    this.emit('navClick', '/contact');
+    this.hideModal(CONFIG.globalModal, 4000);
+    // $(CONFIG.globalModal).modal('dispose');
+  }
+
 }
 

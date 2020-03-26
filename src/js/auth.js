@@ -82,7 +82,6 @@ export class Auth {
               this.authForm.querySelector('[type="password"]').disabled = false;
               this.resetForm();
             });
-
       } else {
         this.signWithEmailAndPassword(arr[0], arr[1])
             .then(() => {
@@ -90,8 +89,6 @@ export class Auth {
               this.resetForm();
             });
       }
-
-      // recovery.checked ? console.log('recovery') : console.log('submit');
     });
     recovery.addEventListener('click', () => {
       pswAuth.disabled = recovery.checked;
@@ -127,15 +124,12 @@ export class Auth {
       }
     }).then(res => res.json())
         .then(data => {
-          console.log(data);
-          console.log(data.error);
           if (data.error) {
             this.addAlert(CONFIG.alerts.authRegError, data.error.message, auth, 3000);
           }
           if (data.idToken) {
-            this.addAlert(CONFIG.alerts.authSuccess, '', auth, 2000);
-            console.log(data.idToken);
-            this.ui.emit('login', data);
+            // this.addAlert(CONFIG.alerts.authSuccess, '', auth, 2000);
+            this.ui.emit('loginStart', data);
           }
         })
         .catch(data => {
@@ -154,8 +148,6 @@ export class Auth {
       }
     }).then(res => res.json())
         .then(data => {
-          console.log(data);
-          console.log(data.error);
           if (data.error) {
             this.addAlert(CONFIG.alerts.authRegError, data.error.message, true, 3000);
           }

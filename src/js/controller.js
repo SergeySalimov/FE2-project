@@ -11,39 +11,16 @@ export class Controller {
     this._ui.on('navClick', url => this.onNavigationClick(url));
     this._ui.on('catClick', url => this.onCatalogClick(url));
     // registration or authentication
-    this._ui.on('login', data => console.log(data))
+    this._ui.on('loginStart', data => console.log(data))
 
     // this._model.on('productsLoaded', () => this.initCatalogRoutes())
-
-    // this._ui.on('serverWorkStart', arr => this._model._loginUser ? this.onUserLogin(arr) : this.onUserRegistration(arr));
-    // this._ui.on('pswdRecovery', email => this.onPswRecovery(email));
     // this._ui.on('basketPrdClk', idPrd => this.basketChange(idPrd));
   }
 
-  onPswRecovery(email) {
-    this._ui.showRecoveryToast();
-    this._ui.deepResetForm();
-  }
+  onLoginStart(data) {
+    this._ui.underConstruction();
+    this._model._token = data.idToken;
 
-  onUserLogin(arrData) {
-    const email = arrData[0];
-    const www = this._model.strToBit(arrData[1]);
-    this._model._curUser = { email, www, };
-    this._model.getUsers();
-  }
-
-  onlyNumbers(str) {
-    return parseInt(str.replace(/\D+/g, ''), 10);
-  }
-
-  onUserRegistration(arrData) {
-    const email = arrData[0];
-    const name = arrData[1];
-    const phone = `+${this.onlyNumbers(arrData[2])} ${this.onlyNumbers(arrData[3])}`;
-    const www = this._model.strToBit(arrData[4]);
-    const news = arrData[5];
-    this._model._curUser = { email, name, phone, www, news, };
-    this._model.getUsers();
   }
 
   onCatalogClick(url) {
