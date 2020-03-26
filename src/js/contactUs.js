@@ -15,7 +15,7 @@ export class ContactUs {
     const phones = form.querySelectorAll('[type="tel"]');
     form.addEventListener('submit', event => {
       event.preventDefault();
-      this.sendContactUsFormtoServer(ContactUs.collectData(), button);
+      this.sendContactUsFormtoServer(this.collectData(), button);
     });
     buttonClear.addEventListener('click', () => this.resetForm());
     this.ui.formChanging(form, CONFIG.formContactUsBtnOptions);
@@ -33,10 +33,7 @@ export class ContactUs {
         }
       }
     });
-    button.addEventListener('mouseenter', () => form.classList.add('was-validated'));
-    button.addEventListener('mouseleave', () => form.classList.remove('was-validated'));
-    button.addEventListener('pointerenter', () => form.classList.add('was-validated'));
-    button.addEventListener('pointerleave', () => form.classList.remove('was-validated'));
+    this.ui.formValidate();
   }
 
   addAlert(data) {
@@ -64,12 +61,12 @@ export class ContactUs {
   }
 
   addToSessionStorage(arrOfId) {
-    const all = ContactUs.getMessagesFormSessionStorage();
+    const all = this.getMessagesFormSessionStorage();
     all.push(arrOfId);
     sessionStorage.setItem(CONFIG.localStorageMessageID, JSON.stringify(all));
   }
 
-  static getMessagesFormSessionStorage() {
+  getMessagesFormSessionStorage() {
     return JSON.parse(sessionStorage.getItem(CONFIG.localStorageMessageID) || '[]');
   }
 
@@ -78,13 +75,11 @@ export class ContactUs {
     form.dispatchEvent(new Event('keyup'));
   }
 
-  static collectData() {
+  collectData() {
     const form = CONFIG.elements.formContactUs;
     const name = form.querySelector('[type="text"]').value;
     const email = form.querySelector('[type="email"]').value;
-    let phone = '';
-    form.querySelectorAll('[type="tel"]').forEach(e => phone += e.value);
-    phone = '+' + phone.replace(/\D/g, '');
+    const phone = this.ui.getPhoneFromForm(form);
     const text = form.querySelector('textarea').value;
     const date = new Date().toJSON();
     return { name, email, phone, text, date,

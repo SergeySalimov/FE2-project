@@ -93,17 +93,6 @@ export class Ui extends EventEmitter {
     }
   }
 
-  validatePswd() {
-    const _pswd = [];
-    const pswdInput = CONFIG.elements.authRegForm.querySelectorAll('[type="password"]');
-    pswdInput.forEach(e => _pswd.push(e.value));
-    if (_pswd[0] !== _pswd[1] && _pswd[0] !== '') {
-      pswdInput[1].setCustomValidity('Пароли должны совпадать!');
-    } else {
-      pswdInput[1].setCustomValidity('');
-    }
-  }
-
   // ToDO move
   initModalRegistration() {
     $(CONFIG.toast).toast();
@@ -161,6 +150,30 @@ export class Ui extends EventEmitter {
       el.children[0].classList.add(CONFIG.dNone)
     }
   }
+  validatePswd(form = CONFIG.elements.registrForm) {
+    const _pswd = [];
+    const pswdInput = form.querySelectorAll('[type="password"]');
+    pswdInput.forEach(e => _pswd.push(e.value));
+    if (_pswd[0] !== _pswd[1] && _pswd[0] !== '') {
+      pswdInput[1].setCustomValidity('Пароли должны совпадать!');
+    } else {
+      pswdInput[1].setCustomValidity('');
+    }
+  }
+  formValidate(form = CONFIG.elements.formContactUs) {
+    const button = form.querySelector('[type="submit"]');
+    button.addEventListener('mouseenter', () => form.classList.add('was-validated'));
+    button.addEventListener('mouseleave', () => form.classList.remove('was-validated'));
+    button.addEventListener('pointerenter', () => form.classList.add('was-validated'));
+    button.addEventListener('pointerleave', () => form.classList.remove('was-validated'));
+  }
+  getPhoneFromForm(form) {
+    let phone = '';
+    form.querySelectorAll('[type="tel"]').forEach(e => phone += e.value);
+    phone = '+' + phone.replace(/\D/g, '');
+    return phone;
+  }
+
   resetForm() {
     CONFIG.elements.authRegForm.reset();
     this.changeRecoveryPswdState();
@@ -229,12 +242,14 @@ export class Ui extends EventEmitter {
     }
   }
 
-  formChanging(form, btnOpt) {
+  formChanging(form, btnOpt, registr = false) {
     form.addEventListener('keyup', (event) => {
+      if (registr) this.validatePswd();
       this.changeBtnSubmitState(form, form.checkValidity(), btnOpt);
     });
     // for touchscreen
     form.addEventListener('touchend', (event) => {
+      if (registr) this.validatePswd();
       this.changeBtnSubmitState(form, form.checkValidity(), btnOpt);
     });
   }

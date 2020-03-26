@@ -4,6 +4,8 @@ export const CONFIG = {
   api: 'https://forestdecor-base.firebaseio.com',
   apiKey: 'AIzaSyDGOUqNfJvgfjSnC4Ltil6yZofKlqvyI88',
   authUrl: 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=',
+  regsUrl: 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=',
+  recvUrl: 'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=',
   defaultCatalogState: '/catalog/plody',
   localStorageMessageID: 'userMessagesId',
   dNone: 'd-none',
@@ -68,8 +70,8 @@ export const CONFIG = {
     // authRegForm: document.getElementById('auth-reg-form'),
     // clearBtnForm: document.getElementById('clear-btn'),
     // submitBtnForm: document.getElementById('submit-btn'),
-    // authBtn: document.getElementById('auth-btn'),
-    // regBtn: document.getElementById('reg-btn'),
+    authBtn: document.getElementById('auth-btn'),
+    regBtn: document.getElementById('reg-btn'),
     // subscribeCheckBox: document.getElementById('subscribe'),
     // recoveryPswCheckBox: document.getElementById('recovery-pswd'),
     // recoveryPsw: document.querySelector('.recovery-pswd'),
@@ -87,11 +89,12 @@ export const CONFIG = {
     registrAlertPlace: document.querySelector('.place-for-alert-registr'),
     authAlertPlace: document.querySelector('.place-for-alert-auth'),
     autorizForm: document.querySelector('.autorization-form'),
+    registrForm: document.querySelector('.registration-form'),
   },
   alerts: {
     contactUsSended: `
     <div class="alert alert-success alert-dismissible send-contact-us-success show fade" role="alert">
-      Ваши сообщение было отправлено. Мы свяжемся с вами в ближайшее время.
+      Ваше сообщение было отправлено. Мы свяжемся с вами в ближайшее время.
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -103,7 +106,7 @@ export const CONFIG = {
         <span aria-hidden="true">&times;</span>
       </button>
      </div>`,
-    authError: `
+    authRegError: `
     <div class="alert alert-danger alert-dismissible show fade" role="alert">      
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
@@ -112,6 +115,13 @@ export const CONFIG = {
     authSuccess: `
     <div class="alert alert-success alert-dismissible show fade" role="alert">
        Вы успешно авторизировались.      
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+     </div>`,
+    recvSuccess: `
+    <div class="alert alert-success alert-dismissible show fade" role="alert">
+       Ссылка на восстановление пароля отправлена на ваш email. Проверьте, пожалуйста, вашу почту.      
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
