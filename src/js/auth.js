@@ -1,8 +1,7 @@
 import {CONFIG} from "@/js/config";
 
 export class Auth {
-  constructor(model, ui) {
-    this.model = model;
+  constructor(ui) {
     this.ui = ui;
 
     this.regsForm = CONFIG.elements.registrForm;
@@ -168,12 +167,12 @@ export class Auth {
       alert.firstElementChild.prepend(txt);
     }
     auth ? CONFIG.elements.authAlertPlace.append(alert) : CONFIG.elements.registrAlertPlace.append(alert);
-    if (!!time) this.closeAlert(time);
+    if (!!time) this.ui.closeAlert(time);
   }
-
-  closeAlert(time) {
-    window.setTimeout(() => {
-      $('.alert').alert('close');
-    }, time);
-  }
+  //
+  // closeAlert(time) {
+  //   window.setTimeout(() => {
+  //     $('.alert').alert('close');
+  //   }, time);
+  // }
 }

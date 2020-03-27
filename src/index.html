@@ -10,21 +10,9 @@
 </head>
 <body>
 
-<!--<div class="modal fade"-->
-<!--     id="globalModal"-->
-<!--     tabindex="-1"-->
-<!--     data-backdrop="static"-->
-<!--     aria-hidden="true">-->
-<!--        <i class="icon-spin6 animate-spin"></i>-->
-<!--</div>-->
-
 <div class="modal" id="globalModal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-
-        <i class="icon-spin6 animate-spin"></i>
-
-    </div>
+    <i class="icon-spin6 animate-spin"></i>
   </div>
 </div>
 
@@ -38,7 +26,7 @@
           </div>
         </div>
         <div class="col-xs-12 col-sm-6 text-center text-sm-right cabinet d-none">
-          <i class="icon-login"><a href="#" data-toggle="modal" data-target="#registration">регистрация</a></i>
+          <i class="icon-user"><a></a></i>
           <!--          <img src="/images/opera_2019-12-04_21-59-08.png" alt="social" height="20"/>-->
         </div>
       </div>
@@ -96,6 +84,9 @@
       <!--      <img src="/images/cart2-sm.png" class="d-inline-block align-top"-->
       <!--           alt="oak">-->
       <!--      <span class="badge badge-success badge-pill basket-count">0</span>-->
+    </a>
+    <a class="navbar-brand btn-nav-log-out d-none">
+      <i class="icon-logout" style="font-size: 2rem"></i>
     </a>
 
   </div>
@@ -343,12 +334,12 @@
                      minlength="6"
                      aria-describedby="registrPswdHelpBlock2">
 
-<!--              <div class="form-check form-check-inline">-->
-<!--                <input class="form-check-input" type="checkbox" checked id="subscribe">-->
-<!--                <label class="form-check-label small" for="subscribe">-->
-<!--                  Подписаться на наши новости и обновления товаров-->
-<!--                </label>-->
-<!--              </div>-->
+              <!--              <div class="form-check form-check-inline">-->
+              <!--                <input class="form-check-input" type="checkbox" checked id="subscribe">-->
+              <!--                <label class="form-check-label small" for="subscribe">-->
+              <!--                  Подписаться на наши новости и обновления товаров-->
+              <!--                </label>-->
+              <!--              </div>-->
 
               <div class="place-for-alert-registr"></div>
 
@@ -427,6 +418,41 @@
 
           </div>
         </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="d-none mt-3" id="messages">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-12 mb-2">
+          <h3 class="text-center">Ваши сообщения</h3>
+
+        </div>
+        <div class="col-4 col-md-3">
+          <div class="list-group" id="list-tab" role="tablist">
+            <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list"
+               href="#list-home" role="tab" aria-controls="home">27/03/2020 17:45:25</a>
+            <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list"
+               href="#list-profile" role="tab" aria-controls="profile">Profile</a>
+            <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list"
+               href="#list-messages" role="tab" aria-controls="messages">Messages</a>
+            <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list"
+               href="#list-settings" role="tab" aria-controls="settings">Settings</a>
+          </div>
+        </div>
+        <div class="col-8 col-md-9">
+          <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">Home
+            </div>
+            <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">Profile</div>
+            <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">Messages</div>
+            <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">Settings</div>
+          </div>
+        </div>
+
 
       </div>
     </div>

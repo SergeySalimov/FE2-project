@@ -19,7 +19,14 @@ export class Controller {
 
   onLoginStart(data) {
     this._ui.underConstruction();
+    this._ui.initMessages();
     this._model._token = data.idToken;
+
+    // route will be active only after login
+    // this.router.addRoute('messages', this._ui.emit.bind(this._ui, 'pageChange', 'messages'));
+  }
+
+  getUserDataFromServerAnswer(data) {
 
   }
 
@@ -54,7 +61,8 @@ export class Controller {
     this.router.addRoute('404', this._ui.emit.bind(this._ui, 'pageChange', '404'));
     this.router.addRoute('catalog', this._ui.emit.bind(this._ui, 'pageChange', 'catalog'));
     this.router.addRoute('registration-or-autorization', this._ui.emit.bind(this._ui, 'pageChange', 'registration-or-autorization'));
-    this.router.addRoute('how-to-buy', this._ui.emit.bind(this._ui, 'pageChange', 'how-to-buy'));
+    // this.router.addRoute('how-to-buy', this._ui.emit.bind(this._ui, 'pageChange', 'how-to-buy'));
+    //ToDo activate route after login in case of logout desactivated it!!
     this.router.addRoute('messages', this._ui.emit.bind(this._ui, 'pageChange', 'messages'));
     this.router.addRoute('delivery', this._ui.emit.bind(this._ui, 'pageChange', 'delivery'));
     this.router.addRoute('payment', this._ui.emit.bind(this._ui, 'pageChange', 'payment'));

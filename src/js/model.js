@@ -8,8 +8,7 @@ export class Model extends EventEmitter {
     this.allProducts = [];
     this.productsToDisplay = [];
     this._token = '';
-    this._loginUser = false;
-    this._curUser = {};
+    this.curUser = ['Sergey', '+375292817312','salimov_s@tut.by'];
     // this.basketCount = Number(0);
     this.catalogRoutes = {};
     this.catalogNames = {};
@@ -19,7 +18,6 @@ export class Model extends EventEmitter {
     this.catalogState = null;
   }
 
-  // OLD CODE BELLOW
   toogleBasketInAllProducts(data, unique) {
     for (const item of data) {
       if (item.subitems) {
@@ -127,6 +125,7 @@ export class Model extends EventEmitter {
       }
     }
   }
+
   //
   // addCatalogBreadcrum(data) {
   //   for (const item of data) {

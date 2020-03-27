@@ -66,12 +66,13 @@ header {
     .mobile-number, .cabinet {
       color: $mainFontColor;
       font-size: 1.6rem;
+      font-weight: bolder;
       @media (min-width: map-get($grid-breakpoints, "sm")) {
-        font-size: 1rem;
+        font-size: 1.3rem;
       }
 
       i {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
         padding-bottom: 20px;
         @media (min-width: map-get($grid-breakpoints, "sm")) {
           padding-bottom: 3px;
@@ -91,7 +92,7 @@ header {
       &:hover {
         transition: all 0.3s ease-in-out;
         transform: scale(1.05);
-
+        cursor: pointer;
         i {
           //background-color: $backGrey;
         }
@@ -260,6 +261,15 @@ main {
     //background-color: $backGrey;
     //background: url("/images/wall.jpg");
     //background-repeat: repeat;
+  }
+
+  #messages {
+    a {
+      font-size: 0.7rem;
+      line-height: 1;
+      padding: 0.5rem 1.1rem 0.5rem 0.4rem;
+    }
+
   }
 
   #contact-us-all .container .col-sm-12 {

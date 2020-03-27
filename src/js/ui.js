@@ -3,6 +3,7 @@ import {EventEmitter} from "@/js/event-emitter";
 import {Buttons} from "@/js/buttons";
 import {ContactUs} from "@/js/contactUs";
 import {Auth} from "@/js/auth";
+import {Messages} from "@/js/messages";
 
 const compiledTemplate = require('./templates/template.handlebars');
 
@@ -14,8 +15,9 @@ export class Ui extends EventEmitter {
     this.templateScript = compiledTemplate;
     // initialization block
     new Buttons(this._model, this);
-    new ContactUs(this._model, this);
-    new Auth(this._model, this);
+    this.contactUs = new ContactUs(this._model, this);
+    console.dir(this.contactUs);
+    new Auth(this);
     // const isMobile = /Mobile|webOS|BlackBerry|IEMobile|MeeGo|mini|Fennec|Windows Phone|Android|iP(ad|od|hone)/i.test(navigator.userAgent);
     // this.initPhoneNumber(CONFIG.phoneNumber);
 
@@ -31,7 +33,7 @@ export class Ui extends EventEmitter {
       'catalog': this.displayCatalogPage.bind(this),
       'registration-or-autorization': this.displayRegistration.bind(this),
       'how-to-buy': this.displayHowToBuyPage.bind(this),
-      'messages': this.displayHowToBuyPage.bind(this),
+      'messages': this.displayMessagesPage.bind(this),
       'delivery': this.displayDeliveryPage.bind(this),
       'payment': this.displayPaymentPage.bind(this),
       'contact': this.displayContactPage.bind(this),
@@ -61,12 +63,7 @@ export class Ui extends EventEmitter {
     this.changeUiOnAutState();
   }
   // ToDO move
-  changeUiOnAutState() {
-    CONFIG.elements.cabinetLink.children[0].className = 'icon-user';
-    CONFIG.elements.cabinetLink.children[0].innerHTML = `
-        <a href="#" data-toggle="modal" data-target="#registration">${this._model._curUser.name}</a>`;
-    // CONFIG.elements.basket.classList.remove(CONFIG.noAutoriz);
-  }
+
 
   toastShow(res) {
     if (res[0] === 'error') {
@@ -98,8 +95,6 @@ export class Ui extends EventEmitter {
 
   hideModal(el, time = 2000) {
     window.setTimeout(() => {
-      console.log('hide');
-      console.log(el);
       $(el).modal('hide');
     }, time);
   }
@@ -209,6 +204,12 @@ export class Ui extends EventEmitter {
     CONFIG.elements.howToBuyPage.classList.remove(CONFIG.dNone);
     CONFIG.elements.navBtnHowToBuy.classList.add(CONFIG.active);
   }
+  displayMessagesPage() {
+    CONFIG.elements.nav2Home.after(this.createHtmlForBreadcrump('Сообщения'));
+    CONFIG.elements.contactUsAll.classList.add(CONFIG.dNone);
+    CONFIG.elements.messagesPage.classList.remove(CONFIG.dNone);
+    CONFIG.elements.navBtnMessages.classList.add(CONFIG.active);
+  }
   displayRegistration() {
     CONFIG.elements.nav2Home.after(this.createHtmlForBreadcrump('Регистрация или авторизация'));
     CONFIG.elements.contactUsAll.classList.add(CONFIG.dNone);
@@ -247,13 +248,13 @@ export class Ui extends EventEmitter {
     CONFIG.elements.homePage.classList.add(CONFIG.dNone);
     CONFIG.elements.errorPage.classList.add(CONFIG.dNone);
     CONFIG.elements.catalogPage.classList.add(CONFIG.dNone);
-    CONFIG.elements.howToBuyPage.classList.add(CONFIG.dNone);
+    CONFIG.elements.messagesPage.classList.add(CONFIG.dNone);
     CONFIG.elements.deliveryPage.classList.add(CONFIG.dNone);
     CONFIG.elements.paymentPage.classList.add(CONFIG.dNone);
     CONFIG.elements.contactPage.classList.add(CONFIG.dNone);
     CONFIG.elements.registrationPage.classList.add(CONFIG.dNone);
     CONFIG.elements.navBtnCatalog.classList.remove(CONFIG.active);
-    CONFIG.elements.navBtnHowToBuy.classList.remove(CONFIG.active);
+    CONFIG.elements.navBtnMessages.classList.remove(CONFIG.active);
     CONFIG.elements.navBtnDelivery.classList.remove(CONFIG.active);
     CONFIG.elements.navBtnPayment.classList.remove(CONFIG.active);
     CONFIG.elements.navBtnContact.classList.remove(CONFIG.active);
@@ -306,10 +307,9 @@ export class Ui extends EventEmitter {
       event.preventDefault();
       this.emit('navClick', '/how-to-buy');
     });
-    //ToDo
     CONFIG.elements.navBtnMessages.addEventListener('click', (event) => {
       event.preventDefault();
-      this.emit('navClick', '/how-to-buy');
+      this.emit('navClick', '/messages');
     });
     CONFIG.elements.navBtnDelivery.addEventListener('click', (event) => {
       event.preventDefault();
@@ -342,6 +342,14 @@ export class Ui extends EventEmitter {
     });
   }
 
+  closeAlert(time, alertClass = '') {
+    const alert = !!alertClass ? `.alert.${alertClass}` : '.alert';
+    console.log(alert);
+    window.setTimeout(() => {
+      $(alert).alert('close');
+    }, time);
+  }
+
   // rendering templates
   renderProductsToDisplay(data) {
     // compile with handlebars
@@ -349,13 +357,57 @@ export class Ui extends EventEmitter {
   }
 
   // change state login logout
-  underConstruction(start = true) {
-    $(CONFIG.globalModal).modal({
-      backdrop: 'static'
-    });
+  underConstruction(login = true) {
+    $(CONFIG.globalModal).modal({ backdrop: 'static' });
+    this.putUserDataOnPage(login);
+    this.changeLogIcon(login);
+    this.messagesShowHideinNavBar(login);
+    this.messages = new Messages(this, this.contactUs);
+
+
     this.emit('navClick', '/contact');
-    this.hideModal(CONFIG.globalModal, 4000);
-    // $(CONFIG.globalModal).modal('dispose');
+
+    this.hideModal(CONFIG.globalModal, 1000);
+  }
+
+  messagesShowHideinNavBar(login) {
+    if (login) {
+      CONFIG.elements.navBtnMessages.classList.remove(CONFIG.dNone);
+    } else {
+      CONFIG.elements.navBtnMessages.classList.add(CONFIG.dNone);
+    }
+  }
+
+  changeLogIcon(login) {
+    if (login) {
+      CONFIG.elements.navBtnRegistration.classList.add(CONFIG.dNone);
+      CONFIG.elements.navBtnLogOut.classList.remove(CONFIG.dNone);
+    } else {
+      CONFIG.elements.navBtnRegistration.classList.remove(CONFIG.dNone);
+      CONFIG.elements.navBtnLogOut.classList.add(CONFIG.dNone);
+    }
+  }
+
+  putUserDataOnPage(login = true) {
+    // header
+    const nameInHeader = CONFIG.elements.nameInHeader;
+    const formContactUs = CONFIG.elements.formContactUs.querySelectorAll('input');
+    if (login) {
+      nameInHeader.classList.remove(CONFIG.dNone);
+      nameInHeader.children[0].children[0].innerText = this._model.curUser[0];
+      formContactUs[0].value = this._model.curUser[0];
+      formContactUs[1].value = this._model.curUser[2];
+      formContactUs[2].value = this._model.curUser[1].slice(0,4);
+      formContactUs[3].value = this.prettyPhone(this._model.curUser[1].slice(4));
+    } else {
+      nameInHeader.classList.add(CONFIG.dNone);
+      nameInHeader.children[0].children[0].innerText = '';
+      formContactUs.reset();
+    }
+  }
+
+  prettyPhone(phone) {
+    return phone.replace(/(\d{2})(\d{3})(\d{2})(\d{2,})/, '($1) $2-$3-$4')
   }
 
 }

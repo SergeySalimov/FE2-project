@@ -5,6 +5,8 @@ export class ContactUs {
     this._model = model;
     this.ui = ui;
     this.initForm();
+    this.currentMessage = {};
+    this.allMessageFromLocalStore = this.getMessagesFormLocalStorage();
   }
 
   initForm() {
@@ -15,7 +17,8 @@ export class ContactUs {
     const phones = form.querySelectorAll('[type="tel"]');
     form.addEventListener('submit', event => {
       event.preventDefault();
-      this.sendContactUsFormtoServer(this.collectData(), button);
+      this.currentMessage = this.collectData();
+      this.sendContactUsFormtoServer(this.currentMessage, button);
     });
     buttonClear.addEventListener('click', () => this.resetForm());
     this.ui.formChanging(form, CONFIG.formContactUsBtnOptions);
@@ -54,24 +57,31 @@ export class ContactUs {
         .then(id => {
           this.ui.changeBtnSendState(false, button);
           this.resetForm();
-          this.addToSessionStorage(id);
+          this.currentMessage.id = id.name;
+          this.addToLocalStorage(this.currentMessage);
+          this.currentMessage = {};
           this.addAlert(CONFIG.alerts.contactUsSended);
-          if (!this._model.token) this.addAlert(CONFIG.alerts.contactUsNoAuth);
+          this.ui.closeAlert(3000, 'send-contact-us-success');
+          if (!this._model.curUser) this.addAlert(CONFIG.alerts.contactUsNoAuth);
         })
   }
 
-  addToSessionStorage(arrOfId) {
-    const all = this.getMessagesFormSessionStorage();
-    all.push(arrOfId);
-    sessionStorage.setItem(CONFIG.localStorageMessageID, JSON.stringify(all));
+  addToLocalStorage(newMessage) {
+    this.allMessageFromLocalStore = this.getMessagesFormLocalStorage();
+    this.allMessageFromLocalStore.push(newMessage);
+    localStorage.setItem(CONFIG.localStorageMessageID, JSON.stringify(this.allMessageFromLocalStore));
   }
 
-  getMessagesFormSessionStorage() {
-    return JSON.parse(sessionStorage.getItem(CONFIG.localStorageMessageID) || '[]');
+  getMessagesFormLocalStorage() {
+    return JSON.parse(localStorage.getItem(CONFIG.localStorageMessageID) || '[]');
   }
 
   resetForm(form = CONFIG.elements.formContactUs) {
-    form.reset();
+    if (this._model.curUser) {
+      form.querySelector('textarea').value = '';
+    } else {
+      form.reset();
+    }
     form.dispatchEvent(new Event('keyup'));
   }
 

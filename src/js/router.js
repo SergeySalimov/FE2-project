@@ -14,6 +14,10 @@ export class Router {
     this.routes[route] = action;
   }
 
+  delRoute(route) {
+    delete this.routes[route];
+  }
+
   render(temp) {
     // const temp = url.split('/')[1];
     this.routes[temp] ? this.routes[temp]() : this.routes['404']();
