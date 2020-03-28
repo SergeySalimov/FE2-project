@@ -427,11 +427,46 @@
     <div class="container">
       <div class="row">
 
-        <div class="col-12 mb-2">
+        <div class="col-sm-12 mb-2">
           <h3 class="text-center">Ваши сообщения</h3>
+        </div>
+
+        <div class="col-sm-4 col-md-3 text-center mb-1 d-none">
+          <button type="button" class="btn btn-secondary btn-block mb-1">Новое</button>
 
         </div>
+
+        <div class="col-sm-4 col-md-3 text-center mb-1">
+          <button type="button" class="btn btn-secondary btn-block mb-1">Новое</button>
+          <select name="sort1" id="sort1">
+            <option value="0">Все</option>
+            <option value="1">Новые</option>
+            <option value="2">Отвеченные</option>
+            <option value="3">Удаленные</option>
+          </select>
+
+        </div>
+
+        <div class="col-sm-8 text-center text-sm-left user-message-data">
+          <select name="sort2" id="sort2">
+            <option value="0">↓</option>
+            <option value="1">↑</option>
+          </select>
+          <span class="badge badge-secondary mb-1"><i class="icon-mobile">+375292817312</i>
+          <button type="button" class="btn btn-sm btn-primary"><i class="icon-phone"></i></button>
+          </span>
+          <span class="badge badge-secondary mb-1"><i class="icon-at">salimov_s@tut.by</i>
+            <button type="button" class="btn btn-sm btn-primary"><i class="icon-mail"></i></button>
+          </span>
+        </div>
+
+
+
+      </div>
+
+      <div class="row">
         <div class="col-4 col-md-3">
+          <button type="button" class="btn btn-secondary btn-block btn-sm mb-1">вверх</button>
           <div class="list-group" id="list-tab" role="tablist">
             <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list"
                href="#list-home" role="tab" aria-controls="home">27/03/2020 17:45:25</a>
@@ -442,6 +477,7 @@
             <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list"
                href="#list-settings" role="tab" aria-controls="settings">Settings</a>
           </div>
+          <button type="button" class="btn btn-secondary btn-block btn-sm mt-1">ввниз</button>
         </div>
         <div class="col-8 col-md-9">
           <div class="tab-content" id="nav-tabContent">
@@ -452,6 +488,7 @@
             <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">Settings</div>
           </div>
         </div>
+      </div>
 
 
       </div>
