@@ -19,15 +19,10 @@ export class Controller {
 
   onLoginStart(data) {
     this._ui.underConstruction();
-    this._ui.initMessages();
     this._model._token = data.idToken;
 
     // route will be active only after login
     // this.router.addRoute('messages', this._ui.emit.bind(this._ui, 'pageChange', 'messages'));
-  }
-
-  getUserDataFromServerAnswer(data) {
-
   }
 
   onCatalogClick(url) {

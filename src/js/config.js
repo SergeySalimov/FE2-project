@@ -88,6 +88,10 @@ export const CONFIG = {
     authAlertPlace: document.querySelector('.place-for-alert-auth'),
     autorizForm: document.querySelector('.autorization-form'),
     registrForm: document.querySelector('.registration-form'),
+    msgsSort: document.querySelector('.sort-messages'),
+    newMsgsBtn: document.querySelector('.new-messages-btn'),
+    msgsUserData: document.querySelector('.user-message-data'),
+    msgsList: document.querySelector('.messages-list'),
   },
   alerts: {
     contactUsSended: `

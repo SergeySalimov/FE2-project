@@ -8,7 +8,14 @@ export class Model extends EventEmitter {
     this.allProducts = [];
     this.productsToDisplay = [];
     this._token = '';
+    this._admin = false;
     this.curUser = ['Sergey', '+375292817312','salimov_s@tut.by'];
+    this.currUser = {
+      'name': 'Sergey',
+      'phone': '+375292817312',
+      'email': 'salimov_s@tut.by',
+    };
+
     // this.basketCount = Number(0);
     this.catalogRoutes = {};
     this.catalogNames = {};

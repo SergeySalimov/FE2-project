@@ -362,7 +362,7 @@ export class Ui extends EventEmitter {
     this.putUserDataOnPage(login);
     this.changeLogIcon(login);
     this.messagesShowHideinNavBar(login);
-    this.messages = new Messages(this, this.contactUs);
+    this.messages = new Messages(this, this.contactUs, this._model);
 
 
     this.emit('navClick', '/contact');
@@ -394,11 +394,11 @@ export class Ui extends EventEmitter {
     const formContactUs = CONFIG.elements.formContactUs.querySelectorAll('input');
     if (login) {
       nameInHeader.classList.remove(CONFIG.dNone);
-      nameInHeader.children[0].children[0].innerText = this._model.curUser[0];
-      formContactUs[0].value = this._model.curUser[0];
-      formContactUs[1].value = this._model.curUser[2];
-      formContactUs[2].value = this._model.curUser[1].slice(0,4);
-      formContactUs[3].value = this.prettyPhone(this._model.curUser[1].slice(4));
+      nameInHeader.children[0].children[0].innerText = this._model.currUser.name;
+      formContactUs[0].value = this._model.currUser.name;
+      formContactUs[1].value = this._model.currUser.email;
+      formContactUs[2].value = this._model.currUser.phone.slice(0,4);
+      formContactUs[3].value = this.prettyPhone(this._model.currUser.phone.slice(4));
     } else {
       nameInHeader.classList.add(CONFIG.dNone);
       nameInHeader.children[0].children[0].innerText = '';

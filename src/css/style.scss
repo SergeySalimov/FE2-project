@@ -274,6 +274,11 @@ main {
       font-size: 1.2rem;
     }
 
+    #messages-list {
+      height: 150px;
+      overflow-y: scroll;
+    }
+
   }
 
   #contact-us-all .container .col-sm-12 {

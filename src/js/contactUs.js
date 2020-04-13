@@ -62,7 +62,7 @@ export class ContactUs {
           this.currentMessage = {};
           this.addAlert(CONFIG.alerts.contactUsSended);
           this.ui.closeAlert(3000, 'send-contact-us-success');
-          if (!this._model.curUser) this.addAlert(CONFIG.alerts.contactUsNoAuth);
+          if (!this._model.currUser) this.addAlert(CONFIG.alerts.contactUsNoAuth);
         })
   }
 
@@ -77,7 +77,7 @@ export class ContactUs {
   }
 
   resetForm(form = CONFIG.elements.formContactUs) {
-    if (this._model.curUser) {
+    if (this._model.currUser) {
       form.querySelector('textarea').value = '';
     } else {
       form.reset();
