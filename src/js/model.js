@@ -64,10 +64,12 @@ export class Model extends EventEmitter {
         .then(res => res.json())
         .then(data => {
           this.allProducts = data;
-
+          console.dir(data);
           this.productsToDisplay = this.initProducts(this.allProducts);
           this.catalogRoutes['/catalog'] = this.productsToDisplay;
           this.catalogNames[''] = '/catalog';
+
+          console.log(this.catalogNames);
 
           this.addCatalogRoutes(this.allProducts);
           this.addCatalogNames(this.allProducts);
